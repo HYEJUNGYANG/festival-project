@@ -5,10 +5,14 @@ import com.festival.festival.dto.PageRequestDTO;
 import com.festival.festival.dto.PageResultDTO;
 import com.festival.festival.entity.Notice;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Service
 public interface NoticeService {
     NoticeDTO read(Long idx);
+    Long join(NoticeDTO dto, MultipartFile file) throws IOException;
 
     PageResultDTO<NoticeDTO, Notice> getList(PageRequestDTO requestDTO);
 
@@ -17,6 +21,8 @@ public interface NoticeService {
                 .idx(dto.getIdx())
                 .title(dto.getTitle())
                 .content(dto.getContent())
+                .filename(dto.getFilename())
+                .filepath(dto.getFilepath())
                 .date(dto.getDate())
                 .build();
         return entity;
@@ -28,6 +34,8 @@ public interface NoticeService {
                 .idx(entity.getIdx())
                 .title(entity.getTitle())
                 .content(entity.getContent())
+                .filename(entity.getFilename())
+                .filepath(entity.getFilepath())
                 .date(entity.getDate())
                 .build();
         return dto;

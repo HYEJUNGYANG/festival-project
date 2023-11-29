@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/")
@@ -48,9 +52,12 @@ public class NoticeController {
     }
 
     @PostMapping("/admin_page/notice_insertdo")
-    public String insertNotice(Notice notice){
+    public String insertNotice(NoticeDTO dto, RedirectAttributes redirectAttributes, Model model, MultipartFile file) throws IOException {
 
-        noticeService.insertNotice(notice);
+        /*noticeService.insertNotice(notice);*/
+        Long ip = noticeService.join(dto,file);
+        redirectAttributes.addFlashAttribute("msg",ip);
+
         return "redirect:/admin_page/notice_list";
 
     }

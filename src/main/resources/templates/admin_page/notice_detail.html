@@ -134,15 +134,9 @@
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="col-12 col-sm-3 col-form-label text-sm-right">축제사진 파일업로드</label>
+                                            <label class="col-12 col-sm-3 col-form-label text-sm-right">공지사항 파일</label>
                                             <div class="col-12 col-sm-8 col-lg-6">
-                                                <input type="file" class="custom-file-input" id="customFile">
-                                                <label class="custom-file-label" for="customFile"
-                                                       style="width:627px;
-                                                                  margin-left:15px;
-                                                                  border-radius:2px;
-                                                                  height:35px;">
-                                                </label>
+                                                <img th:src="${dto.filepath}" class="col-12 col-sm-8 col-lg-6">
                                             </div>
                                         </div>
 
