@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,13 +20,13 @@
     <header class="header">
       <div class="header-container">
         <div class="logo-container">
-          <a href="/" class="logo"
+          <a th:href="@{/}" class="logo"
           ><img th:src="@{/img/logo/logo.svg}" alt=""
           /></a>
         </div>
         <nav class="nav">
-          <a href="/festival" class="nav-list">축제</a>
-          <a href="/experience" class="nav-list">체험</a>
+          <a th:href="@{/festival(zone=전체)}" class="nav-list">축제</a>
+          <a th:href="@{/experience(zone=전체)}" class="nav-list">체험</a>
           <a href="/qna" class="nav-list">Q&A</a>
           <a href="/notice" class="nav-list">공지사항</a>
         </nav>
@@ -35,20 +35,20 @@
             <i class="fa-solid fa-magnifying-glass"></i>
           </a>
           <!-- 로그인 X -->
-          <!-- <a href="/login" class="btn-login">로그인</a> -->
+          <a sec:authorize="isAnonymous()" href="/login" class="btn-login">로그인</a>
           <!-- 로그인 O -->
-          <div class="user-profile">
+          <div class="user-profile" sec:authorize="isAuthenticated()">
             <i class="fa-regular fa-circle-user"></i>
             <i class="fa-solid fa-angle-down"></i>
           </div>
         </div>
-        <div class="my-page">
+        <div class="my-page" >
           <ul class="my-page-list">
             <li><a href="/mypage/profile">정보수정</a></li>
             <li><a href="/mypage/reservation">예약내역</a></li>
             <li><a href="/mypage/review">리뷰내역</a></li>
             <li><a href="/mypage/favorite">관심목록</a></li>
-            <li class="btn-logout"><a href="#">로그아웃</a></li>
+            <li class="btn-logout"><a th:href="@{/logout}">로그아웃</a></li>
           </ul>
         </div>
       </div>
