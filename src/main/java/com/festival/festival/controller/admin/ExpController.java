@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/")
@@ -45,9 +49,11 @@ public class ExpController {
     }
 
     @PostMapping("/admin_page/exp_insertdo")
-    public String insertExp(Exp exp){
+    public String insertExp(ExpDTO dto, RedirectAttributes redirectAttributes, Model model, MultipartFile file) throws IOException {
 
-        expService.insertExp(exp);
+        //새로 추가된 엔티티의 번호
+        Long ip = expService.join(dto,file);
+        redirectAttributes.addFlashAttribute("msg",ip);
         return "redirect:/admin_page/exp_list";
 
     }

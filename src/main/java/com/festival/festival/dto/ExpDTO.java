@@ -16,7 +16,8 @@ public class ExpDTO {
     private String zone;
     private String l_name;
     private String detail;
-    private String img;
+    private String filename;
+    private String filepath;
     private String place;
     private String content;
     private String warning;

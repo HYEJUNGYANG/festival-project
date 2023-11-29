@@ -23,11 +23,13 @@ public class QExp extends EntityPathBase<Exp> {
 
     public final StringPath detail = createString("detail");
 
+    public final StringPath filename = createString("filename");
+
+    public final StringPath filepath = createString("filepath");
+
     public final NumberPath<Double> hardness = createNumber("hardness", Double.class);
 
     public final NumberPath<Long> idx = createNumber("idx", Long.class);
-
-    public final StringPath img = createString("img");
 
     public final StringPath l_name = createString("l_name");
 

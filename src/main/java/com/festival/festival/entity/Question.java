@@ -46,4 +46,9 @@ public class Question {
     @Column(length = 1)
     private char priv;
 
+    // join
+    @OneToOne
+    @JoinColumn(name = "answer") // unique key
+    private Answer answer;
+
 }

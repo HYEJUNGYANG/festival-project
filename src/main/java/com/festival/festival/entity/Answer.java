@@ -2,6 +2,7 @@ package com.festival.festival.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
 
@@ -22,12 +23,11 @@ public class Answer {
     @Column(length = 1000)
     private String a_content;//답변내용
 
-    @NonNull
+    @CreatedDate
     @Column
     private LocalDate date;
 
-    @NonNull
-    @Column
-    private Long q_idx;
+    @OneToOne(mappedBy = "answer") // question table과 연결하는 부분
+    private Question question;
 
 }

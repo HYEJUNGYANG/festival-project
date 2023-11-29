@@ -11,15 +11,22 @@ public interface QuestionService {
 
     QuestionDTO read(Long idx);
 
+    Long insertAnswer(QuestionDTO dto);
+
     PageResultDTO<QuestionDTO, Question> getList(PageRequestDTO requestDTO);
 
-/*
+
     default Question dtoToEntity(QuestionDTO dto) {
         Question entity = Question.builder()
                 .idx(dto.getIdx())
                 .title(dto.getTitle())
-                .content(dto.getContent())
+                .q_content(dto.getQ_content())
                 .date(dto.getDate())
+                .u_nick(dto.getU_nick())
+                .u_id(dto.getU_id())
+                .yn(dto.getYn())
+                .priv(dto.getPriv())
+                .answer(dto.getAnswer())
                 .build();
         return entity;
     }
@@ -29,12 +36,16 @@ public interface QuestionService {
         QuestionDTO dto = QuestionDTO.builder()
                 .idx(entity.getIdx())
                 .title(entity.getTitle())
-                .content(entity.getContent())
+                .q_content(entity.getQ_content())
                 .date(entity.getDate())
+                .u_nick(entity.getU_nick())
+                .u_id(entity.getU_id())
+                .yn(entity.getYn())
+                .priv(entity.getPriv())
+                .answer(entity.getAnswer())
                 .build();
         return dto;
     }
-*/
 
 
 }

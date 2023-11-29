@@ -5,10 +5,14 @@ import com.festival.festival.dto.PageRequestDTO;
 import com.festival.festival.entity.Exp;
 import com.festival.festival.dto.PageResultDTO;
 import com.festival.festival.entity.Festival;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ExpService {
+
+    Long join(ExpDTO dto, MultipartFile file) throws IOException;
     ExpDTO read(Long idx);
     PageResultDTO<ExpDTO, Exp> getList(PageRequestDTO requestDTO);
     List<Exp> getList(String zone);
@@ -20,7 +24,8 @@ public interface ExpService {
                 .zone(dto.getZone())
                 .l_name(dto.getL_name())
                 .detail(dto.getDetail())
-                .img(dto.getImg())
+                .filename(dto.getFilename())
+                .filepath(dto.getFilepath())
                 .place(dto.getPlace())
                 .content(dto.getContent())
                 .warning(dto.getWarning())
@@ -43,7 +48,8 @@ public interface ExpService {
                 .zone(entity.getZone())
                 .l_name(entity.getL_name())
                 .detail(entity.getDetail())
-                .img(entity.getImg())
+                .filename(entity.getFilename())
+                .filepath(entity.getFilepath())
                 .place(entity.getPlace())
                 .content(entity.getContent())
                 .warning(entity.getWarning())

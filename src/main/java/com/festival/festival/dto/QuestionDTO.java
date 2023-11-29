@@ -1,5 +1,6 @@
 package com.festival.festival.dto;
 
+import com.festival.festival.entity.Answer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,5 +22,6 @@ public class QuestionDTO {
     private String u_id;
     private char yn;
     private char priv;
+    private Answer answer;
 
 }

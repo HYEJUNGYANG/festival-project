@@ -33,9 +33,12 @@ public class Exp {
     @Column(length = 1000)
     private String detail;
 
-    @NonNull
-    @Column(length = 1000)
-    private String img;
+    @Column(length = 250, nullable = false)
+    private String filename;
+
+    @Column(length = 250, nullable = false)
+    private String filepath;
+
 
     @NonNull
     @Column(length = 200)

@@ -12,9 +12,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Service
@@ -42,6 +46,39 @@ public class ExpServiceImpl implements ExpService {
             dto = expRepository.getAllByZone(zone);
         }
         return dto;
+    }
+
+    @Override
+    public Long join(ExpDTO dto, MultipartFile file) throws IOException {
+        /*우리의 프로젝트경로를 담아주게 된다 - 저장할 경로를 지정*/
+        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+
+        /*식별자 . 랜덤으로 이름 만들어줌*/
+        UUID uuid = UUID.randomUUID();
+
+        /*랜덤식별자_원래파일이름 = 저장될 파일이름 지정*/
+        String fileName = uuid + "_" + file.getOriginalFilename();
+
+        /*빈 껍데기 생성*/
+        /*File을 생성할건데, 이름은 "name" 으로할거고, projectPath 라는 경로에 담긴다는 뜻*/
+        File saveFile = new File(projectPath, fileName);
+
+        file.transferTo(saveFile);
+
+        /*디비에 파일 넣기*/
+        dto.setFilename(fileName);
+        /*저장되는 경로*/
+        dto.setFilepath("/files/" + fileName); /*저장된파일의이름,저장된파일의경로*/
+
+        log.info("회원가입정보DTO: "+dto);
+
+        Exp entity = dtoToEntity(dto);
+
+        log.info("회원가입정보entity: " + entity);
+
+        expRepository.save(entity);
+
+        return entity.getIdx();
     }
 
     @Override

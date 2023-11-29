@@ -1,5 +1,6 @@
 package com.festival.festival.dto;
 
+import com.festival.festival.entity.Question;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ public class AnswerDTO {
 
     private Long idx;
     private String a_content;
-    private LocalDate date;
-    private Long q_idx;
+//    private LocalDate date;
+    private Question question;
 
 }
