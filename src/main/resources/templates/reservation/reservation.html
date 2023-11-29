@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>예약 및 결제</title>
+    <link rel="stylesheet" th:href="@{/css/reservation/reservation.css}" />
+    <link rel="icon" type="image/ico" th:href="@{/img/icon/favicon.ico}">
+    <script defer th:src="@{/js/reservation/reservation.js}"></script>
+  </head>
+  <body>
+    <!-- header -->
+    <header class="header">
+      <a href="/" class="logo-con">
+        <img th:src="@{/img/logo/logo.svg}" alt="" />
+      </a>
+      <p class="title">예약/결제</p>
+    </header>
+    <div class="main-container">
+      <div class="main-align">
+        <div class="re-con">
+          <p class="e-name">제35회 춘천인형극제</p>
+          <div class="info-con">
+            <!-- <div class="term-con">
+              <p class="term">기간</p>
+              <p class="term-value">
+                <span class="start">2023.04.16</span> ~
+                <span class="end">2023.12.29</span>
+              </p>
+            </div> -->
+            <div class="people-con">
+              <div class="min-con">
+                <p class="min">최소인원</p>
+                <p class="min-value">1명</p>
+              </div>
+              <div class="max-con">
+                <p class="max">최대인원</p>
+                <p class="max-value">30명</p>
+              </div>
+            </div>
+            <div class="name-con">
+              <p class="name">예약자명</p>
+              <p class="name-value">양혜정</p>
+            </div>
+            <div class="tel-con">
+              <p class="tel">예약자번호</p>
+              <p class="tel-value">010-1234-1234</p>
+            </div>
+            <div class="pay-con">
+              <p class="pay">체험비</p>
+              <p class="pay-value">6,000원</p>
+            </div>
+          </div>
+          <div class="select-con">
+            <div class="date-people-con">
+              <div class="sel-date-con">
+                <!-- 나중에 이 부분 기간 있으면 날짜 범위 지정하기 -->
+                <!-- 현재 날짜 이전은 선택 못해야 하기 때문에 min은 필수로 지정할 것!! -->
+                <input type="date" class="input-date" min="2023-11-23" />
+                <button class="btn-sel-date">체험일 선택</button>
+              </div>
+              <div class="sel-people-con">
+                <p class="sel-people">인원수</p>
+                <div class="sel-people-align">
+                  <button class="btn-minus none">-</button>
+                  <!-- max값에 최대 인원수 값 넣어주기 -->
+                  <input
+                    readonly
+                    type="number"
+                    class="input-people"
+                    value="1"
+                    max="30"
+                  />
+                  <button class="btn-plus">+</button>
+                </div>
+              </div>
+            </div>
+            <div class="total-con">
+              <p class="total">총 합계</p>
+              <p class="total-value"><span>6,000</span>원</p>
+            </div>
+            <div class="method-con">
+              <p class="method">결제수단</p>
+              <div class="method-btn-con">
+                <div class="method-btn-align">
+                  <input
+                    type="radio"
+                    name="method"
+                    value="카드결제"
+                    id="method1"
+                    class="input-method1"
+                  />
+                  <label for="method1">카드결제</label>
+                  <input
+                    type="radio"
+                    name="method"
+                    value="무통장입금"
+                    id="method2"
+                    class="input-method2"
+                  />
+                  <label for="method2">무통장입금</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-con">
+          <button class="btn-re">예약하기</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

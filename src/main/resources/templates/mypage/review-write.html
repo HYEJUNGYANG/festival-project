@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 리뷰 수정일 때는 제목 수정으로 바뀌게 -->
+    <title>리뷰 작성</title>
+    <link rel="stylesheet" th:href="@{/css/mypage/review-write.css}" />
+    <link rel="icon" type="image/ico" th:href="@{/img/icon/favicon.ico}">
+    <script defer th:src="@{/js/mypage/review-write.js}"></script>
+    <script
+      src="https://kit.fontawesome.com/082a4accbb.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <header class="header">
+      <p>리뷰 작성하기</p>
+    </header>
+    <div class="main-container">
+      <div class="align-con">
+        <p class="e-name">제35회 춘천인형극제</p>
+        <div class="info-con">
+          <div class="star-con">
+            <!-- 빈 별 -->
+            <!-- <i class="fa-regular fa-star"></i> -->
+            <!-- 채워진 변 -->
+            <!-- <i class="fa-solid fa-star"></i> -->
+            <div class="star" data-star="1">
+              <i class="fa-regular fa-star"></i>
+            </div>
+            <div class="star" data-star="2">
+              <i class="fa-regular fa-star"></i>
+            </div>
+            <div class="star" data-star="3">
+              <i class="fa-regular fa-star"></i>
+            </div>
+            <div class="star" data-star="4">
+              <i class="fa-regular fa-star"></i>
+            </div>
+            <div class="star" data-star="5">
+              <i class="fa-regular fa-star"></i>
+            </div>
+          </div>
+          <div class="date-con">
+            <p>2023.11.17</p>
+          </div>
+        </div>
+        <div class="input-con">
+          <textarea
+            class="input-txt"
+            maxlength="150"
+            placeholder="리뷰 내용을 작성해주세요."
+          ></textarea>
+        </div>
+        <div class="char-num">
+          <p><span>0</span> / 150</p>
+        </div>
+        <div class="btn-con">
+          <!-- 수정 버튼 눌러서 창 띄웠을 땐 이 버튼 등록이 아닌 수정으로 변경 -->
+          <button class="btn-submit">등록</button>
+          <button class="btn-close">취소</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 나중에 축제 명에 따라서 이름 달라지도록 설계하기 -->
+    <title>[[${dto.name}]]</title>
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/experience/experience-detail.css}" />
+    <link rel="icon" type="image/ico" th:href="@{/img/icon/favicon.ico}">
+    <script defer th:src="@{/js/header.js}"></script>
+    <script
+            src="https://kit.fontawesome.com/082a4accbb.js"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=36781558f40d719c16d071300562b0d9"
+    ></script>
+    <script defer th:src="@{/js/experience/experience-detail.js}"></script>
+    <script defer th:src="@{/js/kakao-map.js}"></script>
+</head>
+<body>
+<!--  header -->
+<header class="header">
+    <div class="header-container">
+        <div class="logo-container">
+            <a th:href="@{/}" class="logo"
+            ><img th:src="@{/img/logo/logo.svg}" alt=""
+            /></a>
+        </div>
+        <nav class="nav">
+            <a th:href="@{/festival(zone=전체)}" class="nav-list">축제</a>
+            <a href="/experience" class="nav-list">체험</a>
+            <a href="/qna" class="nav-list">Q&A</a>
+            <a href="/notice" class="nav-list">공지사항</a>
+        </nav>
+        <div class="header-right">
+            <a href="/search" class="search-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </a>
+            <!-- 로그인 X -->
+            <a sec:authorize="isAnonymous()" href="/login" class="btn-login">로그인</a>
+            <!-- 로그인 O -->
+            <div class="user-profile" sec:authorize="isAuthenticated()">
+                <i class="fa-regular fa-circle-user"></i>
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
+        </div>
+        <div class="my-page" >
+            <ul class="my-page-list">
+                <li><a href="/mypage/profile">정보수정</a></li>
+                <li><a href="/mypage/reservation">예약내역</a></li>
+                <li><a href="/mypage/review">리뷰내역</a></li>
+                <li><a href="/mypage/favorite">관심목록</a></li>
+                <li class="btn-logout"><a th:href="@{/logout}">로그아웃</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<!-- main -->
+<div class="main-container">
+    <div class="main-align">
+        <div class="title-con">
+            <p class="title">[[${dto.name}]]</p>
+        </div>
+        <div class="area-con">
+            <p class="area">[[${dto.l_name}]]</p>
+        </div>
+        <div class="like-re">
+            <div class="like">
+                <!-- 빈 하트 -->
+                <i class="fa-regular fa-heart heart-none"></i>
+                <!-- 채워진 하트 -->
+                <i class="fa-solid fa-heart heart-full"></i>
+            </div>
+            <!-- 축제는 예약하기 없으므로 나중에 빼두기 -->
+            <div class="reservation">
+                <button class="btn-re">예약하기</button>
+            </div>
+        </div>
+        <div class="info-con">
+            <div class="info-img-con">
+                <!-- 이미지는 하나만! -->
+                <img th:src="@{/img/bg01.jpeg}" alt="img" />
+            </div>
+            <div class="detail-con">
+                <p class="detail-title">상세정보</p>
+                <p class="detail-content">
+                </p>
+            </div>
+            <div class="exp-content-con">
+                <p class="content-title">체험내용</p>
+                <div class="content-detail">
+                </div>
+            </div>
+            <div class="warning-con">
+                <p class="warning-title">유의사항</p>
+                <div class="warning-list">
+                </div>
+            </div>
+            <div class="map-con">
+                <div class="map-container" th:attr="data-l=${dto.latitude},data-h=${dto.hardness}">
+                    <div id="map"></div>
+                </div>
+            </div>
+            <div class="info-list-con">
+                <ul class="info-list">
+                    <li>
+                        <p>문의 번호</p>
+                        <span>[[${dto.tel}]]</span>
+                    </li>
+                    <li>
+                        <p>홈페이지</p>
+                        <span>[[${dto.link}]]</span>
+                    </li>
+                    <li>
+                        <p>주소</p>
+                        <span>[[${dto.place}]]</span>
+                    </li>
+                    <li>
+                        <p>이용시간</p>
+                        <span>[[${dto.time}]]</span>
+                    </li>
+                    <li>
+                        <p>입장료</p>
+                        <span th:each="dto : ${dto}" th:text="${dto.price != 0} ? ${dto.price} : '요금없음'"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="tag-con">
+                <!-- 수정 예정!! -->
+                <div class="tag">#가볼만한축제</div>
+                <div class="tag">#가족과함께</div>
+                <div class="tag">#공연</div>
+                <div class="tag">#나들이</div>
+                <div class="tag">#문화</div>
+                <div class="tag">#아이와함께</div>
+                <div class="tag">#연인과함께</div>
+                <div class="tag">#예술</div>
+                <div class="tag">#축제</div>
+                <div class="tag">#춘천가볼만한곳</div>
+                <div class="tag">#춘천축제</div>
+                <div class="tag">#친구와함께</div>
+                <div class="tag">#행사</div>
+                <div class="tag">#힐링</div>
+            </div>
+        </div>
+        <div class="review-con">
+            <div class="review-top">
+                <p>리뷰<span> 10</span></p>
+            </div>
+            <div class="review-list-con">
+                <!-- 01 -->
+                <div class="review">
+                    <div class="review-info-con">
+                        <div class="review-info">
+                            <div class="profile-img">
+                                <img src="/img/profile.png" alt="profile" />
+                            </div>
+                            <div class="info-con">
+                                <p class="user-nick">닉네임</p>
+                                <div class="star-date-con">
+                                    <div class="star-con">
+                                        <!-- 빈 별 -->
+                                        <!-- <i class="fa-regular fa-star"></i> -->
+                                        <!-- 채워진 변 -->
+                                        <!-- <i class="fa-solid fa-star"></i> -->
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                    <p class="review-date">2023.11.12</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-btn-con">
+                            <button class="btn-modify">수정</button>
+                            <button class="btn-del">삭제</button>
+                        </div>
+                    </div>
+                    <div class="review-content">
+                        <p class="content">최고였습니다!!!</p>
+                    </div>
+                </div>
+                <!-- 02 -->
+                <div class="review">
+                    <div class="review-info-con">
+                        <div class="review-info">
+                            <div class="profile-img">
+                                <img src="/img/profile.png" alt="profile" />
+                            </div>
+                            <div class="info-con">
+                                <p class="user-nick">닉네임</p>
+                                <div class="star-date-con">
+                                    <div class="star-con">
+                                        <!-- 빈 별 -->
+                                        <!-- <i class="fa-regular fa-star"></i> -->
+                                        <!-- 채워진 변 -->
+                                        <!-- <i class="fa-solid fa-star"></i> -->
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                    <p class="review-date">2023.11.12</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-btn-con">
+                            <button class="btn-modify">수정</button>
+                            <button class="btn-del">삭제</button>
+                        </div>
+                    </div>
+                    <div class="review-content">
+                        <p class="content">최고였습니다!!!</p>
+                    </div>
+                </div>
+                <!-- 03 -->
+                <div class="review">
+                    <div class="review-info-con">
+                        <div class="review-info">
+                            <div class="profile-img">
+                                <img src="/img/profile.png" alt="profile" />
+                            </div>
+                            <div class="info-con">
+                                <p class="user-nick">닉네임</p>
+                                <div class="star-date-con">
+                                    <div class="star-con">
+                                        <!-- 빈 별 -->
+                                        <!-- <i class="fa-regular fa-star"></i> -->
+                                        <!-- 채워진 변 -->
+                                        <!-- <i class="fa-solid fa-star"></i> -->
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                    <p class="review-date">2023.11.12</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-btn-con">
+                            <button class="btn-modify">수정</button>
+                            <button class="btn-del">삭제</button>
+                        </div>
+                    </div>
+                    <div class="review-content">
+                        <p class="content">최고였습니다!!!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-scroll-con">
+        <div class="scroll">
+            <i class="fa-solid fa-arrow-up"></i>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    const detail = [[${dto.detail}]]
+    const content = [[${dto.content}]]
+    const warning = [[${dto.warning}]]
+    document.querySelector('.detail-content').innerHTML = detail;
+    document.querySelector('.content-detail').innerHTML = `${content.toString().includes('<p>') ? content : `<p>${content}</p>`}`;
+    document.querySelector('.warning-list').innerHTML = `${warning.toString().includes('<p>') ? warning : `<p>${warning}</p>`}`;
+
+</script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>메인 페이지</title>
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="icon" type="image/ico" th:href="@{/img/icon/favicon.ico}">
+    <script defer th:src="@{/js/header.js}"></script>
+    <script defer th:src="@{/js/main.js}"></script>
+    <script
+            src="https://kit.fontawesome.com/082a4accbb.js"
+            crossorigin="anonymous"
+    ></script>
+</head>
+<body>
+<!-- header -->
+<header class="header">
+    <div class="header-container">
+        <div class="logo-container">
+            <a th:href="@{/}" class="logo"
+            ><img th:src="@{/img/logo/logo.svg}" alt=""
+            /></a>
+        </div>
+        <nav class="nav">
+            <a th:href="@{/festival(zone=전체)}" class="nav-list">축제</a>
+            <a href="/experience" class="nav-list">체험</a>
+            <a href="/qna" class="nav-list">Q&A</a>
+            <a href="/notice" class="nav-list">공지사항</a>
+        </nav>
+        <div class="header-right">
+            <a href="/search" class="search-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </a>
+            <!-- 로그인 X -->
+            <a sec:authorize="isAnonymous()" href="/login" class="btn-login">로그인</a>
+            <!-- 로그인 O -->
+            <div class="user-profile" sec:authorize="isAuthenticated()">
+                <i class="fa-regular fa-circle-user"></i>
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
+        </div>
+        <div class="my-page" >
+            <ul class="my-page-list">
+                <li><a href="/mypage/profile">정보수정</a></li>
+                <li><a href="/mypage/reservation">예약내역</a></li>
+                <li><a href="/mypage/review">리뷰내역</a></li>
+                <li><a href="/mypage/favorite">관심목록</a></li>
+                <li class="btn-logout"><a th:href="@{/logout}">로그아웃</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div class="main">
+    <div class="show-slider-container">
+        <div class="show-align">
+            <div class="show-container">
+                <div class="show-contents-align">
+                    <div class="contents">
+                        <!-- 03 -->
+                        <div class="content-slider">
+                            <div class="area">
+                                <p>부산</p>
+                            </div>
+                            <div class="title">야경이 멋진<br />광안리 여행 - 03</div>
+                            <button class="btn-detail">
+                                <a href="/festival/detail">자세히 보기</a>
+                            </button>
+                        </div>
+                        <!-- 01 -->
+                        <div class="content-slider">
+                            <div class="area">
+                                <p>부산</p>
+                            </div>
+                            <div class="title">야경이 멋진<br />광안리 여행 - 01</div>
+                            <button class="btn-detail">
+                                <a href="/festival/detail">자세히 보기</a>
+                            </button>
+                        </div>
+                        <!-- 02 -->
+                        <div class="content-slider">
+                            <div class="area">
+                                <p>부산</p>
+                            </div>
+                            <div class="title">야경이 멋진<br />광안리 여행 - 02</div>
+                            <button class="btn-detail">
+                                <a href="/festival/detail">자세히 보기</a>
+                            </button>
+                        </div>
+                        <!-- 03 -->
+                        <div class="content-slider">
+                            <div class="area">
+                                <p>부산</p>
+                            </div>
+                            <div class="title">야경이 멋진<br />광안리 여행 - 03</div>
+                            <button class="btn-detail">
+                                <a href="/festival/detail">자세히 보기</a>
+                            </button>
+                        </div>
+                        <!-- 01 -->
+                        <div class="content-slider">
+                            <div class="area">
+                                <p>부산</p>
+                            </div>
+                            <div class="title">야경이 멋진<br />광안리 여행 - 01</div>
+                            <button class="btn-detail">
+                                <a href="/festival/detail">자세히 보기</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="show-img-align">
+                    <div class="show-img">
+                        <div class="img-slider" data-slide="3">
+                            <img th:src="@{/img/bg03.jpeg}" alt="bg03" />
+                        </div>
+                        <div class="img-slider" data-slide="1">
+                            <img th:src="@{/img/bg01.jpeg}" alt="bg01" />
+                        </div>
+                        <div class="img-slider" data-slide="2">
+                            <img th:src="@{/img/bg02.jpeg}" alt="bg02" />
+                        </div>
+                        <div class="img-slider" data-slide="3">
+                            <img th:src="@{/img/bg03.jpeg}" alt="bg03" />
+                        </div>
+                        <div class="img-slider" data-slide="1">
+                            <img th:src="@{/img/bg01.jpeg}" alt="bg01" />
+                        </div>
+                    </div>
+                </div>
+                <div class="show-control"></div>
+            </div>
+        </div>
+        <div class="slider-control">
+            <div class="slider-align">
+                <div class="state-align">
+                    <div class="state-bar-container">
+                        <div class="state-bar"></div>
+                    </div>
+                    <div class="control-state">
+                        <p><span class="state">01</span> / 03</p>
+                    </div>
+                </div>
+                <div class="control-align">
+                    <button class="control-left">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div class="control-btn">
+                        <i class="fa-solid fa-pause"></i>
+                        <!-- <i class="fa-solid fa-play"></i> -->
+                    </div>
+                    <button class="control-right">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tag-container">
+        <div class="tag-align">
+            <p class="tag-name"># 크리스마스</p>
+            <div class="tag-contents-container">
+                <!-- 01 -->
+                <a href="/festival/detail" class="tag-contents">
+                    <div class="tag-img-con">
+                        <div class="tag-area">
+                            <p>부산</p>
+                        </div>
+                        <img th:src="@{/img/bg01.jpeg}" alt="" />
+                    </div>
+                    <div class="tag-info-con">
+                        <p class="info-title">부산 연등축제</p>
+                        <p class="info-area">부산광역시 부산진구</p>
+                    </div>
+                </a>
+                <!-- 02 -->
+                <a href="/festival/detail" class="tag-contents">
+                    <div class="tag-img-con">
+                        <div class="tag-area">
+                            <p>부산</p>
+                        </div>
+                        <img th:src="@{/img/bg02.jpeg}" alt="" />
+                    </div>
+                    <div class="tag-info-con">
+                        <p class="info-title">부산 연등축제</p>
+                        <p class="info-area">부산광역시 부산진구</p>
+                    </div>
+                </a>
+                <!-- 03 -->
+                <a href="/festival/detail" class="tag-contents">
+                    <div class="tag-img-con">
+                        <div class="tag-area">
+                            <p>부산</p>
+                        </div>
+                        <img th:src="@{/img/bg03.jpeg}" alt="" />
+                    </div>
+                    <div class="tag-info-con">
+                        <p class="info-title">부산 연등축제</p>
+                        <p class="info-area">부산광역시 부산진구</p>
+                    </div>
+                </a>
+                <!-- 04 -->
+                <a href="/festival/detail" class="tag-contents">
+                    <div class="tag-img-con">
+                        <div class="tag-area">
+                            <p>부산</p>
+                        </div>
+                        <img th:src="@{/img/bg01.jpeg}" alt="" />
+                    </div>
+                    <div class="tag-info-con">
+                        <p class="info-title">부산 연등축제</p>
+                        <p class="info-area">부산광역시 부산진구</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="tag-align">
+            <p class="tag-name"># 겨울</p>
+            <div class="tag-contents-container">
+                <!-- 01 -->
+                <a href="/experience/detail" class="tag-contents">
+                    <div class="tag-img-con">
+                        <div class="tag-area">
+                            <p>부산</p>
+                        </div>
+                        <img th:src="@{/img/bg01.jpeg}" alt="" />
+                    </div>
+                    <div class="tag-info-con">
+                        <p class="info-title">부산 연등축제</p>
+                        <p class="info-area">부산광역시 부산진구</p>
+                    </div>
+                </a>
+                <!-- 02 -->
+                <a href="/experience/detail" class="tag-contents">
+                    <div class="tag-img-con">
+                        <div class="tag-area">
+                            <p>부산</p>
+                        </div>
+                        <img th:src="@{/img/bg02.jpeg}" alt="" />
+                    </div>
+                    <div class="tag-info-con">
+                        <p class="info-title">부산 연등축제</p>
+                        <p class="info-area">부산광역시 부산진구</p>
+                    </div>
+                </a>
+                <!-- 03 -->
+                <a href="/experience/detail" class="tag-contents">
+                    <div class="tag-img-con">
+                        <div class="tag-area">
+                            <p>부산</p>
+                        </div>
+                        <img th:src="@{/img/bg03.jpeg}" alt="" />
+                    </div>
+                    <div class="tag-info-con">
+                        <p class="info-title">부산 연등축제</p>
+                        <p class="info-area">부산광역시 부산진구</p>
+                    </div>
+                </a>
+                <!-- 04 -->
+                <a href="/experience/detail" class="tag-contents">
+                    <div class="tag-img-con">
+                        <div class="tag-area">
+                            <p>부산</p>
+                        </div>
+                        <img th:src="@{/img/bg01.jpeg}" alt="" />
+                    </div>
+                    <div class="tag-info-con">
+                        <p class="info-title">부산 연등축제</p>
+                        <p class="info-area">부산광역시 부산진구</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

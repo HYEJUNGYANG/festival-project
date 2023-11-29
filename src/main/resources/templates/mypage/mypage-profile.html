@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>마이페이지 - 정보 수정</title>
+    <link rel="stylesheet" th:href="@{/css/mypage/mypage-profile.css}" />
+    <link rel="icon" type="image/ico" th:href="@{/img/icon/favicon.ico}">
+    <script defer th:src="@{/js/mypage/mypage-profile.js}"></script>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="nav-container">
+        <div class="nav-align">
+          <div class="logo-con">
+            <div class="logo-align">
+              <a href="/" class="logo"
+                ><img th:src="@{/img/logo/logo.svg}" alt=""
+              /></a>
+            </div>
+          </div>
+          <p class="mypage">마이페이지</p>
+          <ul class="list">
+            <li><a class="sel" href="/mypage/profile">정보수정</a></li>
+            <li><a href="/mypage/reservation">예약내역</a></li>
+            <li><a href="/mypage/review">리뷰내역</a></li>
+            <li><a href="/mypage/favorite">관심목록</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="main-container">
+        <div class="main-align">
+          <div class="mypage-title">정보 수정</div>
+          <div class="input-con">
+            <div class="id-con">
+              <span>아이디</span>
+              <p>test@naver.com</p>
+            </div>
+            <div class="name-con">
+              <span>이름</span>
+              <p>양혜정</p>
+            </div>
+            <div class="birth-con">
+              <span>생년월일</span>
+              <p>2000.01.07</p>
+            </div>
+            <div class="nick-con">
+              <span>닉네임</span>
+              <input readonly type="text" class="input-nick" value="닉네임" />
+              <button class="btn-nick-modify">수정</button>
+            </div>
+            <div class="tel-con">
+              <span>전화번호</span>
+              <input
+                readonly
+                type="tel"
+                class="input-tel"
+                maxlength="13"
+                value="010-1234-5678"
+              />
+              <button class="btn-tel-modify">수정</button>
+            </div>
+            <button class="btn-pw-change">비밀번호 변경하기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

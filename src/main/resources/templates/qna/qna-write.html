@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 수정 일때는 제목 Q&A 수정으로 변경 -->
+    <title>Q&A 작성</title>
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/qna/qna-write.css}" />
+    <link rel="icon" type="image/ico" th:href="@{/img/icon/favicon.ico}">
+    <script defer th:src="@{/js/header.js}"></script>
+    <script defer th:src="@{/js/qna/qna-write.js}"></script>
+    <script
+      src="https://kit.fontawesome.com/082a4accbb.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+  </head>
+  <body>
+    <!-- header -->
+    <header class="header">
+      <div class="header-container">
+        <div class="logo-container">
+          <a th:href="@{/}" class="logo"
+          ><img th:src="@{/img/logo/logo.svg}" alt=""
+          /></a>
+        </div>
+        <nav class="nav">
+          <a th:href="@{/festival(zone=전체)}" class="nav-list">축제</a>
+          <a href="/experience" class="nav-list">체험</a>
+          <a href="/qna" class="nav-list">Q&A</a>
+          <a href="/notice" class="nav-list">공지사항</a>
+        </nav>
+        <div class="header-right">
+          <a href="/search" class="search-container">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </a>
+          <!-- 로그인 X -->
+          <a sec:authorize="isAnonymous()" href="/login" class="btn-login">로그인</a>
+          <!-- 로그인 O -->
+          <div class="user-profile" sec:authorize="isAuthenticated()">
+            <i class="fa-regular fa-circle-user"></i>
+            <i class="fa-solid fa-angle-down"></i>
+          </div>
+        </div>
+        <div class="my-page" >
+          <ul class="my-page-list">
+            <li><a href="/mypage/profile">정보수정</a></li>
+            <li><a href="/mypage/reservation">예약내역</a></li>
+            <li><a href="/mypage/review">리뷰내역</a></li>
+            <li><a href="/mypage/favorite">관심목록</a></li>
+            <li class="btn-logout"><a th:href="@{/logout}">로그아웃</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <!-- main -->
+    <div class="main-container">
+      <div class="main-align">
+        <div class="main-top-con">
+          <p>Q&A 질문 등록</p>
+        </div>
+        <div class="title-con">
+          <p class="title">제목</p>
+          <input type="text" class="input-title" />
+        </div>
+        <div class="content-con">
+          <p class="content">내용</p>
+          <!-- <textarea class="txt-content"></textarea> -->
+          <div id="editor"></div>
+        </div>
+        <!-- 수정으로 들어왔을 때는 버튼 이름 수정으로 변경 -->
+        <button class="btn-submit">등록</button>
+      </div>
+    </div>
+  </body>
+</html>

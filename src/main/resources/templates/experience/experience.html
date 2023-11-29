@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org", xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>체험 리스트</title>
+  <link rel="stylesheet" th:href="@{/css/header.css}" />
+  <link rel="stylesheet" th:href="@{/css/experience/experience.css}" />
+  <link rel="icon" type="image/ico" th:href="@{/img/icon/favicon.ico}">
+  <script defer th:src="@{/js/select-area.js}"></script>
+  <script defer th:src="@{/js/header.js}"></script>
+  <script
+          src="https://kit.fontawesome.com/082a4accbb.js"
+          crossorigin="anonymous"
+  ></script>
+</head>
+<body>
+<!--  header -->
+<header class="header">
+  <div class="header-container">
+    <div class="logo-container">
+      <a th:href="@{/}" class="logo"
+      ><img th:src="@{/img/logo/logo.svg}" alt=""
+      /></a>
+    </div>
+    <nav class="nav">
+      <a th:href="@{/festival(zone=전체)}" class="nav-list">축제</a>
+      <a href="/experience" class="nav-list">체험</a>
+      <a href="/qna" class="nav-list">Q&A</a>
+      <a href="/notice" class="nav-list">공지사항</a>
+    </nav>
+    <div class="header-right">
+      <a href="/search" class="search-container">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </a>
+      <!-- 로그인 X -->
+      <a sec:authorize="isAnonymous()" href="/login" class="btn-login">로그인</a>
+      <!-- 로그인 O -->
+      <div class="user-profile" sec:authorize="isAuthenticated()">
+        <i class="fa-regular fa-circle-user"></i>
+        <i class="fa-solid fa-angle-down"></i>
+      </div>
+    </div>
+    <div class="my-page" >
+      <ul class="my-page-list">
+        <li><a href="/mypage/profile">정보수정</a></li>
+        <li><a href="/mypage/reservation">예약내역</a></li>
+        <li><a href="/mypage/review">리뷰내역</a></li>
+        <li><a href="/mypage/favorite">관심목록</a></li>
+        <li class="btn-logout"><a th:href="@{/logout}">로그아웃</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+<!-- main -->
+<div class="main-container">
+  <div class="main-top">
+    <div class="top-align">
+      <div class="top-title">체험</div>
+      <div class="area-con">
+        <div class="area sel">전체</div>
+        <div class="area">서울</div>
+        <div class="area">부산</div>
+        <div class="area">대구</div>
+        <div class="area">인천</div>
+        <div class="area">광주</div>
+        <div class="area">대전</div>
+        <div class="area">울산</div>
+        <div class="area">세종</div>
+        <div class="area">경기</div>
+        <div class="area">강원</div>
+        <div class="area">충북</div>
+        <div class="area">충남</div>
+        <div class="area">전북</div>
+        <div class="area">전남</div>
+        <div class="area">경북</div>
+        <div class="area">경남</div>
+        <div class="area">제주</div>
+      </div>
+    </div>
+  </div>
+  <div class="main-contents-con">
+    <div class="contents-align">
+      <!-- 01 -->
+      <a href="/experience/detail" class="contents">
+        <div class="contents-img-con">
+          <div class="contents-area">
+            <p>부산</p>
+          </div>
+          <img th:src="@{/img/bg01.jpeg}" alt="" />
+        </div>
+        <div class="contents-info-con">
+          <p class="info-title">부산 연등축제</p>
+          <p class="info-area">부산광역시 부산진구</p>
+        </div>
+      </a>
+      <!-- 02 -->
+      <a href="/experience/detail" class="contents">
+        <div class="contents-img-con">
+          <div class="contents-area">
+            <p>부산</p>
+          </div>
+          <img th:src="@{/img/bg02.jpeg}" alt="" />
+        </div>
+        <div class="contents-info-con">
+          <p class="info-title">부산 연등축제</p>
+          <p class="info-area">부산광역시 부산진구</p>
+        </div>
+      </a>
+      <!-- 03 -->
+      <a href="/experience/detail" class="contents">
+        <div class="contents-img-con">
+          <div class="contents-area">
+            <p>부산</p>
+          </div>
+          <img th:src="@{/img/bg03.jpeg}" alt="" />
+        </div>
+        <div class="contents-info-con">
+          <p class="info-title">부산 연등축제</p>
+          <p class="info-area">부산광역시 부산진구</p>
+        </div>
+      </a>
+      <!-- 04 -->
+      <a href="/experience/detail" class="contents">
+        <div class="contents-img-con">
+          <div class="contents-area">
+            <p>부산</p>
+          </div>
+          <img th:src="@{/img/bg03.jpeg}" alt="" />
+        </div>
+        <div class="contents-info-con">
+          <p class="info-title">부산 연등축제</p>
+          <p class="info-area">부산광역시 부산진구</p>
+        </div>
+      </a>
+      <!-- 05 -->
+      <a href="/experience/detail" class="contents">
+        <div class="contents-img-con">
+          <div class="contents-area">
+            <p>부산</p>
+          </div>
+          <img th:src="@{/img/bg02.jpeg}" alt="" />
+        </div>
+        <div class="contents-info-con">
+          <p class="info-title">부산 연등축제</p>
+          <p class="info-area">부산광역시 부산진구</p>
+        </div>
+      </a>
+      <!-- 06 -->
+      <a href="/experience/detail" class="contents">
+        <div class="contents-img-con">
+          <div class="contents-area">
+            <p>부산</p>
+          </div>
+          <img th:src="@{/img/bg01.jpeg}" alt="" />
+        </div>
+        <div class="contents-info-con">
+          <p class="info-title">부산 연등축제</p>
+          <p class="info-area">부산광역시 부산진구</p>
+        </div>
+      </a>
+      <!-- 07 -->
+      <a href="/experience/detail" class="contents">
+        <div class="contents-img-con">
+          <div class="contents-area">
+            <p>부산</p>
+          </div>
+          <img th:src="@{/img/bg01.jpeg}" alt="" />
+        </div>
+        <div class="contents-info-con">
+          <p class="info-title">부산 연등축제</p>
+          <p class="info-area">부산광역시 부산진구</p>
+        </div>
+      </a>
+      <!-- 08 -->
+      <a href="/experience/detail" class="contents">
+        <div class="contents-img-con">
+          <div class="contents-area">
+            <p>부산</p>
+          </div>
+          <img th:src="@{/img/bg03.jpeg}" alt="" />
+        </div>
+        <div class="contents-info-con">
+          <p class="info-title">부산 연등축제</p>
+          <p class="info-area">부산광역시 부산진구</p>
+        </div>
+      </a>
+      <!-- 09 -->
+      <a href="/experience/detail" class="contents">
+        <div class="contents-img-con">
+          <div class="contents-area">
+            <p>부산</p>
+          </div>
+          <img th:src="@{/img/bg02.jpeg}" alt="" />
+        </div>
+        <div class="contents-info-con">
+          <p class="info-title">부산 연등축제</p>
+          <p class="info-area">부산광역시 부산진구</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
