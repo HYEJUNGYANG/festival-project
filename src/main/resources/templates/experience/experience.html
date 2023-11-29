@@ -25,7 +25,7 @@
     </div>
     <nav class="nav">
       <a th:href="@{/festival(zone=전체)}" class="nav-list">축제</a>
-      <a href="/experience" class="nav-list">체험</a>
+      <a th:href="@{/experience(zone=전체)}" class="nav-list">체험</a>
       <a href="/qna" class="nav-list">Q&A</a>
       <a href="/notice" class="nav-list">공지사항</a>
     </nav>
@@ -58,146 +58,44 @@
     <div class="top-align">
       <div class="top-title">체험</div>
       <div class="area-con">
-        <div class="area sel">전체</div>
-        <div class="area">서울</div>
-        <div class="area">부산</div>
-        <div class="area">대구</div>
-        <div class="area">인천</div>
-        <div class="area">광주</div>
-        <div class="area">대전</div>
-        <div class="area">울산</div>
-        <div class="area">세종</div>
-        <div class="area">경기</div>
-        <div class="area">강원</div>
-        <div class="area">충북</div>
-        <div class="area">충남</div>
-        <div class="area">전북</div>
-        <div class="area">전남</div>
-        <div class="area">경북</div>
-        <div class="area">경남</div>
-        <div class="area">제주</div>
+        <a th:href="@{/experience(zone=전체)}" class="area">전체</a>
+        <a th:href="@{/experience(zone=서울)}" class="area">서울</a>
+        <a th:href="@{/experience(zone=부산)}" class="area">부산</a>
+        <a th:href="@{/experience(zone=대구)}" class="area">대구</a>
+        <a th:href="@{/experience(zone=인천)}" class="area">인천</a>
+        <a th:href="@{/experience(zone=광주)}" class="area">광주</a>
+        <a th:href="@{/experience(zone=대전)}" class="area">대전</a>
+        <a th:href="@{/experience(zone=울산)}" class="area">울산</a>
+        <a th:href="@{/experience(zone=세종)}" class="area">세종</a>
+        <a th:href="@{/experience(zone=경기)}" class="area">경기</a>
+        <a th:href="@{/experience(zone=강원)}" class="area">강원</a>
+        <a th:href="@{/experience(zone=충북)}" class="area">충북</a>
+        <a th:href="@{/experience(zone=충남)}" class="area">충남</a>
+        <a th:href="@{/experience(zone=전북)}" class="area">전북</a>
+        <a th:href="@{/experience(zone=전남)}" class="area">전남</a>
+        <a th:href="@{/experience(zone=경북)}" class="area">경북</a>
+        <a th:href="@{/experience(zone=경남)}" class="area">경남</a>
+        <a th:href="@{/experience(zone=제주)}" class="area">제주</a>
       </div>
     </div>
   </div>
   <div class="main-contents-con">
     <div class="contents-align">
-      <!-- 01 -->
-      <a href="/experience/detail" class="contents">
+      <a th:each="dto : ${dto}" th:href="@{/experience/detail(idx=${dto.idx})}" class="contents">
         <div class="contents-img-con">
           <div class="contents-area">
-            <p>부산</p>
-          </div>
-          <img th:src="@{/img/bg01.jpeg}" alt="" />
-        </div>
-        <div class="contents-info-con">
-          <p class="info-title">부산 연등축제</p>
-          <p class="info-area">부산광역시 부산진구</p>
-        </div>
-      </a>
-      <!-- 02 -->
-      <a href="/experience/detail" class="contents">
-        <div class="contents-img-con">
-          <div class="contents-area">
-            <p>부산</p>
+            <p>[[${dto.zone}]]</p>
           </div>
           <img th:src="@{/img/bg02.jpeg}" alt="" />
         </div>
         <div class="contents-info-con">
-          <p class="info-title">부산 연등축제</p>
-          <p class="info-area">부산광역시 부산진구</p>
+          <p class="info-title">[[${dto.name}]]</p>
+          <p class="info-area">[[${dto.l_name}]]</p>
         </div>
       </a>
-      <!-- 03 -->
-      <a href="/experience/detail" class="contents">
-        <div class="contents-img-con">
-          <div class="contents-area">
-            <p>부산</p>
-          </div>
-          <img th:src="@{/img/bg03.jpeg}" alt="" />
-        </div>
-        <div class="contents-info-con">
-          <p class="info-title">부산 연등축제</p>
-          <p class="info-area">부산광역시 부산진구</p>
-        </div>
-      </a>
-      <!-- 04 -->
-      <a href="/experience/detail" class="contents">
-        <div class="contents-img-con">
-          <div class="contents-area">
-            <p>부산</p>
-          </div>
-          <img th:src="@{/img/bg03.jpeg}" alt="" />
-        </div>
-        <div class="contents-info-con">
-          <p class="info-title">부산 연등축제</p>
-          <p class="info-area">부산광역시 부산진구</p>
-        </div>
-      </a>
-      <!-- 05 -->
-      <a href="/experience/detail" class="contents">
-        <div class="contents-img-con">
-          <div class="contents-area">
-            <p>부산</p>
-          </div>
-          <img th:src="@{/img/bg02.jpeg}" alt="" />
-        </div>
-        <div class="contents-info-con">
-          <p class="info-title">부산 연등축제</p>
-          <p class="info-area">부산광역시 부산진구</p>
-        </div>
-      </a>
-      <!-- 06 -->
-      <a href="/experience/detail" class="contents">
-        <div class="contents-img-con">
-          <div class="contents-area">
-            <p>부산</p>
-          </div>
-          <img th:src="@{/img/bg01.jpeg}" alt="" />
-        </div>
-        <div class="contents-info-con">
-          <p class="info-title">부산 연등축제</p>
-          <p class="info-area">부산광역시 부산진구</p>
-        </div>
-      </a>
-      <!-- 07 -->
-      <a href="/experience/detail" class="contents">
-        <div class="contents-img-con">
-          <div class="contents-area">
-            <p>부산</p>
-          </div>
-          <img th:src="@{/img/bg01.jpeg}" alt="" />
-        </div>
-        <div class="contents-info-con">
-          <p class="info-title">부산 연등축제</p>
-          <p class="info-area">부산광역시 부산진구</p>
-        </div>
-      </a>
-      <!-- 08 -->
-      <a href="/experience/detail" class="contents">
-        <div class="contents-img-con">
-          <div class="contents-area">
-            <p>부산</p>
-          </div>
-          <img th:src="@{/img/bg03.jpeg}" alt="" />
-        </div>
-        <div class="contents-info-con">
-          <p class="info-title">부산 연등축제</p>
-          <p class="info-area">부산광역시 부산진구</p>
-        </div>
-      </a>
-      <!-- 09 -->
-      <a href="/experience/detail" class="contents">
-        <div class="contents-img-con">
-          <div class="contents-area">
-            <p>부산</p>
-          </div>
-          <img th:src="@{/img/bg02.jpeg}" alt="" />
-        </div>
-        <div class="contents-info-con">
-          <p class="info-title">부산 연등축제</p>
-          <p class="info-area">부산광역시 부산진구</p>
-        </div>
-      </a>
+      <div th:if="${#lists.isEmpty(dto)}" class="list-none">
+        해당 지역은 축제 목록이 존재하지 않습니다.
+      </div>
     </div>
   </div>
 </div>

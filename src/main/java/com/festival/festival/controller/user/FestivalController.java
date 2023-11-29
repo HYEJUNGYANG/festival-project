@@ -28,7 +28,6 @@ public class FestivalController {
 
         List<Festival> dto = festivalService.getList(zone);
         model.addAttribute("dto", dto);
-        log.info("현 dto 값은? : " +  dto);
         return "/festival/festival";
     }
 

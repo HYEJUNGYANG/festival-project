@@ -31,6 +31,8 @@ public class QReview extends EntityPathBase<Review> {
 
     public final NumberPath<Integer> star = createNumber("star", Integer.class);
 
+    public final StringPath u_id = createString("u_id");
+
     public final StringPath u_nick = createString("u_nick");
 
     public QReview(String variable) {

@@ -447,6 +447,19 @@ a {
 }
 
 .main-container
+.main-align
+.review-con
+.review-list-con
+.review
+.review-info-con
+.review-info
+.info-con
+.star-con {
+  display: flex;
+  gap: 0.1rem;
+}
+
+.main-container
   .main-align
   .review-con
   .review-list-con

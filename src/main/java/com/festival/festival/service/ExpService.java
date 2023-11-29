@@ -4,10 +4,14 @@ import com.festival.festival.dto.ExpDTO;
 import com.festival.festival.dto.PageRequestDTO;
 import com.festival.festival.entity.Exp;
 import com.festival.festival.dto.PageResultDTO;
+import com.festival.festival.entity.Festival;
+
+import java.util.List;
 
 public interface ExpService {
     ExpDTO read(Long idx);
     PageResultDTO<ExpDTO, Exp> getList(PageRequestDTO requestDTO);
+    List<Exp> getList(String zone);
 
     default Exp dtoToEntity(ExpDTO dto) {
         Exp entity = Exp.builder()

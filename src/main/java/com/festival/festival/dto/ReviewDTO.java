@@ -21,5 +21,6 @@ public class ReviewDTO {
     private LocalDate date;
     private int star;
     private String u_nick;
+    private String u_id;
 
 }

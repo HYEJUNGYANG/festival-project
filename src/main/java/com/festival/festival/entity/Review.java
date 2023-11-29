@@ -43,4 +43,8 @@ public class Review {
     @NonNull
     @Column(length = 10)
     private String u_nick;
+
+    @NonNull
+    @Column(length = 30)
+    private String u_id; // 유저 아이디!! 가져올 값이 필요함
 }

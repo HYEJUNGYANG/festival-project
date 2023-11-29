@@ -89,12 +89,22 @@
                 <p class="detail-content">
                 </p>
             </div>
-            <div class="exp-content-con">
+<!--            <div class="exp-content-con">-->
+<!--                <p class="content-title">체험내용</p>-->
+<!--                <div class="content-detail">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="warning-con">-->
+<!--                <p class="warning-title">유의사항</p>-->
+<!--                <div class="warning-list">-->
+<!--                </div>-->
+<!--            </div>-->
+            <div th:if="${!dto.content.isEmpty() && !dto.content.contains('<p>x</p>')}" class="exp-content-con">
                 <p class="content-title">체험내용</p>
                 <div class="content-detail">
                 </div>
             </div>
-            <div class="warning-con">
+            <div th:if="${!dto.warning.isEmpty() && !dto.warning.contains('<p>x</p>')}" class="warning-con">
                 <p class="warning-title">유의사항</p>
                 <div class="warning-list">
                 </div>
@@ -124,7 +134,7 @@
                     </li>
                     <li>
                         <p>입장료</p>
-                        <span th:each="dto : ${dto}" th:text="${dto.price != 0} ? ${dto.price} : '요금없음'"></span>
+                        <span th:each="dto, state : ${dto}" th:text="${dto.price != 0} ? ${#numbers.formatInteger(dto.price, 3, 'COMMA') + '원'} : '요금없음'"></span>
                     </li>
                 </ul>
             </div>
@@ -148,31 +158,27 @@
         </div>
         <div class="review-con">
             <div class="review-top">
-                <p>리뷰<span> 10</span></p>
+                <p>리뷰<span> [[${#lists.size(review)}]]</span></p>
             </div>
             <div class="review-list-con">
-                <!-- 01 -->
-                <div class="review">
+                <div th:if="${#lists.size(review) != 0}" th:each="review: ${review}" class="review">
                     <div class="review-info-con">
                         <div class="review-info">
                             <div class="profile-img">
                                 <img src="/img/profile.png" alt="profile" />
                             </div>
                             <div class="info-con">
-                                <p class="user-nick">닉네임</p>
+                                <p class="user-nick">[[${review.u_nick}]]</p>
                                 <div class="star-date-con">
                                     <div class="star-con">
-                                        <!-- 빈 별 -->
-                                        <!-- <i class="fa-regular fa-star"></i> -->
-                                        <!-- 채워진 변 -->
-                                        <!-- <i class="fa-solid fa-star"></i> -->
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
+                                        <div th:if="${review.star != 0}" th:each="num : ${#numbers.sequence(1, review.star)}">
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
+                                        <div th:if="${5 - review.star != 0}" th:each="num : ${#numbers.sequence(1, (5 - review.star))}">
+                                             <i class="fa-regular fa-star"></i>
+                                        </div>
                                     </div>
-                                    <p class="review-date">2023.11.12</p>
+                                    <p class="review-date">[[${review.date}]]</p>
                                 </div>
                             </div>
                         </div>
@@ -182,75 +188,7 @@
                         </div>
                     </div>
                     <div class="review-content">
-                        <p class="content">최고였습니다!!!</p>
-                    </div>
-                </div>
-                <!-- 02 -->
-                <div class="review">
-                    <div class="review-info-con">
-                        <div class="review-info">
-                            <div class="profile-img">
-                                <img src="/img/profile.png" alt="profile" />
-                            </div>
-                            <div class="info-con">
-                                <p class="user-nick">닉네임</p>
-                                <div class="star-date-con">
-                                    <div class="star-con">
-                                        <!-- 빈 별 -->
-                                        <!-- <i class="fa-regular fa-star"></i> -->
-                                        <!-- 채워진 변 -->
-                                        <!-- <i class="fa-solid fa-star"></i> -->
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <p class="review-date">2023.11.12</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="review-btn-con">
-                            <button class="btn-modify">수정</button>
-                            <button class="btn-del">삭제</button>
-                        </div>
-                    </div>
-                    <div class="review-content">
-                        <p class="content">최고였습니다!!!</p>
-                    </div>
-                </div>
-                <!-- 03 -->
-                <div class="review">
-                    <div class="review-info-con">
-                        <div class="review-info">
-                            <div class="profile-img">
-                                <img src="/img/profile.png" alt="profile" />
-                            </div>
-                            <div class="info-con">
-                                <p class="user-nick">닉네임</p>
-                                <div class="star-date-con">
-                                    <div class="star-con">
-                                        <!-- 빈 별 -->
-                                        <!-- <i class="fa-regular fa-star"></i> -->
-                                        <!-- 채워진 변 -->
-                                        <!-- <i class="fa-solid fa-star"></i> -->
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <p class="review-date">2023.11.12</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="review-btn-con">
-                            <button class="btn-modify">수정</button>
-                            <button class="btn-del">삭제</button>
-                        </div>
-                    </div>
-                    <div class="review-content">
-                        <p class="content">최고였습니다!!!</p>
+                        <p class="content">[[${review.content}]]</p>
                     </div>
                 </div>
             </div>
@@ -267,6 +205,7 @@
     const content = [[${dto.content}]]
     const warning = [[${dto.warning}]]
     document.querySelector('.detail-content').innerHTML = detail;
+    // content, warning은 <p>태그로 줄 구분 하게 하고 그 앞에 list 형태로 효과 넣어줬기 때문에 한줄로만 작성되어 있는 문자열을 <p>태그로 감싸주기 위함
     document.querySelector('.content-detail').innerHTML = `${content.toString().includes('<p>') ? content : `<p>${content}</p>`}`;
     document.querySelector('.warning-list').innerHTML = `${warning.toString().includes('<p>') ? warning : `<p>${warning}</p>`}`;
 

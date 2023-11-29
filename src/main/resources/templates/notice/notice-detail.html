@@ -61,9 +61,9 @@
       </p>
       <div class="top-info-con">
         <p class="notice-date">[[${dto.date}]]</p>
-        <button class="btn-all-list">
-          <a href="/notice">전체 목록</a>
-        </button>
+        <a href="/notice" class="btn-all-list">
+          전체 목록
+        </a>
       </div>
     </div>
     <div class="notice-content-con">
@@ -71,8 +71,6 @@
         <img th:src="${dto.filepath}" class="col-12 col-sm-8 col-lg-6">
       </div>
       <div class="content">
-        <!-- 에디터 쓸거면 이 부분 꼭 수정하기 -->
-        [[${dto.content}]]
       </div>
     </div>
     <div class="page-control">
@@ -98,5 +96,9 @@
     </div>
   </div>
 </div>
+<script th:inline="javascript">
+  const content = document.querySelector('.content');
+  content.innerHTML = [[${dto.content}]];
+</script>
 </body>
 </html>

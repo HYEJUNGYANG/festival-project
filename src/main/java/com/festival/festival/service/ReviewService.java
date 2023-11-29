@@ -4,7 +4,10 @@ import com.festival.festival.dto.PageRequestDTO;
 import com.festival.festival.entity.Review;
 import com.festival.festival.dto.PageResultDTO;
 import com.festival.festival.dto.ReviewDTO;
+import com.querydsl.core.Tuple;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface ReviewService {
@@ -12,6 +15,8 @@ public interface ReviewService {
     ReviewDTO read(Long idx);
 
     PageResultDTO<ReviewDTO, Review> getList(PageRequestDTO requestDTO);
+
+    List<Review> getList(Long idx);
 
     default Review dtoToEntity(ReviewDTO dto) {
         Review entity = Review.builder()

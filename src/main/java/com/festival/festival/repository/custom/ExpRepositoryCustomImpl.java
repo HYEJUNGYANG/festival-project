@@ -1,10 +1,14 @@
 package com.festival.festival.repository.custom;
 
 import com.festival.festival.dto.ExpDTO;
+import com.festival.festival.entity.Exp;
+import com.festival.festival.entity.Festival;
 import com.festival.festival.entity.QExp;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+
+import java.util.List;
 
 public class ExpRepositoryCustomImpl implements ExpRepositoryCustom {
     @PersistenceContext
@@ -39,5 +43,16 @@ public class ExpRepositoryCustomImpl implements ExpRepositoryCustom {
                 .set(exp.hardness, dto.getHardness())
                 .where(exp.idx.eq(dto.getIdx()))
                 .execute();
+    }
+
+    @Override
+    public List<Exp> getAllByZone(String zone) {
+        List<Exp> dto = queryFactory
+                .select(exp)
+                .from(exp)
+                .where(exp.zone.eq(zone))
+                .orderBy(exp.idx.desc())
+                .fetch();
+        return dto;
     }
 }

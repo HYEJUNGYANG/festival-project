@@ -5,6 +5,7 @@ import com.festival.festival.entity.Review;
 import com.festival.festival.repository.ReviewRepository;
 import com.festival.festival.dto.PageResultDTO;
 import com.festival.festival.dto.ReviewDTO;
+import com.querydsl.core.Tuple;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -40,6 +42,12 @@ public class ReviewServiceImpl implements ReviewService {
         Page<Review> result = reviewRepository.findAll(pageable);
         Function<Review, ReviewDTO> fn = (entity -> entityToDto(entity));
         return new PageResultDTO<>(result, fn);
+    }
+
+    @Override
+    public List<Review> getList(Long idx) {
+        List<Review> dto = reviewRepository.getList(idx);
+        return dto;
     }
 
     public void deleteReview(Long idx) {

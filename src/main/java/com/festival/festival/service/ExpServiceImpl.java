@@ -4,6 +4,7 @@ import com.festival.festival.dto.ExpDTO;
 import com.festival.festival.dto.PageRequestDTO;
 import com.festival.festival.dto.PageResultDTO;
 import com.festival.festival.entity.Exp;
+import com.festival.festival.entity.Festival;
 import com.festival.festival.repository.ExpRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -30,7 +32,19 @@ public class ExpServiceImpl implements ExpService {
 
         }
 
-        @Override
+    @Override
+    public List<Exp> getList(String zone) {
+        List<Exp> dto = null;
+        if (zone.equals("전체")) {
+            dto = expRepository.findAll(Sort.by(Sort.Direction.DESC, "idx"));
+        }
+        else {
+            dto = expRepository.getAllByZone(zone);
+        }
+        return dto;
+    }
+
+    @Override
         public ExpDTO read(Long idx) {
             Optional<Exp> result = expRepository.findById(idx);
 
