@@ -151,6 +151,10 @@ body {
   color: rgb(255, 88, 88);
 }
 
+.container .login-con form .blank {
+  display: none;
+}
+
 .container .login-con form .btn-login {
   all: unset;
   box-sizing: border-box;
