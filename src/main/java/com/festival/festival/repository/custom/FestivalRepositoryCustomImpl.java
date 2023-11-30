@@ -3,12 +3,17 @@ package com.festival.festival.repository.custom;
 import com.festival.festival.dto.FestivalDTO;
 import com.festival.festival.entity.Festival;
 import com.festival.festival.entity.QFestival;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import lombok.extern.log4j.Log4j2;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
+@Log4j2
 public class FestivalRepositoryCustomImpl implements FestivalRepositoryCustom{
 
     @PersistenceContext
@@ -53,5 +58,33 @@ public class FestivalRepositoryCustomImpl implements FestivalRepositoryCustom{
                 .set(festival.hardness, dto.getHardness())
                 .where(festival.idx.eq(id))
                 .execute();
+    }
+
+    @Override
+    public List<Festival> getFestivalListByKeyword(HashMap<String, Object> map) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (!map.get("area").toString().isEmpty()) {
+            List<String> zones = (List<String>) map.get("area");
+            if(zones != null) {
+                for(String zone : zones) {
+                    builder.or(festival.zone.eq(zone));
+                }
+            }
+        }
+        builder.and(festival.name.contains(map.get("keyword").toString()));
+        if(!map.get("date").toString().isEmpty()) {
+            builder.and(festival.start.loe(LocalDate.parse(map.get("date").toString())));
+            builder.and(festival.end.goe(LocalDate.parse(map.get("date").toString())));
+        }
+
+        List<Festival> festivalDTO = queryFactory
+                .select(festival)
+                .from(festival)
+                .where(builder)
+                .fetch();
+
+        log.info("festival 검색 결과: " + festivalDTO);
+
+        return festivalDTO;
     }
 }
