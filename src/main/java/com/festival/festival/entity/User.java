@@ -16,14 +16,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class User {
-    //id, pw, name, nick, gender, tel, birth, join_date
-    //id varchar(30), pw varchar(20), name varchar(10)
-    //gender char(1), tel vc(13), birth date, join_date date
 
     @Id
     @Column(length = 30)
     private String id;
 
+    @Setter
     @Column(length = 60, nullable = false)
     private String pw;
 
