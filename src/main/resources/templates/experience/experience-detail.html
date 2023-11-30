@@ -182,7 +182,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="review-btn-con">
+                        <!-- 로그인 했을 때만 보이게 -->
+                        <!-- 추후에 리뷰 작성 유저랑 같은 아이디로 로그인 했을 때만 보이도록 수정 예정 -->
+                        <div class="review-btn-con" sec:authorize="isAuthenticated()">
                             <button class="btn-modify">수정</button>
                             <button class="btn-del">삭제</button>
                         </div>
