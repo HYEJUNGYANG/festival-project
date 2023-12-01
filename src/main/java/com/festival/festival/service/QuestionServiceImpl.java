@@ -40,6 +40,16 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    public void insertQuestion(QuestionDTO dto) {
+        questionRepository.InsertQuestion(dto);
+    }
+
+    @Override
+    public void updateQuestion(QuestionDTO dto) {
+        questionRepository.updateQuestion(dto);
+    }
+
+    @Override
     public PageResultDTO<QuestionDTO, Question> getList(PageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("idx").descending());
         Page<Question> result = questionRepository.findAll( pageable);

@@ -1,3 +1,4 @@
+const form = document.querySelector('form');
 const btnSubmit = document.querySelector('.btn-submit');
 
 let editor;
@@ -14,8 +15,21 @@ ClassicEditor.create(document.querySelector('#editor'), {
   });
 
 btnSubmit.addEventListener('click', () => {
-  // 값 가져오기
-  // editor.getData();
-  // 값 세팅
-  // editor.setData('<p>Hi</p>');
+  const idx = location.search.replace('?idx=', '');
+  const pathName = location.pathname;
+
+  if (pathName.includes('modify')) {
+    form.action = "/qna/modify";
+  } else {
+    form.action = "/qna/write";
+  }
+
+  const p1 = document.createElement('p');
+  p1.innerHTML = `<input name="content" type="text" value="${editor.getData()}" />`;
+  form.appendChild(p1);
+  const p2 = document.createElement('p');
+  p2.innerHTML = `<input name="idx" type="number" value="${idx}"/>`;
+  form.appendChild(p2);
+
+  form.submit();
 });

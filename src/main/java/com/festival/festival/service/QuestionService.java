@@ -13,6 +13,10 @@ public interface QuestionService {
 
     Long insertAnswer(QuestionDTO dto);
 
+    void insertQuestion(QuestionDTO dto);
+
+    void updateQuestion(QuestionDTO dto);
+
     PageResultDTO<QuestionDTO, Question> getList(PageRequestDTO requestDTO);
 
 

@@ -104,6 +104,12 @@ button {
   outline: none;
 }
 
+.main-container .main-align .check-con {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
 .main-container .main-align .btn-submit {
   display: block;
   cursor: pointer;
