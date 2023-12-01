@@ -71,7 +71,8 @@ public class FestivalRepositoryCustomImpl implements FestivalRepositoryCustom{
                 }
             }
         }
-        builder.and(festival.name.contains(map.get("keyword").toString()));
+        builder.or(festival.name.contains(map.get("keyword").toString()));
+        builder.or(festival.detail.contains(map.get("keyword").toString()));
         if(!map.get("date").toString().isEmpty()) {
             builder.and(festival.start.loe(LocalDate.parse(map.get("date").toString())));
             builder.and(festival.end.goe(LocalDate.parse(map.get("date").toString())));
