@@ -11,6 +11,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -47,6 +49,38 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public void updateQuestion(QuestionDTO dto) {
         questionRepository.updateQuestion(dto);
+    }
+
+    @Override
+    public void deleteQuestion(Long idx) {
+        questionRepository.deleteById(idx);
+    }
+
+    @Override
+    public String findUserid() {
+        Authentication authentication = SecurityContextHolder.getContextHolderStrategy()
+                .getContext().getAuthentication();
+
+        String user_id = null;
+
+        //값이 null이 아닐때 && 로그인 했을 경우에만
+        if(authentication != null && authentication.isAuthenticated()) {
+            // 불러온 id를 string 변수에 저장
+            user_id = authentication.getName();
+            // model로 dto와는 따로 보내기(u_id와 비교용)
+            return user_id;
+        }
+        else{
+
+            return user_id;
+        }
+    }
+
+    @Override
+    public Long count() {
+        Long questionCount = questionRepository.count();
+
+        return questionCount;
     }
 
     @Override

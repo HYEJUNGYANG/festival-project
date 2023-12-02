@@ -17,6 +17,11 @@ public interface QuestionService {
 
     void updateQuestion(QuestionDTO dto);
 
+    void deleteQuestion(Long idx);
+
+    String findUserid();
+    Long count();
+
     PageResultDTO<QuestionDTO, Question> getList(PageRequestDTO requestDTO);
 
 

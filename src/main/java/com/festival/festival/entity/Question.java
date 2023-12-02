@@ -2,11 +2,13 @@ package com.festival.festival.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 
 @Entity
 @Builder
+@EntityListeners(value = {AuditingEntityListener.class})
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

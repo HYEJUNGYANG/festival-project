@@ -1,5 +1,6 @@
 package com.festival.festival.controller.user;
 
+import com.festival.festival.dto.PageRequestDTO;
 import com.festival.festival.dto.QuestionDTO;
 import com.festival.festival.dto.UserDTO;
 import com.festival.festival.entity.Question;
@@ -30,7 +31,19 @@ public class QnAController {
     private final QuestionService questionService;
 
     @GetMapping("")
-    public String list() {
+    public String list(PageRequestDTO pageRequestDTO, Model model) {
+
+        log.info("pageRequestDTO:" + pageRequestDTO);
+        log.info("값 어떻게 보이는지 확인좀: " + questionService.getList(pageRequestDTO));
+        model.addAttribute("result", questionService.getList(pageRequestDTO));
+
+        //로그인한 유저의 아이디를 가져옴
+        model.addAttribute("user_id", questionService.findUserid());
+
+        //게시글 총 개수 세기
+        model.addAttribute("count",questionService.count());
+
+
         return "/qna/qna";
     }
 
@@ -96,6 +109,13 @@ public class QnAController {
 
         questionService.updateQuestion(questionDTO);
 
+        return "redirect:/qna";
+    }
+
+    @GetMapping("/qna_delete")
+    public String deleteNotice(Long idx){
+
+        questionService.deleteQuestion(idx);
         return "redirect:/qna";
     }
 }
