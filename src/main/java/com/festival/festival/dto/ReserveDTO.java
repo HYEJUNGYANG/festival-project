@@ -19,6 +19,7 @@ public class ReserveDTO {
     private String u_id;
     private String u_tel;
     private String e_name;
+    private Long e_idx;
     private LocalDate date;
     private LocalDateTime now_date;
     private String state;

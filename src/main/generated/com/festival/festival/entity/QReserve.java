@@ -23,6 +23,8 @@ public class QReserve extends EntityPathBase<Reserve> {
 
     public final DatePath<java.time.LocalDate> date = createDate("date", java.time.LocalDate.class);
 
+    public final NumberPath<Long> e_idx = createNumber("e_idx", Long.class);
+
     public final StringPath e_name = createString("e_name");
 
     public final NumberPath<Integer> e_price = createNumber("e_price", Integer.class);

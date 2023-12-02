@@ -42,6 +42,10 @@ public class Reserve {
 
     @NonNull
     @Column
+    private Long e_idx;// 체험 idx
+
+    @NonNull
+    @Column
     private LocalDate date;//체험하는날짜
 
     @NonNull
