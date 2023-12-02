@@ -22,7 +22,8 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
             return;
         }
         if(roleNames.contains("ROLE_USER")) {
-            response.sendRedirect("/index");
+            String prevPage = (String) request.getSession().getAttribute("prevPage");
+            response.sendRedirect(prevPage != null ? prevPage : "/");
             return;
         }
         response.sendRedirect("/");
