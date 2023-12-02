@@ -16,6 +16,8 @@ public interface NoticeService {
 
     PageResultDTO<NoticeDTO, Notice> getList(PageRequestDTO requestDTO);
 
+    Long count();
+
     default Notice dtoToEntity(NoticeDTO dto) {
         Notice entity = Notice.builder()
                 .idx(dto.getIdx())

@@ -82,6 +82,12 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
+    public Long count() {
+        long count = noticeRepository.count();
+        return count;
+    }
+
+    @Override
     public void insertNotice(Notice notice)
         {
 

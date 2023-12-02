@@ -56,7 +56,7 @@
   <div class="main-align">
     <div class="main-top-con">
       <p class="top">공지사항</p>
-      <p class="count">총 <span>10</span> 건</p>
+      <p class="count">총 <span>[[${count}]]</span> 건</p>
     </div>
     <div class="notice-list">
       <ul class="list">
@@ -73,18 +73,17 @@
     </div>
     <div class="page-con">
       <div class="page-align">
-        <div class="prev-btn-con">
+        <a th:href="@{/notice(page= ${result.start -1})}" class="prev-btn-con" th:if="${result.prev}">
           <i class="fa-solid fa-chevron-left"></i>
           이전
-        </div>
-        <!--<div class="page">1</div>-->
+        </a>
         <a th:href="@{/notice(page = ${page})}" th:class=" 'page ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
           [[${page}]]
         </a>
-        <div class="next-btn-con">
+        <a th:href="@{/notice(page= ${result.end + 1})}" class="next-btn-con" th:if="${result.next}">
           다음
           <i class="fa-solid fa-chevron-right"></i>
-        </div>
+        </a>
       </div>
     </div>
   </div>

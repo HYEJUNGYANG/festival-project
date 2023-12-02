@@ -26,7 +26,8 @@ public class NoticeController {
         int page = pageRequestDTO.getPage();
         int pageNum = 10 * (page - 1);
         model.addAttribute("pageNum", pageNum);
-        model.addAttribute("result",noticeService.getList(pageRequestDTO));
+        model.addAttribute("result", noticeService.getList(pageRequestDTO));
+        model.addAttribute("count", noticeService.count());
         return "/notice/notice";
     }
 
