@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public interface NoticeService {
@@ -17,6 +18,9 @@ public interface NoticeService {
     PageResultDTO<NoticeDTO, Notice> getList(PageRequestDTO requestDTO);
 
     Long count();
+
+    List<Object> getPrevIdxAndTitle(Long idx);
+    List<Object> getNextIdxAndTitle(Long idx);
 
     default Notice dtoToEntity(NoticeDTO dto) {
         Notice entity = Notice.builder()

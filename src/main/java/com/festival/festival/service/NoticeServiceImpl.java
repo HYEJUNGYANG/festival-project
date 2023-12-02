@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Function;
@@ -85,6 +86,18 @@ public class NoticeServiceImpl implements NoticeService {
     public Long count() {
         long count = noticeRepository.count();
         return count;
+    }
+
+    @Override
+    public List<Object> getPrevIdxAndTitle(Long idx) {
+        List<Object> prevIdxAndTitle = noticeRepository.getPrevIdxAndTitle(idx);
+        return prevIdxAndTitle;
+    }
+
+    @Override
+    public List<Object> getNextIdxAndTitle(Long idx) {
+        List<Object> nextIdxAndTitle = noticeRepository.getNextIdxAndTitle(idx);
+        return nextIdxAndTitle;
     }
 
     @Override

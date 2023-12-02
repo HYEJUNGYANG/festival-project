@@ -107,6 +107,10 @@ button {
   border-top: 1px solid #ddd;
 }
 
+.main-container .main-align .page-control .prev-page.none-next {
+  border-bottom: 1px solid #ddd;
+}
+
 .main-container .main-align .page-control .next-page {
   border-bottom: 1px solid #ddd;
 }

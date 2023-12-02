@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/notice")
 @Log4j2
@@ -36,7 +38,13 @@ public class NoticeController {
 
         log.info("idx : " + idx);
         NoticeDTO dto = noticeService.read(idx);
+
+        log.info("이전 값들!!!! " + noticeService.getPrevIdxAndTitle(idx));
+        log.info("다음 값들!!!! " + noticeService.getNextIdxAndTitle(idx));
+
         model.addAttribute("dto", dto);
+        model.addAttribute("prev", noticeService.getPrevIdxAndTitle(idx));
+        model.addAttribute("next", noticeService.getNextIdxAndTitle(idx));
 
         return "/notice/notice-detail";
     }
