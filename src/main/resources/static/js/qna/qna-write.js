@@ -1,4 +1,4 @@
-const form = document.querySelector('form');
+const form = document.querySelector('#form');
 const btnSubmit = document.querySelector('.btn-submit');
 
 let editor;
