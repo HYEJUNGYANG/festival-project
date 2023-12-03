@@ -80,4 +80,7 @@ public class Exp {
     @Column
     private double hardness;//경도
 
+    @Column(nullable = false)
+    private Long count;
+
 }

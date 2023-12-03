@@ -28,5 +28,6 @@ public class ExpDTO {
     private String tag;
     private double latitude;
     private double hardness;
+    private Long count;
 
 }

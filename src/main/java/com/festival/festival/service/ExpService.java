@@ -36,6 +36,7 @@ public interface ExpService {
                 .tag(dto.getTag())
                 .latitude(dto.getLatitude())
                 .hardness(dto.getHardness())
+                .count(dto.getCount())
                 .build();
         return entity;
     }
@@ -60,6 +61,7 @@ public interface ExpService {
                 .tag(entity.getTag())
                 .latitude(entity.getLatitude())
                 .hardness(entity.getHardness())
+                .count(entity.getCount())
                 .build();
         return dto;
     }

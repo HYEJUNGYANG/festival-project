@@ -30,7 +30,6 @@ public class ExpRepositoryCustomImpl implements ExpRepositoryCustom {
                 .set(exp.zone, dto.getZone())
                 .set(exp.l_name, dto.getL_name())
                 .set(exp.detail, dto.getDetail())
-//                .set(exp.img, dto.getImg())
                 .set(exp.place, dto.getPlace())
                 .set(exp.tel, dto.getTel())
                 .set(exp.link, dto.getLink())

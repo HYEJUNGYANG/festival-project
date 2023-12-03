@@ -24,6 +24,7 @@ class ReserveRepositoryTest {
                     .u_name("예약자명" + i)
                     .u_id("ID"+i)
                     .u_tel("010-1111-1111")
+                    .e_idx((long) i)
                     .e_name("체험명" + i)
                     .date(LocalDate.of(2023, 11, 11))
                     .now_date(LocalDateTime.now())
@@ -31,7 +32,7 @@ class ReserveRepositoryTest {
                     .pay("무통장입금")
                     .total(100000+i)
                     .review('y')
-                    .count(i)
+                    .count(2)
                     .e_price(10000+i)
                     .build();
             reserveRepository.save(reserve);

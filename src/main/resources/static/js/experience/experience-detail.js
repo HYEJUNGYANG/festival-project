@@ -29,7 +29,8 @@ likeBtn.addEventListener('click', () => {
 });
 
 btnReservation.addEventListener('click', () => {
-  location.href = '/reservation';
+  const idx = location.search.replace("?idx=", "");
+  location.href = `/reservation?idx=${idx}`;
 });
 
 scrollBtn.addEventListener('click', () => {

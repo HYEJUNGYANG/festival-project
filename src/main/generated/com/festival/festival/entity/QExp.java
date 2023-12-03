@@ -21,6 +21,8 @@ public class QExp extends EntityPathBase<Exp> {
 
     public final StringPath content = createString("content");
 
+    public final NumberPath<Long> count = createNumber("count", Long.class);
+
     public final StringPath detail = createString("detail");
 
     public final StringPath filename = createString("filename");

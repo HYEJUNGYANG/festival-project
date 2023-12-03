@@ -76,7 +76,7 @@
             </div>
             <!-- 축제는 예약하기 없으므로 나중에 빼두기 -->
             <div class="reservation">
-                <button class="btn-re">예약하기</button>
+                <button sec:authorize="isAuthenticated()" class="btn-re">예약하기</button>
             </div>
         </div>
         <div class="info-con">
@@ -89,16 +89,6 @@
                 <p class="detail-content">
                 </p>
             </div>
-<!--            <div class="exp-content-con">-->
-<!--                <p class="content-title">체험내용</p>-->
-<!--                <div class="content-detail">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="warning-con">-->
-<!--                <p class="warning-title">유의사항</p>-->
-<!--                <div class="warning-list">-->
-<!--                </div>-->
-<!--            </div>-->
             <div th:if="${!dto.content.isEmpty() && !dto.content.contains('<p>x</p>')}" class="exp-content-con">
                 <p class="content-title">체험내용</p>
                 <div class="content-detail">
