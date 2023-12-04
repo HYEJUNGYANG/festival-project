@@ -17,6 +17,8 @@ public interface ExpService {
     PageResultDTO<ExpDTO, Exp> getList(PageRequestDTO requestDTO);
     List<Exp> getList(String zone);
 
+    void modifyCount(Long count, Long idx);
+
     default Exp dtoToEntity(ExpDTO dto) {
         Exp entity = Exp.builder()
                 .idx(dto.getIdx())

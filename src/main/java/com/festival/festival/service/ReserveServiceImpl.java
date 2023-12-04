@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -34,6 +36,12 @@ public class ReserveServiceImpl implements ReserveService{
     }
 
     @Override
+    public void insertReserve(ReserveDTO reserveDTO) {
+        reserveDTO.setNow_date(LocalDateTime.now());
+        reserveRepository.insertReserv(reserveDTO);
+    }
+
+    @Override
     public PageResultDTO<ReserveDTO, Reserve> getList(PageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("num").descending());
         Page<Reserve> result = reserveRepository.findAll( pageable);
@@ -46,6 +54,10 @@ public class ReserveServiceImpl implements ReserveService{
         reserveRepository.modifyById(dto);
     }
 
+    @Override
+    public List<Integer> getNumList() {
+        return reserveRepository.getNumList();
+    }
 
 
 }

@@ -29,6 +29,10 @@ likeBtn.addEventListener('click', () => {
 });
 
 btnReservation.addEventListener('click', () => {
+  if (btnReservation.dataset.count == 0) {
+    alert('예약 가능한 인원이 모두 찼습니다!');
+    return;
+  }
   const idx = location.search.replace("?idx=", "");
   location.href = `/reservation?idx=${idx}`;
 });

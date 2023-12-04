@@ -49,6 +49,11 @@ public class ExpServiceImpl implements ExpService {
     }
 
     @Override
+    public void modifyCount(Long count, Long idx) {
+        expRepository.modifyCount(count, idx);
+    }
+
+    @Override
     public Long join(ExpDTO dto, MultipartFile file) throws IOException {
         /*우리의 프로젝트경로를 담아주게 된다 - 저장할 경로를 지정*/
         String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";

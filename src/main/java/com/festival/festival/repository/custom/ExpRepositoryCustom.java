@@ -9,4 +9,6 @@ public interface ExpRepositoryCustom {
     void modifyById(ExpDTO dto);
 
     List<Exp> getAllByZone(String zone);
+
+    void modifyCount(Long count, Long idx);
 }

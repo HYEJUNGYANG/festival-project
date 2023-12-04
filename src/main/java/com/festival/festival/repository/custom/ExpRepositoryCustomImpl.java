@@ -54,4 +54,13 @@ public class ExpRepositoryCustomImpl implements ExpRepositoryCustom {
                 .fetch();
         return dto;
     }
+
+    @Override
+    public void modifyCount(Long count, Long idx) {
+        queryFactory
+                .update(exp)
+                .set(exp.count, exp.count.add(-count))
+                .where(exp.idx.eq(idx))
+                .execute();
+    }
 }

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>예약 및 결제</title>
+    <title>예약 완료</title>
     <link rel="stylesheet" th:href="@{/css/reservation/reservation-result.css}" />
     <link rel="icon" type="image/ico" th:href="@{/img/icon/favicon.ico}">
     <script defer th:src="@{/js/reservation/reservation-result.js}"></script>
@@ -25,28 +25,28 @@
             <div class="re-info">
               <div class="r-num-con">
                 <p class="r-num">예약번호</p>
-                <p class="r-num-value">11231234</p>
+                <p class="r-num-value">[[${dto.num}]]</p>
               </div>
               <div class="pay-time-con">
                 <p class="pay-time">결제시간</p>
-                <p class="pay-time-value">23.11.15 12:33:00</p>
+                <p class="pay-time-value">[[${#temporals.format(dto.now_date, 'yyyy-MM-dd HH:mm:ss')}]]</p>
               </div>
             </div>
             <div class="e-info-con">
               <div class="e-img">
-                <img th:src="@{/img/bg01.jpeg}" alt="" />
+                <img th:src="${exp.filepath}" alt="" />
               </div>
               <div class="e-info">
-                <a href="/experience/detail" class="e-name">제35회 춘천인형극제</a>
+                <a th:href="@{/experience/detail(idx=${exp.idx})}" class="e-name">[[${exp.name}]]</a>
                 <div class="e-date-con">
                   <p class="e-date">체험 날짜</p>
-                  <p class="e-date-value">2023.11.17</p>
+                  <p class="e-date-value">[[${dto.date}]]</p>
                 </div>
               </div>
             </div>
             <div class="total-con">
               <p class="total">총 합계</p>
-              <p class="total-value">12,000원</p>
+              <p class="total-value">[[${#numbers.formatInteger(dto.total, 3, 'COMMA')}]]원</p>
             </div>
           </div>
         </div>

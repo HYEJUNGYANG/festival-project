@@ -6,11 +6,15 @@ import com.festival.festival.dto.ReserveDTO;
 import com.festival.festival.entity.Reserve;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface ReserveService{
 
 
     ReserveDTO read(int num);
+
+    void insertReserve(ReserveDTO reserveDTO);
 
     PageResultDTO<ReserveDTO, Reserve> getList(PageRequestDTO requestDTO);
 
@@ -54,5 +58,7 @@ public interface ReserveService{
     }
 
     void modifyReserve(ReserveDTO dto);
+
+    List<Integer> getNumList();
 
 }
