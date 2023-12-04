@@ -9,7 +9,6 @@ const pwWarning = document.querySelector('.pw-warning');
 const pwChkWarning = document.querySelector('.pw-check-warning');
 const pwShowBtn = document.querySelector('.pw-show');
 const pwCheckShowBtn = document.querySelector('.pw-check-show');
-const inputDate = document.querySelector('.input-date');
 const hiddenDate = document.querySelector('#hiddenDateField');
 const inputYear = document.querySelector('.input-birth-year');
 const inputMonth = document.querySelector('.input-birth-month');
@@ -19,8 +18,6 @@ const inputNick = document.querySelector('.input-nick');
 const inputGender1 = document.querySelector('.input-gender1');
 const inputGender2 = document.querySelector('.input-gender2');
 const inputTel = document.querySelector('.input-tel');
-const totalWarning = document.querySelector('.total-warning');
-const btnJoin = document.querySelector('.btn-join');
 const btnClose = document.querySelector('.btn-close');
 const birthWarning = document.querySelector('.birth-warning');
 const tot_war = document.querySelector('.total-warning');
@@ -72,15 +69,11 @@ const xhr = new XMLHttpRequest();
 let isIdCheck = false;
 // id 중복 체크 버튼 클릭시
 btnDupli.addEventListener('click', () => {
-  if (inputID.value.length == 0 || domainSel.options[domainSel.selectedIndex].value == 'none' || (inputDomain.classList.contains('show') && id_pattern.test(inputDomain.value))) {
+  if (inputID.value.length == 0 || domainSel.options[domainSel.selectedIndex].value == 'none' || (inputDomain.classList.contains('show') && inputDomain.value.length == 0) || id_pattern.test(inputDomain.value)) {
     alert('이메일을 입력해주세요!!');
     return;
   }
-  // if (!/^[a-z0-9]{4,12}$/.test(inputID.value)) {
-  //   idWarning.style.visibility = "visible";
-  //   idWarning.innerHTML = "아이디는 영어, 숫자 조합 4-12자여야 합니다."
-  //   return;
-  // }
+
   idWarning.style.visibility = "hidden";
   let id = "";
   if(domainSel.options[domainSel.selectedIndex].value != "otherDomains") {
@@ -133,17 +126,9 @@ btnDupli.addEventListener('click', () => {
 <!--=======================================-->
 
 document.querySelector(".input-id").addEventListener("keyup", function() {
-  // 아이디 패턴 정규식
-  // var idPattern = /^[a-z0-9]{4,12}$/; //영어 및 숫자,4~12자
-
   // 입력한 아이디를 가져옵니다.
   var id = this.value;
 
-
-  // 입력한 아이디가 패턴에 맞지 않으면 경고 메시지를 보이게 하고, 그렇지 않으면 숨깁니다.
-  // if (idPattern.test(id)) {
-  //   idWarning.style.visibility = "hidden";
-  // }
   // 아이디를 입력하면 경고를 없앱니다.
   if(id != ""){
     idWarning.style.visibility = "hidden";
@@ -152,15 +137,12 @@ document.querySelector(".input-id").addEventListener("keyup", function() {
   else if(id == ""){
     idWarning.style.visibility = "visible";
   }
-
 });
 document.querySelector(".other-domains").addEventListener("keyup", function() {
-
 
   var email = domainSel.value;
 
   var email_other = inputDomain.value;
-
 
   if (email == "" || email == "otherDomains") { //email 공백이면
     if (email_other == "") {
@@ -176,8 +158,6 @@ document.querySelector(".other-domains").addEventListener("keyup", function() {
 });
 
 document.querySelector(".select-email-domain").addEventListener('change', function(event) {
-
-
   var email_other = inputDomain.value;
   var email = domainSel.value;
 
@@ -293,18 +273,12 @@ total.forEach(function(element) {
 
 document.querySelector("#joinform").addEventListener("submit", function(event) {
   event.preventDefault(); // form의 기본 제출 동작을 취소합니다.
-
   <!--===============id+email 합치기+id check start===============-->
-
   var id = inputID.value;
 
   var email = domainSel.value;
 
   var email_other = inputDomain.value;
-  // 아이디 패턴 정규식
-  // var idPattern = /^[a-z0-9]{4,12}$/; //영어 및 숫자,4~12자
-
-
 
   if (id == "") { //id 입력안했을때
     idWarning.style.visibility = "visible";
@@ -312,14 +286,6 @@ document.querySelector("#joinform").addEventListener("submit", function(event) {
 
     return false;
   }
-
-  // if (!idPattern.test(id)) { //회원가입 눌렀을때 id패턴이 안맞으면
-  //   idWarning.style.visibility = "visible";
-  //   idWarning.innerText = "아이디는 영어, 숫자 조합 4-12자여야 합니다.";
-  //   inputID.focus();
-  //
-  //   return false;
-  // }
 
   if (email == "" || email == "otherDomains") { //email 공백이면
     if(email_other == ""){
