@@ -74,15 +74,15 @@
       </div>
     </div>
     <div class="page-control">
-      <div th:if="${prev[0] != 0}" class="prev-page" th:classappend="${next[0] == 0 ? 'none-next' : ''}">
+      <div th:if="${next[0] != 0}" class="prev-page" th:classappend="${prev[0] == 0 ? 'none-next' : ''}">
         <p class="prev">이전글</p>
-        <a th:href="@{@{/notice/detail(idx=${prev[0]})}}" class="prev-title"
-        >[[${prev[1]}]]</a>
+        <a th:href="@{@{/notice/detail(idx=${next[0]})}}" class="prev-title"
+        >[[${next[1]}]]</a>
       </div>
-      <div th:if="${next[0] != 0}" class="next-page">
+      <div th:if="${prev[0] != 0}" class="next-page">
         <p class="next">다음글</p>
-        <a th:href="@{/notice/detail(idx=${next[0]})}" class="next-title"
-        >[[${next[1]}]]</a
+        <a th:href="@{/notice/detail(idx=${prev[0]})}" class="next-title"
+        >[[${prev[1]}]]</a
         >
       </div>
     </div>
