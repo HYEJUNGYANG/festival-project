@@ -17,7 +17,9 @@ const imgColorData = {
   1: 'rgb(206, 232, 254)',
   2: 'rgb(222, 247, 255)',
   3: 'rgb(255, 231, 225)',
-  4: 'rgb(206, 232, 254)'
+  4: 'rgb(206, 232, 254)',
+  5: 'rgb(206, 232, 254)',
+  6: 'rgb(206, 232, 254)'
 };
 const sec = 6000;
 
@@ -46,6 +48,7 @@ function intervStart() {
 }
 
 function handlePrevImg() {
+  console.log(`왼쪽 버튼 클릭 했음!! ${imgNum}`);
   imgSlide.style.transform = `translateX(${0 - 45 * imgNum + 45}vw)`;
   imgSlide.style.transition = `0.8s`;
   conSlide.style.transform = `translateX(${0 - 22 * imgNum + 22}vw)`;
@@ -54,13 +57,14 @@ function handlePrevImg() {
   imgBg.style.backgroundColor = imgColorData[imgNum];
   imgBg.style.transition = `0.8s`;
   if (imgNum == 0) {
-    state.innerHTML = `03`;
+    state.innerHTML = `05`;
     return;
   }
   state.innerHTML = `0${imgNum}`;
 }
 
 function handleNextImg() {
+  console.log(`오른쪽 버튼 클릭 했음!! ${imgNum}`);
   imgSlide.style.transform = `translateX(${0 - 45 * (imgNum + 1)}vw)`;
   imgSlide.style.transition = `0.8s`;
   conSlide.style.transform = `translateX(${0 - 22 * (imgNum + 1)}vw)`;
@@ -128,7 +132,7 @@ leftBtn.addEventListener('click', () => {
       imgSlide.style.transition = `0s`;
       conSlide.style.transform = `translateX(-${22 * conSlideLength}vw)`;
       conSlide.style.transition = `0s`;
-      imgNum = 3;
+      imgNum = imgSlideLength;
       leftBtn.disabled = false;
     }, 800);
 

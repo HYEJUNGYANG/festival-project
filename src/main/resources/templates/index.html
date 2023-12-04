@@ -58,12 +58,12 @@
             <div class="show-container">
                 <div class="show-contents-align">
                     <div class="contents">
-                        <!-- 03 -->
+                        <!-- 05 -->
                         <div class="content-slider">
                             <div class="area">
                                 <p>부산</p>
                             </div>
-                            <div class="title">야경이 멋진<br />광안리 여행 - 03</div>
+                            <div class="title">야경이 멋진<br />광안리 여행 - 05</div>
                             <button class="btn-detail">
                                 <a href="/festival/detail">자세히 보기</a>
                             </button>
@@ -75,7 +75,7 @@
                             </div>
                             <div class="title">야경이 멋진<br />광안리 여행 - 01</div>
                             <button class="btn-detail">
-                                <a href="/festival/detail">자세히 보기</a>
+                                <a th:href="@{/festival/detail(idx='35')}">자세히 보기</a>
                             </button>
                         </div>
                         <!-- 02 -->
@@ -98,6 +98,26 @@
                                 <a href="/festival/detail">자세히 보기</a>
                             </button>
                         </div>
+                        <!-- 04 -->
+                        <div class="content-slider">
+                            <div class="area">
+                                <p>부산</p>
+                            </div>
+                            <div class="title">야경이 멋진<br />광안리 여행 - 04</div>
+                            <button class="btn-detail">
+                                <a th:href="@{/festival/detail(idx='34')}">자세히 보기</a>
+                            </button>
+                        </div>
+                        <!-- 05 -->
+                        <div class="content-slider">
+                            <div class="area">
+                                <p>부산</p>
+                            </div>
+                            <div class="title">야경이 멋진<br />광안리 여행 - 05</div>
+                            <button class="btn-detail">
+                                <a href="/festival/detail">자세히 보기</a>
+                            </button>
+                        </div>
                         <!-- 01 -->
                         <div class="content-slider">
                             <div class="area">
@@ -105,27 +125,33 @@
                             </div>
                             <div class="title">야경이 멋진<br />광안리 여행 - 01</div>
                             <button class="btn-detail">
-                                <a href="/festival/detail">자세히 보기</a>
+                                <a th:href="@{/festival/detail(idx='35')}">자세히 보기</a>
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="show-img-align">
                     <div class="show-img">
-                        <div class="img-slider" data-slide="3">
-                            <img th:src="@{/img/bg03.jpeg}" alt="bg03" />
+                        <div class="img-slider" data-slide="5">
+                            <img th:src="@{/img/thumb/IMG_7446.jpg}" alt="bg03" />
                         </div>
                         <div class="img-slider" data-slide="1">
-                            <img th:src="@{/img/bg01.jpeg}" alt="bg01" />
+                            <img th:src="@{/img/thumb/IMG_7441.jpg}" alt="bg01" />
                         </div>
                         <div class="img-slider" data-slide="2">
-                            <img th:src="@{/img/bg02.jpeg}" alt="bg02" />
+                            <img th:src="@{/img/thumb/IMG_7443.jpg}" alt="bg02" />
                         </div>
                         <div class="img-slider" data-slide="3">
-                            <img th:src="@{/img/bg03.jpeg}" alt="bg03" />
+                            <img th:src="@{/img/thumb/IMG_7448.jpg}" alt="bg03" />
+                        </div>
+                        <div class="img-slider" data-slide="4">
+                            <img th:src="@{/img/thumb/IMG_7445.jpg}" alt="bg03" />
+                        </div>
+                        <div class="img-slider" data-slide="5">
+                            <img th:src="@{/img/thumb/IMG_7446.jpg}" alt="bg03" />
                         </div>
                         <div class="img-slider" data-slide="1">
-                            <img th:src="@{/img/bg01.jpeg}" alt="bg01" />
+                            <img th:src="@{/img/thumb/IMG_7441.jpg}" alt="bg01" />
                         </div>
                     </div>
                 </div>
@@ -139,7 +165,7 @@
                         <div class="state-bar"></div>
                     </div>
                     <div class="control-state">
-                        <p><span class="state">01</span> / 03</p>
+                        <p><span class="state">01</span> / 05</p>
                     </div>
                 </div>
                 <div class="control-align">
@@ -148,7 +174,6 @@
                     </button>
                     <div class="control-btn">
                         <i class="fa-solid fa-pause"></i>
-                        <!-- <i class="fa-solid fa-play"></i> -->
                     </div>
                     <button class="control-right">
                         <i class="fa-solid fa-arrow-right"></i>

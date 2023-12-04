@@ -67,12 +67,12 @@ public class FestivalRepositoryCustomImpl implements FestivalRepositoryCustom{
             List<String> zones = (List<String>) map.get("area");
             if(zones != null) {
                 for(String zone : zones) {
-                    builder.or(festival.zone.eq(zone));
+                    builder.and(festival.zone.eq(zone));
                 }
             }
         }
-        builder.or(festival.name.contains(map.get("keyword").toString()));
-        builder.or(festival.detail.contains(map.get("keyword").toString()));
+        builder.and(festival.name.contains(map.get("keyword").toString())
+                .or(festival.detail.contains(map.get("keyword").toString())));
         if(!map.get("date").toString().isEmpty()) {
             builder.and(festival.start.loe(LocalDate.parse(map.get("date").toString())));
             builder.and(festival.end.goe(LocalDate.parse(map.get("date").toString())));

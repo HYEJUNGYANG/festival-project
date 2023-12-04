@@ -130,7 +130,6 @@ a {
 }
 
 .main .show-align .show-container .show-img {
-    cursor: pointer;
     /* width: 135vw; */
     display: flex;
 }

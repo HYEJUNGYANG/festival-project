@@ -35,7 +35,7 @@ li {
 .header {
     width: 100%;
     position: fixed;
-    z-index: 10;
+    z-index: 20;
     transition: 0.2s;
 }
 
