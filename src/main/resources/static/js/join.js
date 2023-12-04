@@ -3,13 +3,29 @@ const domainSel = document.querySelector('.select-email-domain');
 const inputDomain = document.querySelector('.other-domains');
 const btnDupli = document.querySelector('.btn-dupli');
 const idWarning = document.querySelector('.id-warning');
+const inputPw = document.querySelector('.input-pw');
+const inputPwCheck = document.querySelector('.input-pw-check');
+const pwWarning = document.querySelector('.pw-warning');
+const pwChkWarning = document.querySelector('.pw-check-warning');
 const pwShowBtn = document.querySelector('.pw-show');
 const pwCheckShowBtn = document.querySelector('.pw-check-show');
+const inputDate = document.querySelector('.input-date');
+const hiddenDate = document.querySelector('#hiddenDateField');
+const inputYear = document.querySelector('.input-birth-year');
+const inputMonth = document.querySelector('.input-birth-month');
+const inputDay = document.querySelector('.input-birth-day');
+const inputName = document.querySelector('.input-name');
+const inputNick = document.querySelector('.input-nick');
+const inputGender1 = document.querySelector('.input-gender1');
+const inputGender2 = document.querySelector('.input-gender2');
 const inputTel = document.querySelector('.input-tel');
+const totalWarning = document.querySelector('.total-warning');
 const btnJoin = document.querySelector('.btn-join');
 const btnClose = document.querySelector('.btn-close');
-
-function handlePwShow(element) {
+const birthWarning = document.querySelector('.birth-warning');
+const tot_war = document.querySelector('.total-warning');
+const id_pattern = /^[0-9a-z]$/;
+function handlePwShow(element) {  //
   const input = element.previousElementSibling;
   input.focus();
   if (input.type == 'password') {
@@ -38,7 +54,7 @@ pwCheckShowBtn.addEventListener('click', () => {
 
 btnClose.addEventListener('click', () => {
   if (
-    confirm('작성중인 내용을 모두 잃게됩니다. 이전 페이지로 이동하시겠습니까?')
+      confirm('작성중인 내용을 모두 잃게됩니다. 이전 페이지로 이동하시겠습니까?')
   ) {
     location.replace(document.referrer);
   }
@@ -47,8 +63,8 @@ btnClose.addEventListener('click', () => {
 // 전화번호 하이픈 표시
 inputTel.addEventListener('input', () => {
   inputTel.value = inputTel.value
-    .replace(/[^0-9]/g, '')
-    .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+      .replace(/[^0-9]/g, '')
+      .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
 });
 
 const xhr = new XMLHttpRequest();
@@ -56,17 +72,23 @@ const xhr = new XMLHttpRequest();
 let isIdCheck = false;
 // id 중복 체크 버튼 클릭시
 btnDupli.addEventListener('click', () => {
-  if (inputID.value.length == 0 || domainSel.options[domainSel.selectedIndex].value == 'none') {
+  if (inputID.value.length == 0 || domainSel.options[domainSel.selectedIndex].value == 'none' || (inputDomain.classList.contains('show') && id_pattern.test(inputDomain.value))) {
     alert('이메일을 입력해주세요!!');
     return;
   }
-  if (!/^[a-z0-9]{4,12}$/.test(inputID.value)) {
-    idWarning.style.visibility = "visible";
-    idWarning.innerHTML = "아이디는 영어, 숫자 조합 4-12자여야 합니다."
-    return;
-  }
+  // if (!/^[a-z0-9]{4,12}$/.test(inputID.value)) {
+  //   idWarning.style.visibility = "visible";
+  //   idWarning.innerHTML = "아이디는 영어, 숫자 조합 4-12자여야 합니다."
+  //   return;
+  // }
   idWarning.style.visibility = "hidden";
-  const id = `${inputID.value}@${domainSel.options[domainSel.selectedIndex].value}`;
+  let id = "";
+  if(domainSel.options[domainSel.selectedIndex].value != "otherDomains") {
+    id = `${inputID.value}@${domainSel.options[domainSel.selectedIndex].value}`;
+  }
+  else{
+    id = `${inputID.value}@${inputDomain.value}`;
+  }
   xhr.open('POST', '/join/check_id', true);
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.send(`id=${id}`);
@@ -76,15 +98,25 @@ btnDupli.addEventListener('click', () => {
         alert('중복된 아이디가 존재합니다!!');
         idWarning.innerHTML = '중복된 아이디가 존재합니다!!';
       }
-      else {
-        if (confirm(`사용 가능한 아이디 입니다!!👋🏻 [${inputID.value}@${domainSel.options[domainSel.selectedIndex].value}] 이 아이디를 사용하시겠습니까?`)) {
-          inputID.disabled = true;
-          domainSel.disabled = true;
-          isIdCheck = true;
+      else { //추후 수정 필요함
+        if(inputDomain.classList.contains('show') == false) {
+          if (confirm(`사용 가능한 아이디 입니다!!👋🏻 [${inputID.value}@${domainSel.options[domainSel.selectedIndex].value}] 이 아이디를 사용하시겠습니까?`)) {
+            inputID.disabled = true;
+            domainSel.disabled = true;
+            isIdCheck = true;
+          }
+        }
+        else{
+          if (confirm(`사용 가능한 아이디 입니다!!👋🏻 [${inputID.value}@${inputDomain.value}] 이 아이디를 사용하시겠습니까?`)) {
+            inputID.disabled = true;
+            domainSel.disabled = true;
+            isIdCheck = true;
+          }
         }
         idWarning.innerHTML = '';
       }
     }
+
     else if (xhr.status == 500){
       alert('실패하였습니다!');
     }
@@ -102,20 +134,18 @@ btnDupli.addEventListener('click', () => {
 
 document.querySelector(".input-id").addEventListener("keyup", function() {
   // 아이디 패턴 정규식
-  var idPattern = /^[a-z0-9]{4,12}$/; //영어 및 숫자,4~12자
+  // var idPattern = /^[a-z0-9]{4,12}$/; //영어 및 숫자,4~12자
 
   // 입력한 아이디를 가져옵니다.
   var id = this.value;
 
-  // 아이디 경고 메시지 DOM을 가져옵니다.
-  var idWarning = document.querySelector(".id-warning");
 
   // 입력한 아이디가 패턴에 맞지 않으면 경고 메시지를 보이게 하고, 그렇지 않으면 숨깁니다.
-  if (idPattern.test(id)) {
-    idWarning.style.visibility = "hidden";
-  }
+  // if (idPattern.test(id)) {
+  //   idWarning.style.visibility = "hidden";
+  // }
   // 아이디를 입력하면 경고를 없앱니다.
-  else if(id != ""){
+  if(id != ""){
     idWarning.style.visibility = "hidden";
   }
   // 아이디가 공백이면 경고를 띄웁니다.
@@ -126,11 +156,10 @@ document.querySelector(".input-id").addEventListener("keyup", function() {
 });
 document.querySelector(".other-domains").addEventListener("keyup", function() {
 
-  var idWarning = document.querySelector(".id-warning");
 
-  var email = document.querySelector(".select-email-domain").value;
+  var email = domainSel.value;
 
-  var email_other = document.querySelector(".other-domains").value;
+  var email_other = inputDomain.value;
 
 
   if (email == "" || email == "otherDomains") { //email 공백이면
@@ -148,12 +177,9 @@ document.querySelector(".other-domains").addEventListener("keyup", function() {
 
 document.querySelector(".select-email-domain").addEventListener('change', function(event) {
 
-  var idWarning = document.querySelector(".id-warning");
 
-  var email = document.querySelector(".select-email-domain").value;
-
-  var email_other = document.querySelector(".other-domains").value;
-
+  var email_other = inputDomain.value;
+  var email = domainSel.value;
 
   if (email == "" || email == "otherDomains") { //email 공백이면
     if (email_other == "") {
@@ -174,15 +200,12 @@ document.querySelector(".select-email-domain").addEventListener('change', functi
 <!--=======================================-->
 <!--===============pw 패턴에 맞추면 경고문 사라짐 start===============-->
 <!--=======================================-->
-document.querySelector(".input-pw").addEventListener("keyup", function() {
+inputPw.addEventListener("keyup", function() {
   // 비밀번호 패턴 정규식
   var pwPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
 
   // 입력한 비밀번호를 가져옵니다.
   var pw = this.value;
-
-  // 비밀번호 경고 메시지 DOM을 가져옵니다.
-  var pwWarning = document.querySelector(".pw-warning");
 
   // 입력한 비밀번호가 패턴에 맞지 않으면 경고 메시지를 보이게 하고, 그렇지 않으면 숨깁니다.
   if (pwPattern.test(pw)) {
@@ -196,21 +219,20 @@ document.querySelector(".input-pw").addEventListener("keyup", function() {
 <!--=======================================-->
 <!--===============pw chk 실시간 반영 start===============-->
 <!--=======================================-->
-document.querySelector(".input-pw-check").addEventListener("keyup", function() {
+inputPwCheck.addEventListener("keyup", function() {
   // 비밀번호를 가져옵니다.
-  var pw = document.querySelector(".input-pw").value;
+  var pw = inputPw.value;
   // 비밀번호 확인 값.
   var pw_chk = this.value;
   // 비밀번호 경고 메시지 DOM을 가져옵니다.
-  var pwchkWarning = document.querySelector(".pw-check-warning");
 
   // 입력한 비밀번호가 패턴에 맞지 않으면 경고 메시지를 보이게 하고, 그렇지 않으면 숨깁니다.
   if (pw_chk == pw) {
-    pwchkWarning.style.visibility = "hidden";
+    pwChkWarning.style.visibility = "hidden";
   }
   else{
-    pwchkWarning.style.visibility = "visible";
-    pwchkWarning.innerText = "입력한 비밀번호와 똑같이 적어주세요.";
+    pwChkWarning.style.visibility = "visible";
+    pwChkWarning.innerText = "입력한 비밀번호와 똑같이 적어주세요.";
   }
 });
 <!--=======================================-->
@@ -222,7 +244,6 @@ document.querySelector(".input-pw-check").addEventListener("keyup", function() {
 <!--=======================================-->
 
 var birthes = document.querySelectorAll('.input-birth-year, .input-birth-month');
-var birthWarning = document.querySelector(".birth-warning");
 birthes.forEach(function(element) {
   element.addEventListener('change', function(event) {
     if (element.value == "") {
@@ -238,7 +259,6 @@ document.querySelector(".input-birth-day").addEventListener("keyup", function() 
   // 비밀번호를 가져옵니다.
   var day = document.querySelector(".input-birth-day").value;
   // 비밀번호 경고 메시지 DOM을 가져옵니다.
-  var birthWarning = document.querySelector(".birth-warning");
 
   // 입력한 비밀번호가 패턴에 맞지 않으면 경고 메시지를 보이게 하고, 그렇지 않으면 숨깁니다.
   if (day != "") {
@@ -256,7 +276,6 @@ document.querySelector(".input-birth-day").addEventListener("keyup", function() 
 <!--===============total chk 실시간 반영 start===============-->
 <!--=======================================-->
 var total = document.querySelectorAll('.input-name, .input-nick, .input-gender1, .input-gender2, .input-tel');
-var tot_war = document.querySelector(".total-warning");
 total.forEach(function(element) {
   element.addEventListener('keyup', function() {
     if (element.value == "") {
@@ -277,36 +296,36 @@ document.querySelector("#joinform").addEventListener("submit", function(event) {
 
   <!--===============id+email 합치기+id check start===============-->
 
-  var id = document.querySelector(".input-id").value;
+  var id = inputID.value;
 
-  var email = document.querySelector(".select-email-domain").value;
+  var email = domainSel.value;
 
-  var email_other = document.querySelector(".other-domains").value;
+  var email_other = inputDomain.value;
   // 아이디 패턴 정규식
-  var idPattern = /^[a-z0-9]{4,12}$/; //영어 및 숫자,4~12자
+  // var idPattern = /^[a-z0-9]{4,12}$/; //영어 및 숫자,4~12자
 
-  var idWarning = document.querySelector(".id-warning");
+
 
   if (id == "") { //id 입력안했을때
     idWarning.style.visibility = "visible";
-    $(".input-id").focus();
+    inputID.focus();
 
     return false;
   }
 
-  if (!idPattern.test(id)) { //회원가입 눌렀을때 id패턴이 안맞으면
-    idWarning.style.visibility = "visible";
-    idWarning.innerText = "아이디는 영어, 숫자 조합 4-12자여야 합니다.";
-    $(".input-id").focus();
-
-    return false;
-  }
+  // if (!idPattern.test(id)) { //회원가입 눌렀을때 id패턴이 안맞으면
+  //   idWarning.style.visibility = "visible";
+  //   idWarning.innerText = "아이디는 영어, 숫자 조합 4-12자여야 합니다.";
+  //   inputID.focus();
+  //
+  //   return false;
+  // }
 
   if (email == "" || email == "otherDomains") { //email 공백이면
     if(email_other == ""){
       idWarning.style.visibility = "visible";
       idWarning.innerText = "이메일을 입력해 주세요.";
-      $(".input-id").focus();
+      inputID.focus();
 
       return false;
     }
@@ -314,45 +333,46 @@ document.querySelector("#joinform").addEventListener("submit", function(event) {
   }
 
   //아이디+이메일 합치기
-  var u_id = id + "@" + email;
-  console.log(u_id);
+  if(email == "otherDomains") {
+    var u_id = id + "@" + email_other;
+    console.log(u_id);
+  }
+  else{
+    var u_id = id + "@" + email;
+    console.log(u_id);
+  }
 
   document.querySelector("#hiddenIdField").value = u_id;
 
   <!--===============id+email 합치기+id check end===============-->
   <!--===============pw check start===============-->
-  var pw = document.querySelector(".input-pw").value;
+  var pw = inputPw.value;
 
-  var pw_chk = document.querySelector(".input-pw-check").value;
+  var pw_chk = inputPwCheck.value;
 
-  var pwWarning = document.querySelector(".pw-warning");
-
-  var pw_chk_war = document.querySelector(".pw-check-warning");
   // 비밀번호 패턴 정규식
   var pwPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
 
   if (!pwPattern.test(pw)) {
     pwWarning.style.visibility = "visible";
     pwWarning.innerText = "비밀번호는 영어, 숫자, 특수문자 조합 8-16자여야 합니다.";
-    $(".input-pw").focus();
+    pwWarning.focus();
 
     return false;
   }
 
   if (pw != pw_chk) {
-    $(".input-pw-check").focus();
-    pw_chk_war.style.visibility = "visible";
-    pw_chk_war.innerText = "입력한 비밀번호와 똑같이 적어주세요.";
+    inputPwCheck.focus();
+    pwChkWarning.style.visibility = "visible";
+    pwChkWarning.innerText = "입력한 비밀번호와 똑같이 적어주세요.";
     return false;
   }
   <!--=============== pw check end ===============-->
 
   <!--===============name,nick check start===============-->
-  var name = document.querySelector(".input-name").value;
+  var name = inputName.value;
 
-  var nick = document.querySelector(".input-nick").value;
-
-  var tot_war = document.querySelector(".total-warning");
+  var nick = inputNick.value;
 
   if (name == "" || nick == "") {
     tot_war.style.visibility = "visible";
@@ -365,11 +385,11 @@ document.querySelector("#joinform").addEventListener("submit", function(event) {
 
   <!--===============birth date type으로 바꾸기+check start===============-->
 
-  var year = document.querySelector(".input-birth-year").value;
+  var year = inputYear.value;
 
-  var month = document.querySelector(".input-birth-month").value;
+  var month = inputMonth.value;
 
-  var day = document.querySelector(".input-birth-day").value;
+  var day = inputDay.value;
 
   var birthPattern = /^[0-9]+$/;
 
@@ -379,56 +399,48 @@ document.querySelector("#joinform").addEventListener("submit", function(event) {
 
   var currentDay = new Date().getDate(); // 현재 일을 가져옵니다.
 
-  var birth_war = document.querySelector(".birth-warning");
-
   month = month.padStart(2, '0');
   day = day.padStart(2, '0');
   var dateString = year + '-' + month + '-' + day;
 
   if (year > currentYear || !birthPattern.test(year)) {
-    birth_war.style.visibility = "visible";
-    birth_war.innerText = "연도가 잘못되었습니다. 다시 입력해주세요.";
-    $(".input-date").focus();
+    birthWarning.style.visibility = "visible";
+    birthWarning.innerText = "연도가 잘못되었습니다. 다시 입력해주세요.";
 
     return false;
   }
   else{
     if (month > currentMonth+1) {
-      birth_war.style.visibility = "visible";
-      birth_war.innerText = "월이 잘못 되었습니다. 다시 입력해주세요.";
-      $(".input-date").focus();
+      birthWarning.style.visibility = "visible";
+      birthWarning.innerText = "월이 잘못 되었습니다. 다시 입력해주세요.";
 
       return false;
     }else if(month == currentMonth+1){
       if (day > currentDay || !birthPattern.test(day)) {
-        birth_war.style.visibility = "visible";
-        birth_war.innerText = "일이 잘못 되었습니다. 다시 입력해주세요.";
-        $(".input-date").focus();
+        birthWarning.style.visibility = "visible";
+        birthWarning.innerText = "일이 잘못 되었습니다. 다시 입력해주세요.";
 
         return false;
       }
     }else {
       if (day > 31 || !birthPattern.test(day)) {
-        birth_war.style.visibility = "visible";
-        birth_war.innerText = "일이 잘못 되었습니다. 다시 입력해주세요.";
-        $(".input-date").focus();
+        birthWarning.style.visibility = "visible";
+        birthWarning.innerText = "일이 잘못 되었습니다. 다시 입력해주세요.";
 
         return false;
       }
     }
   }
-  document.querySelector("#hiddenDateField").value = dateString;
+  hiddenDate.value = dateString;
 
   <!--===============birth date type으로 바꾸기 end===============-->
 
   <!--===============gender,tel check start===============-->
-  var gender1 = document.querySelector(".input-gender1").value;
+  var gender1 = inputGender1.value;
 
-  var gender2 = document.querySelector(".input-gender2").value;
+  var gender2 = inputGender2.value;
 
-  var tel = document.querySelector(".input-tel").value;
-
-  var tot_war = document.querySelector(".total-warning");
+  var tel = inputTel.value;
 
   if (gender1 == "" || gender2 == "" || tel == "" ) {
     tot_war.style.visibility = "visible";
