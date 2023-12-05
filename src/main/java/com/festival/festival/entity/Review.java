@@ -19,32 +19,25 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
-    @NonNull
-    @Column(length = 50)
+    @Column(length = 50, nullable = false)
     private String e_name;//체험명
 
-    @NonNull
-    @Column(length = 150)
+    @Column(length = 150, nullable = false)
     private String content;//리뷰내용
 
-    @NonNull
-    @Column
+    @Column(nullable = false)
     private Long e_idx;//체험 idx;
 
-    @NonNull
     @CreatedDate
-    @Column
+    @Column(nullable = false)
     private LocalDate date;//리뷰 작성 날짜
 
-    @NonNull
-    @Column
+    @Column(nullable = false)
     private int star;//별점
 
-    @NonNull
-    @Column(length = 10)
+    @Column(length = 10, nullable = false)
     private String u_nick;
 
-    @NonNull
-    @Column(length = 30)
+    @Column(length = 30, nullable = false)
     private String u_id; // 유저 아이디!! 가져올 값이 필요함
 }

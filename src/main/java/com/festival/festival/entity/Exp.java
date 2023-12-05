@@ -17,20 +17,16 @@ public class Exp {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
-    @NonNull
-    @Column(length = 50)
+    @Column(length = 50, nullable = false)
     private String name;
 
-    @NonNull
-    @Column(length = 2)
+    @Column(length = 2, nullable = false)
     private String zone;//시,도
 
-    @NonNull
-    @Column(length = 20)
+    @Column(length = 20, nullable = false)
     private String l_name;//구
 
-    @NonNull
-    @Column(length = 1000)
+    @Column(length = 1000, nullable = false)
     private String detail;
 
     @Column(length = 250, nullable = false)
@@ -40,44 +36,34 @@ public class Exp {
     private String filepath;
 
 
-    @NonNull
-    @Column(length = 200)
+    @Column(length = 200, nullable = false)
     private String place;//장소
 
-    @NonNull
-    @Column(length = 1000)
+    @Column(length = 1000, nullable = false)
     private String content;
 
-    @NonNull
-    @Column(length = 1000)
+    @Column(length = 1000, nullable = false)
     private String warning;
 
-    @NonNull
-    @Column(length = 13)
+    @Column(length = 13, nullable = false)
     private String tel;//문의번호
 
-    @NonNull
-    @Column(length = 100)
+    @Column(length = 100, nullable = false)
     private String link;//홈페이지
 
-    @NonNull
-    @Column(length = 11)
+    @Column(length = 11, nullable = false)
     private String time;//이용시간
 
-    @NonNull
-    @Column
+    @Column(nullable = false)
     private int price;
 
-    @NonNull
-    @Column(length = 100)
+    @Column(length = 100, nullable = false)
     private String tag;
 
-    @NonNull
-    @Column
+    @Column(nullable = false)
     private double latitude;//위도
 
-    @NonNull
-    @Column
+    @Column(nullable = false)
     private double hardness;//경도
 
     @Column(nullable = false)

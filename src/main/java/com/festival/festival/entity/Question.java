@@ -20,32 +20,26 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
-    @NonNull
-    @Column(length = 300)
+    @Column(length = 300, nullable = false)
     private String title;
 
-    @NonNull
-    @Column(length = 1000)
+    @Column(length = 1000, nullable = false)
     private String q_content;
 
-    @NonNull
-    @Column
+
+    @Column(nullable = false)
     private LocalDate date;
 
-    @NonNull
-    @Column(length = 10)
+    @Column(length = 10, nullable = false)
     private String u_nick;
 
-    @NonNull
-    @Column(length = 30)
+    @Column(length = 30, nullable = false)
     private String u_id;
 
-    @NonNull
-    @Column(length = 1)
+    @Column(length = 1, nullable = false)
     private char yn;
 
-    @NonNull
-    @Column(length = 1)
+    @Column(length = 1, nullable = false)
     private char priv;
 
     // join

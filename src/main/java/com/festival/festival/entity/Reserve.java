@@ -24,57 +24,44 @@ public class Reserve {
     @Column(name="reserve_num")
     private int num; //랜덤8자리 숫자
 
-    @NonNull
-    @Column(length = 10)
+    @Column(length = 10, nullable = false)
     private String u_name;//예약자명
 
-    @NonNull
-    @Column(length = 30)
+    @Column(length = 30, nullable = false)
     private String u_id;//예약자id
 
-    @NonNull
-    @Column(length = 13)
+    @Column(length = 13, nullable = false)
     private String u_tel;//번호(유저)
 
-    @NonNull
-    @Column(length = 50)
+    @Column(length = 50, nullable = false)
     private String e_name;//체험명
 
-    @NonNull
-    @Column
+    @Column(nullable = false)
     private Long e_idx;// 체험 idx
 
-    @NonNull
-    @Column
+    @Column(nullable = false)
     private LocalDate date;//체험하는날짜
 
-    @NonNull
     @CreatedDate
-    @Column(name = "now_date",updatable = false)
+    @Column(name = "now_date",updatable = false, nullable = false)
     private LocalDateTime now_date;
 
-    @NonNull
-    @Column(length = 4)
+    @Column(length = 4, nullable = false)
     private String state;//예약상태
 
-    @NonNull
-    @Column(length = 8)
+    @Column(length = 8, nullable = false)
     private String pay;//결제수단
 
-    @NonNull
-    @Column
+    @Column(nullable = false)
     private int total;//결제금액
 
-    @NonNull
-    @Column(length = 1)
+    @Column(length = 1, nullable = false)
     private char review;//리뷰 y or n
 
-    @NonNull
-    @Column
+    @Column(nullable = false)
     private int count;//인원수
 
-    @NonNull
-    @Column
+    @Column(nullable = false)
     private int e_price;//이용요금(체험)
 
 }

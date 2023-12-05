@@ -19,8 +19,7 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
-    @NonNull
-    @Column(length = 1000)
+    @Column(length = 1000, nullable = false)
     private String a_content;//답변내용
 
     @CreatedDate
