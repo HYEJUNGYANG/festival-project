@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>마이페이지 - 예약 상세</title>
     <link rel="stylesheet" th:href="@{/css/mypage/mypage-reservation-detail.css}" />
-    <link rel="icon" type="image/ico" th:href="@{/img/icon/favicon.ico}">
     <script defer th:src="@{/js/mypage/mypage-reservation-detail.js}"></script>
   </head>
   <body>
@@ -14,56 +13,60 @@
     </header>
     <div class="main-container">
       <div class="main-align">
+
         <div class="r-num-con">
           <p class="r-num">예약 번호</p>
-          <p class="r-num-value">11231234</p>
+          <p class="r-num-value">[[${dto.num}]]</p>
         </div>
-        <a href="#" class="e-info-con">
+        <a class="e-info-con">
           <div class="e-img">
             <img th:src="@{/img/bg01.jpeg}" alt="" />
           </div>
           <div class="info-con">
-            <p class="e-name">제35회 춘천인형극제</p>
+            <p class="e-name">[[${dto.e_name}]]</p>
             <div class="e-date-con">
               <p class="e-date">체험날짜</p>
-              <p class="e-date-value">2023.11.17</p>
+              <p class="e-date-value">[[${dto.date}]]</p>/<p class="r-state">[[${dto.state}]]</p>
             </div>
           </div>
         </a>
         <div class="r-detail-info-con">
           <div class="r-name-con">
             <p class="r-name">예약자명:</p>
-            <p class="r-name-value">양혜정</p>
+            <p class="r-name-value">[[${dto.u_name}]]</p>
           </div>
           <div class="r-tel-con">
             <p class="r-tel">전화번호:</p>
-            <p class="r-tel-value">010-1234-5678</p>
+            <p class="r-tel-value">[[${dto.u_tel}]]</p>
           </div>
           <div class="r-pay-con">
             <p class="r-pay">체험료:</p>
-            <p class="r-pay-value">6,500원</p>
+            <p class="r-pay-value">[[${#numbers.formatInteger(dto.e_price, 3, 'COMMA')}]]원</p>
           </div>
           <div class="r-people-con">
             <p class="r-people">인원수:</p>
-            <p class="r-people-value">2인</p>
+            <p class="r-people-value">[[${dto.count}]]인</p>
           </div>
           <div class="r-total-con">
             <p class="r-total">결제금액:</p>
-            <p class="r-total-value">13,000원</p>
+            <p class="r-total-value">[[${#numbers.formatInteger(dto.total, 3, 'COMMA')}]]원</p>
           </div>
           <div class="r-method-con">
             <p class="r-method">결제수단:</p>
-            <p class="r-method-value">신용카드</p>
+            <p class="r-method-value">[[${dto.pay}]]</p>
           </div>
           <div class="r-date-con">
             <p class="r-date">결제날짜:</p>
-            <p class="r-date-value">2023.11.15</p>
+            <p class="r-date-value">[[${#temporals.format(dto.now_date, 'yyyy-MM-dd HH:mm:ss')}]]</p>
           </div>
+
         </div>
+
         <div class="btn-con">
-          <button class="btn-cancel">취소 요청</button>
+          <button th:unless="${dto.getState().equals('취소요청')} or ${dto.getState().equals('체험완료')}"  th:data-num="${dto.num}" class="btn-cancel">취소 요청</button>
           <button class="btn-close">닫기</button>
         </div>
+        </form>
       </div>
     </div>
   </body>

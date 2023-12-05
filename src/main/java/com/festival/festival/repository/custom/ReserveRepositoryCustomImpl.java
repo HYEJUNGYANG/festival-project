@@ -2,11 +2,13 @@ package com.festival.festival.repository.custom;
 
 import com.festival.festival.dto.ReserveDTO;
 import com.festival.festival.entity.QReserve;
+import com.festival.festival.entity.Reserve;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ReserveRepositoryCustomImpl implements ReserveRepositoryCustom{
     @PersistenceContext
@@ -26,6 +28,62 @@ public class ReserveRepositoryCustomImpl implements ReserveRepositoryCustom{
                 .set(reserve.state, dto.getState())
                 .where(reserve.num.eq(dto.getNum()))
                 .execute();
+    }
+
+    @Override
+    public void modifyReviewYon(ReserveDTO dto) {
+        queryFactory
+                .update(reserve)
+                .set(reserve.review,('y'))
+                .where(reserve.num.eq(dto.getNum()))
+                .execute();
+    }
+
+    @Override
+    public void modifyCancel(int num) {
+        queryFactory
+                .update(reserve)
+                .set(reserve.state, "취소요청")
+                .where(reserve.num.eq(num))
+                .execute();
+    }
+
+    @Override
+    public Optional<Reserve> getList(int num) {
+        Reserve reserve = queryFactory
+                .select(this.reserve)
+                .from(this.reserve)
+                .where(this.reserve.num.eq(num))
+                .fetchFirst();
+        return Optional.ofNullable(reserve);
+    }
+
+    @Override
+    public List<Reserve> findById(String id) {
+        return queryFactory
+                .selectFrom(reserve)
+                .where(reserve.u_id.eq(id))
+                .fetch();
+    }
+
+    @Override
+    public Long countBystate(String cancel, String fin) {
+        return queryFactory
+                .selectFrom(reserve)
+                .where(reserve.state.ne(cancel))
+                .where(reserve.state.ne(fin))
+                .fetchCount();
+    }
+
+    @Override // idx를 기준, desc로 3개의 데이터를 꺼내옴
+    public List<Reserve> findTop3ByOrderByIdDesc(String cancel) {
+        List<Reserve> dto = queryFactory
+                .selectFrom(reserve)
+                .where(reserve.state.eq(cancel))
+                .orderBy(reserve.now_date.desc())
+                .limit(3)
+                .fetch();
+        return dto;
     }
 
     @Override

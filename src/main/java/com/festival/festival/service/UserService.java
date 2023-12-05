@@ -9,6 +9,7 @@ import com.festival.festival.entity.User;
 public interface UserService {
     UserDTO read(String id);
     PageResultDTO<UserDTO, User> getList(PageRequestDTO requestDTO);
+    Long count();
 
     default User dtoToEntity(UserDTO dto) {
         User entity = User.builder()
@@ -38,5 +39,7 @@ public interface UserService {
                 .build();
         return dto;
     }
+
+    void modify_nick_tel(String id, String nick, String tel);
 
 }

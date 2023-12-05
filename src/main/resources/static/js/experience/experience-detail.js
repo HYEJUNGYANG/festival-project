@@ -2,6 +2,7 @@ const likeBtn = document.querySelector('.like');
 const btnReservation = document.querySelector('.btn-re');
 const scrollBtn = document.querySelector('.scroll');
 const modifyBtns = document.querySelectorAll('.btn-modify');
+const btnDeletes = document.querySelectorAll('.btn-del');
 
 // db에 넘기기 전에는 like 여부 알 수 없으니 테스트용으로 변수 생성
 let isLike = false;
@@ -49,11 +50,21 @@ modifyBtns.forEach(modify => {
     const popWidth = 650;
     const popHeight = 500;
     open(
-      '/mypage/review/write',
+        `/mypage/review/modify?idx=${modify.dataset.idx}`,
       'review',
       `resizable=no width=${popWidth}, height=${popHeight} top=${
         height / 2 - popHeight / 2
       } left=${width / 2 - popWidth / 2}`
     );
   });
+});
+
+btnDeletes.forEach((btnDelete, idx) => {
+  btnDelete.addEventListener('click', () => {
+
+    const idx = btnDelete.dataset.idx;
+    if (confirm('정말 삭제하시겠습니까?')) {
+      location.href = `/mypage/review/delete?idx=${idx}`;
+    }
+  })
 });

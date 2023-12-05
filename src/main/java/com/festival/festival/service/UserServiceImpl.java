@@ -29,6 +29,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Long count() {
+        Long userCount = userRepository.count();
+        return userCount;
+    }
+
+    @Override //닉네임, 전화번호 정보 수정
+    public void modify_nick_tel(String id, String nick, String tel) {
+        userRepository.modifyById(id,nick,tel);
+    }
+
+    @Override
     public UserDTO read(String id) {
         Optional<User> result = userRepository.findById(id);
 

@@ -8,6 +8,15 @@ addEventListener('keydown', e => {
   }
 });
 
+if (btnCancel != null) {
+  btnCancel.addEventListener('click', () => {
+    const num = btnCancel.dataset.num;
+    if (confirm('취소요청 하시겠습니까?')) {
+      location.href = `/mypage/reservation/cancel?num=${num}`;
+    }
+  })
+}
+
 btnClose.addEventListener('click', () => {
   window.close();
 });

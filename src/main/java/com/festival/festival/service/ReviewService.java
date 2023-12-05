@@ -18,6 +18,8 @@ public interface ReviewService {
 
     List<Review> getList(Long idx);
 
+    List<Review> selectReview(String id);
+
     default Review dtoToEntity(ReviewDTO dto) {
         Review entity = Review.builder()
                 .idx(dto.getIdx())
@@ -25,6 +27,7 @@ public interface ReviewService {
                 .content(dto.getContent())
                 .e_idx(dto.getE_idx())
                 .star(dto.getStar())
+                .u_id(dto.getU_id())
                 .u_nick(dto.getU_nick())
                 .date(dto.getDate())
                 .build();
@@ -39,6 +42,7 @@ public interface ReviewService {
                 .content(entity.getContent())
                 .e_idx(entity.getE_idx())
                 .star(entity.getStar())
+                .u_id(entity.getU_id())
                 .u_nick(entity.getU_nick())
                 .date(entity.getDate())
                 .build();
@@ -46,4 +50,8 @@ public interface ReviewService {
     }
 
     void deleteReview(Long idx);
+
+    void insertReview(ReviewDTO dto);
+
+    void updateReview(ReviewDTO dto);
 }

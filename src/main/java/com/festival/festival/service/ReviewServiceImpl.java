@@ -50,9 +50,23 @@ public class ReviewServiceImpl implements ReviewService {
         return dto;
     }
 
-    public void deleteReview(Long idx) {
+    @Override
+    public List<Review> selectReview(String id) {
+        return reviewRepository.findListById(id);
+    }
 
+    public void deleteReview(Long idx) {
         reviewRepository.deleteById(idx);
+    }
+
+    @Override
+    public void insertReview(ReviewDTO dto) {
+        reviewRepository.InsertReview(dto);
+    }
+
+    @Override
+    public void updateReview(ReviewDTO dto) {
+        reviewRepository.updateReview(dto);
     }
 
 }

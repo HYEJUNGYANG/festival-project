@@ -50,13 +50,51 @@ public class ReserveServiceImpl implements ReserveService{
     }
 
     @Override
+    public Long count(String state, String state2) {
+        Long reserveCount = reserveRepository.countBystate(state,state2);
+
+        return reserveCount;
+    }
+
+    @Override
+    public List<Reserve> getTop3List(String cancel) {
+        List<Reserve> dto = null;
+
+        dto = reserveRepository.findTop3ByOrderByIdDesc(cancel);
+
+        return dto;
+    }
+
+    @Override
+    public ReserveDTO getList(int num) {
+        Optional<Reserve> result = reserveRepository.getList(num);
+
+        return result.isPresent()? entityToDto(result.get()): null;
+    }
+
+    @Override
     public void modifyReserve(ReserveDTO dto){
         reserveRepository.modifyById(dto);
     }
 
     @Override
+    public void modifyReviewYon(ReserveDTO dto) {
+        reserveRepository.modifyReviewYon(dto);
+    }
+
+    @Override
+    public void modifyCancel(int num) {
+        reserveRepository.modifyCancel(num);
+    }
+
+    @Override
     public List<Integer> getNumList() {
         return reserveRepository.getNumList();
+    }
+
+    @Override
+    public List<Reserve> selectReserve(String id) {
+        return reserveRepository.findById(id);
     }
 
 

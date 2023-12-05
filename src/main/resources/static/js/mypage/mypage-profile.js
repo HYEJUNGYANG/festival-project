@@ -9,6 +9,7 @@ function handleInputActive(element) {
   const isModify = input.classList.contains('modify');
   input.readOnly = isModify ? true : false;
   element.innerHTML = isModify ? '수정' : '확인';
+  element.setAttribute('type', isModify ? 'submit' : 'button'); // 버튼 누를때마다 submit과 button으로 type변경
   input.classList.toggle('modify');
 }
 

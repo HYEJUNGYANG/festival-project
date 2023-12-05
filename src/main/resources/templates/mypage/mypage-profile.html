@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>마이페이지 - 정보 수정</title>
     <link rel="stylesheet" th:href="@{/css/mypage/mypage-profile.css}" />
-    <link rel="icon" type="image/ico" th:href="@{/img/icon/favicon.ico}">
     <script defer th:src="@{/js/mypage/mypage-profile.js}"></script>
   </head>
   <body>
@@ -34,32 +33,36 @@
           <div class="input-con">
             <div class="id-con">
               <span>아이디</span>
-              <p>test@naver.com</p>
+              <p>[[${dto.id}]]</p>
             </div>
             <div class="name-con">
               <span>이름</span>
-              <p>양혜정</p>
+              <p> [[${dto.name}]]</p>
             </div>
             <div class="birth-con">
               <span>생년월일</span>
-              <p>2000.01.07</p>
+              <p>[[${dto.birth}]]</p>
             </div>
-            <div class="nick-con">
-              <span>닉네임</span>
-              <input readonly type="text" class="input-nick" value="닉네임" />
-              <button class="btn-nick-modify">수정</button>
-            </div>
-            <div class="tel-con">
-              <span>전화번호</span>
-              <input
-                readonly
-                type="tel"
-                class="input-tel"
-                maxlength="13"
-                value="010-1234-5678"
-              />
-              <button class="btn-tel-modify">수정</button>
-            </div>
+            <form th:action="@{/mypage/profile_modify}" method="post"> <!--form 추가-->
+
+              <div class="nick-con">
+                <span>닉네임</span>
+                <input readonly type="text" class="input-nick" name="nick" th:value="${dto.nick}" />
+                <button class="btn-nick-modify" type="button">수정</button>
+              </div>
+              <div class="tel-con">
+                <span>전화번호</span>
+                <input
+                        readonly
+                        type="tel"
+                        class="input-tel"
+                        maxlength="13"
+                        name="tel"
+                        th:value="${dto.tel}"
+                />
+                <button class="btn-tel-modify" type="button">수정</button>
+              </div>
+            </form> <!--form 추가-->
             <button class="btn-pw-change">비밀번호 변경하기</button>
           </div>
         </div>
