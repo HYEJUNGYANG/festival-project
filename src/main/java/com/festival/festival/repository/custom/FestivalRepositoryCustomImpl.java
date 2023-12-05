@@ -88,4 +88,14 @@ public class FestivalRepositoryCustomImpl implements FestivalRepositoryCustom{
 
         return festivalDTO;
     }
+
+    @Override
+    public List<Festival> findTop3ByOrderByIdDesc() {
+        List<Festival> dto = queryFactory
+                .selectFrom(festival)
+                .orderBy(festival.idx.desc())
+                .limit(3)
+                .fetch();
+        return dto;
+    }
 }

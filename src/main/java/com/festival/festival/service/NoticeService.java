@@ -53,4 +53,6 @@ public interface NoticeService {
 
     void modifyNotice(NoticeDTO dto);
 
+    Long update(Long idx, NoticeDTO dto, MultipartFile file) throws IOException;
+
 }

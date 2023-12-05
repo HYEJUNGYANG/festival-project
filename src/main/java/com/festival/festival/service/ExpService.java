@@ -17,6 +17,8 @@ public interface ExpService {
     PageResultDTO<ExpDTO, Exp> getList(PageRequestDTO requestDTO);
     List<Exp> getList(String zone);
 
+    Long update(Long idx, ExpDTO dto, MultipartFile file) throws IOException;
+
     void modifyCount(Long count, Long idx);
 
     default Exp dtoToEntity(ExpDTO dto) {
@@ -68,9 +70,14 @@ public interface ExpService {
         return dto;
     }
 
+    Long count();
+
     void insertExp(Exp exp);
 
     void deleteExp(Long idx);
 
     void modifyExp(ExpDTO dto);
+
+    //최신 게시글 3개 꺼내오기
+    public List<Exp> getTop3List();
 }

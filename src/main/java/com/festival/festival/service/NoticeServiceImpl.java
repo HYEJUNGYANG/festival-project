@@ -42,9 +42,10 @@ public class NoticeServiceImpl implements NoticeService {
     public Long join(NoticeDTO dto, MultipartFile file) throws IOException {
         /*우리의 프로젝트경로를 담아주게 된다 - 저장할 경로를 지정*/
         // 윈도우 경로
-//        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+//        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files\\notice";
         // 맥북 경로
-        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files/";
+        // 맥북 경로
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files/notice";
 
         /*식별자 . 랜덤으로 이름 만들어줌*/
         UUID uuid = UUID.randomUUID();
@@ -116,6 +117,38 @@ public class NoticeServiceImpl implements NoticeService {
 
     public void modifyNotice(NoticeDTO dto){
         noticeRepository.modifyById(dto);
+    }
+
+    @Override
+    public Long update(Long idx, NoticeDTO dto, MultipartFile file) throws IOException {
+//        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files\\notice";
+        // 맥북 경로
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files/notice";
+        String fileName;
+        File saveFile;
+
+        // 기존 파일이 있을 경우 삭제
+        Notice existingNotice = noticeRepository.findById(idx).orElse(null);
+        if (existingNotice != null && existingNotice.getFilename() != null) {
+            File oldFile = new File(projectPath + existingNotice.getFilepath());
+            if (oldFile.exists()) {
+                oldFile.delete();
+            }
+        }
+
+        // 새 파일 업로드
+        UUID uuid = UUID.randomUUID();
+        fileName = uuid + "_" + file.getOriginalFilename();
+        saveFile = new File(projectPath, fileName);
+        file.transferTo(saveFile);
+
+        // DTO 업데이트
+        dto.setFilename(fileName);
+        dto.setFilepath("/files/notice/" + fileName);
+
+        noticeRepository.modifyById(dto);
+
+        return dto.getIdx();
     }
 
 }

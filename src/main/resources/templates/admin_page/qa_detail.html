@@ -110,71 +110,134 @@
                         <!-- ============================================================== -->
                         <!-- basic form  -->
                         <!-- ============================================================== -->
-                        <div class="row">
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <div class="card">
-                                    <h5 class="card-header">Num</h5>
-                                    <div class="card-body">
-                                        <form>
-                                            <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-form-label text-sm-right">제목</label>
-                                                <div class="col-12 col-sm-8 col-lg-6">
-                                                    <input type="text" required="" placeholder="Type something" name="title" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-form-label text-sm-right">질문내용</label>
-                                                <div class="col-12 col-sm-8 col-lg-6">
-                                                    <textarea class="form-control" id="exampleFormControlTextarea1" name="q_content" rows="15"
-                                                              style="resize:none">
-                                                        asdsadasd
-                                                    </textarea>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-form-label text-sm-right">아이디</label>
-                                                <div class="col-12 col-sm-8 col-lg-6">
-                                                    <input type="text" required="" placeholder="Type something" name="u_id" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-form-label text-sm-right">닉네임</label>
-                                                <div class="col-12 col-sm-8 col-lg-6">
-                                                    <input type="text" required="" placeholder="Type something" name="u_nick" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-form-label text-sm-right">날짜</label>
-                                                <div class="col-12 col-sm-8 col-lg-6">
-                                                    <input type="text" required="" placeholder="Type something" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-form-label text-sm-right">답변</label>
-                                                <div class="col-12 col-sm-8 col-lg-6">
-                                                    <textarea class="form-control" name="a_content" id="exampleFormControlTextarea2" rows="15"
-                                                              style="resize:none">
-                                                        asdsadasd
-                                                    </textarea>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row text-right">
-                                                <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
-                                                    <button type="submit" class="btn btn-space btn-primary">Submit</button>
-                                                    <button class="btn btn-space btn-secondary">Cancel</button>
-                                                </div>
-                                            </div>
-                                        </form>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <h5 class="card-header">Num</h5>
+                            <div class="card-body">
+                                <form th:if="!${dto.answer?.a_content}" th:action="@{/admin_page/qa_insertdo}" id="qaform" method="post"> <!--답변없는경우(insert)-->
+                                    <div class="form-group row">
+                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">제목</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                            <input type="text" required="" class="form-control" name="title" th:value="${dto.title}" readonly>
+                                        </div>
                                     </div>
-                                </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">질문내용</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                                    <textarea class="form-control" id="exampleFormControlTextarea1"
+                                                              style="resize:none" readonly name="q_content"  th:text="${dto.q_content}">
+                                                    </textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">아이디</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                            <input type="text" required="" placeholder="Type something" class="form-control" th:value="${dto.u_id}" name="u_id" readonly>
+                                            <input type="hidden" required="" placeholder="Type something" class="form-control" th:value="${dto.idx}" name="idx" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">닉네임</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                            <input type="text" required="" placeholder="Type something" class="form-control" name="u_nick" th:value="${dto.u_nick}" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">날짜</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                            <input type="text" required="" placeholder="Type something" class="form-control" name="date" th:value="${dto.date}" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">답변</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                            <textarea class="form-control" form="qaform" name="a_content" rows="15" style="resize:none" placeholder="답변을 입력해 주세요."></textarea>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="form-group row text-right">
+                                        <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
+                                            <button type="submit" class="btn btn-space btn-primary">등록</button>
+                                            <button class="btn btn-space btn-secondary">Cancel</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <!-- ============================================================== -->
+                                <!-- 답변있는경우(modify)  -->
+                                <!-- ============================================================== -->
+
+                                <form th:unless="!${dto.answer?.a_content}" id="qaform2" th:action="@{/admin_page/qa_modify}" method="post" > <!--답변있는경우(modify)-->
+                                    <div class="form-group row">
+                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">제목11</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                            <input type="text" required="" class="form-control" name="title" th:value="${dto.title}" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">질문내용</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                                    <textarea class="form-control" id="exampleFormControlTextarea2"
+                                                              style="resize:none" readonly name="q_content"  th:text="${dto.q_content}">
+                                                    </textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">아이디</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                            <input type="text" required="" placeholder="Type something" class="form-control" name="u_id" th:value="${dto.u_id}" readonly>
+                                            <input type="text" required="" placeholder="Type something" class="form-control" name="idx" th:value="${dto.answer.idx}" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">닉네임</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                            <input type="text" required="" placeholder="Type something" class="form-control" name="u_nick" th:value="${dto.u_nick}" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">날짜</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                            <input type="text" required="" placeholder="Type something" class="form-control" name="date" th:value="${dto.date}" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">답변</label>
+                                        <div class="col-12 col-sm-8 col-lg-6">
+                                                    <textarea class="form-control" form="qaform2" name="a_content" rows="15" style="resize:none"
+                                                              th:text="${dto.answer.a_content}">
+                                                    </textarea>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="form-group row text-right">
+                                        <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
+                                            <button type="submit" class="btn btn-space btn-primary">수정</button>
+                                            <button class="btn btn-space btn-secondary">Cancel</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
+                    </div>
+                </div>
                         <!-- ============================================================== -->
                         <!-- end basic form  -->
                         <!-- ============================================================== -->

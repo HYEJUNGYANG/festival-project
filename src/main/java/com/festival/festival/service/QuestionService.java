@@ -6,6 +6,8 @@ import com.festival.festival.dto.QuestionDTO;
 import com.festival.festival.entity.Question;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface QuestionService {
 
@@ -55,6 +57,8 @@ public interface QuestionService {
                 .build();
         return dto;
     }
+
+    List<Question> getTop3List(char yn);
 
 
 }

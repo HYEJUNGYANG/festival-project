@@ -2,17 +2,12 @@ package com.festival.festival.controller.admin;
 
 import com.festival.festival.dto.ExpDTO;
 import com.festival.festival.dto.PageRequestDTO;
-import com.festival.festival.entity.Exp;
 import com.festival.festival.service.ExpService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -40,7 +35,22 @@ public class ExpController {
 
         log.info("idx : " + idx);
         ExpDTO dto = expService.read(idx);
+
+        //@@1@@로 되어있는 태그를 #1,#2로 변환
+        String savedTags = dto.getTag(); // 데이터베이스에서 읽어온 해시태그
+
+        String[] tags = savedTags.split("@@"); // "@@"로 해시태그 분리
+
+        StringBuilder sb = new StringBuilder();
+        for (String tag : tags) {
+            if (!tag.isEmpty()) {
+                sb.append("#").append(tag); // 각 해시태그에서 "@@"를 제거하고 "#"을 추가하여 StringBuilder에 추가
+            }
+        }
+        String tag = sb.toString(); // 변환된 형식인 "#12,#34,#56" 형태의 문자열
+
         model.addAttribute("dto", dto);
+        model.addAttribute("tag", tag);
     }
 
     @GetMapping("/admin_page/exp_writedo")
@@ -72,11 +82,26 @@ public class ExpController {
 
         log.info("idx : "+ idx);
         ExpDTO dto = expService.read(idx);
+
+        //@@1@@로 되어있는 태그를 #1,#2로 변환
+        String savedTags = dto.getTag(); // 터베이스에서 읽어온 해시태그
+
+        String[] tags = savedTags.split("@@"); // "@@"로 해시태그 분리
+
+        StringBuilder sb = new StringBuilder();
+        for (String tag : tags) {
+            if (!tag.isEmpty()) {
+                sb.append("#").append(tag); // 각 해시태그에서 "@@"를 제거하고 "#"을 추가하여 StringBuilder에 추가
+            }
+        }
+        String tag = sb.toString(); // 변환된 형식인 "#12,#34,#56" 형태의 문자열
+
         model.addAttribute("dto", dto);
+        model.addAttribute("tag", tag);
 
     }
 
-    // post 방식이라 같아도 상관없음!!
+/*    // post 방식이라 같아도 상관없음!!
     @Transactional
     @PostMapping("/admin_page/exp_modify")
     public String modify2(ExpDTO dto){
@@ -84,6 +109,15 @@ public class ExpController {
         expService.modifyExp(dto);
         return "redirect:/admin_page/exp_list";
 
+    }*/
+
+    @PostMapping("/admin_page/exp_modify")
+    public String updateExp(@ModelAttribute ExpDTO expDto,
+                            @RequestParam("file") MultipartFile file,
+                            RedirectAttributes redirectAttributes) throws IOException {
+        expService.update(expDto.getIdx(), expDto, file);
+        redirectAttributes.addFlashAttribute("message", "Successfully updated exp");
+        return "redirect:/admin_page/exp_list";
     }
 
 

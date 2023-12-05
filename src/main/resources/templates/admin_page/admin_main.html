@@ -111,11 +111,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-inline-block">
-                                    <h5 class="text-muted">Total Views</h5>
-                                    <h2 class="mb-0"> 10,28,056</h2>
+                                    <h5 class="text-muted" style="font-family: 'EASTARJET-Medium';">총 가입자</h5>
+                                    <h2 class="mb-0">[[${user_count}]]</h2>
                                 </div>
                                 <div class="float-right icon-circle-medium  icon-box-lg  bg-info-light mt-1">
-                                    <i class="fa fa-eye fa-fw fa-sm text-info"></i>
+                                    <i class="fas fa-users fa-fw fa-sm text-info"></i>
                                 </div>
                             </div>
                         </div>
@@ -130,11 +130,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-inline-block">
-                                    <h5 class="text-muted">Total Followers</h5>
-                                    <h2 class="mb-0"> 24,763</h2>
+                                    <h5 class="text-muted">축제 게시글</h5>
+                                    <h2 class="mb-0">[[${fes_count}]]</h2>
                                 </div>
-                                <div class="float-right icon-circle-medium  icon-box-lg  bg-primary-light mt-1">
-                                    <i class="fa fa-user fa-fw fa-sm text-primary"></i>
+                                <div class="float-right icon-circle-medium  icon-box-lg  bg-brand-light mt-1">
+                                    <i class="fab fa-fly fa-fw fa-sm text-brand"></i>
                                 </div>
                             </div>
                         </div>
@@ -149,11 +149,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-inline-block">
-                                    <h5 class="text-muted">Partnerships</h5>
-                                    <h2 class="mb-0">14</h2>
+                                    <h5 class="text-muted">체험 게시글</h5>
+                                    <h2 class="mb-0">[[${exp_count}]]</h2>
                                 </div>
                                 <div class="float-right icon-circle-medium  icon-box-lg  bg-secondary-light mt-1">
-                                    <i class="fa fa-handshake fa-fw fa-sm text-secondary"></i>
+                                    <i class="mdi mdi-panda fa-fw fa-sm text-secondary" style="width:80px;"></i>
                                 </div>
                             </div>
                         </div>
@@ -168,11 +168,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-inline-block">
-                                    <h5 class="text-muted">Total Earned</h5>
-                                    <h2 class="mb-0"> $149.00</h2>
+                                    <h5 class="text-muted">예약 건수</h5>
+                                    <h2 class="mb-0">[[${reserve_count}]]</h2>
                                 </div>
-                                <div class="float-right icon-circle-medium  icon-box-lg  bg-brand-light mt-1">
-                                    <i class="fa fa-money-bill-alt fa-fw fa-sm text-brand"></i>
+                                <div class="float-right icon-circle-medium  icon-box-lg  bg-primary-light mt-1">
+                                    <i class="far fa-address-card fa-fw fa-sm text-primary"></i>
                                 </div>
                             </div>
                         </div>
@@ -188,7 +188,7 @@
                     <!-- ============================================================== -->
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                         <div class="card">
-                            <h5 class="card-header">Festival Table</h5>
+                            <h5 class="card-header">축제 최신글</h5>
                             <div class="card-body">
                                 <table class="table table-hover">
                                     <thead>
@@ -198,17 +198,10 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>벚꽃축제</td>
-                                        <td>대전광역시 유성구</td>
-                                    </tr>
-                                    <tr>
-                                        <td>국화축제</td>
-                                        <td>대전광역시 유성구</td>
-                                    </tr>
-                                    <tr>
-                                        <td>불꽃축제</td>
-                                        <td>대전광역시 유성구</td>
+                                    <tr th:each="fes_dto : ${fes_dto}"
+                                        th:onclick="|location.href='@{/admin_page/festival_detail(idx=${fes_dto.idx})}'|">
+                                        <td>[[${fes_dto.name}]]</td>
+                                        <td>[[${fes_dto.zone}]]</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -224,7 +217,7 @@
                     <!-- ============================================================== -->
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                         <div class="card">
-                            <h5 class="card-header">Experience Table</h5>
+                            <h5 class="card-header">체험 최신글</h5>
                             <div class="card-body">
                                 <table class="table table-hover">
                                     <thead>
@@ -234,17 +227,70 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>딸기농장체험</td>
-                                        <td>대전광역시 유성구</td>
+                                    <tr th:each="exp_dto : ${exp_dto}"
+                                        th:onclick="|location.href='@{/admin_page/exp_detail(idx=${exp_dto.idx})}'|">
+                                        <td>[[${exp_dto.name}]]</td>
+                                        <td>[[${exp_dto.zone}]]</td>
                                     </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- end hoverable table -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- hoverable table -->
+                    <!-- ============================================================== -->
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <h5 class="card-header">답변대기 질문</h5>
+                            <div class="card-body">
+                                <table class="table table-hover">
+                                    <thead>
                                     <tr>
-                                        <td>우유농장체험</td>
-                                        <td>대전광역시 유성구</td>
+                                        <th scope="col">질문명</th>
+                                        <th scope="col">작성날짜</th>
+                                        <th scope="col">답변여부</th>
                                     </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="q_dto : ${q_dto}"
+                                        th:onclick="|location.href='@{/admin_page/qa_detail(idx=${q_dto.idx})}'|">
+                                        <td>[[${q_dto.title}]]</td>
+                                        <td>[[${q_dto.date}]]</td>
+                                        <td style="color: red">답변대기</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- end hoverable table -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- hoverable table -->
+                    <!-- ============================================================== -->
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <h5 class="card-header">예약 취소요청</h5>
+                            <div class="card-body">
+                                <table class="table table-hover">
+                                    <thead>
                                     <tr>
-                                        <td>갯벌조개체험</td>
-                                        <td>대전광역시 유성구</td>
+                                        <th scope="col">예약자명</th>
+                                        <th scope="col">체험명</th>
+                                        <th scope="col">예약상태</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="reserve_dto : ${reserve_dto}"
+                                        th:onclick="|location.href='@{/admin_page/reserve_modify(num=${reserve_dto.num})}'|">
+                                        <td>[[${reserve_dto.u_name}]]</td>
+                                        <td>[[${reserve_dto.e_name}]]</td>
+                                        <td style="color: red">[[${reserve_dto.state}]]</td>
                                     </tr>
                                     </tbody>
                                 </table>

@@ -49,14 +49,59 @@ public class ExpServiceImpl implements ExpService {
     }
 
     @Override
+    public Long update(Long idx, ExpDTO dto, MultipartFile file) throws IOException {
+//        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files\\exp";
+        // 맥북 경로
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files/exp";
+        String fileName;
+        File saveFile;
+
+        // 기존 파일이 있을 경우 삭제
+        Exp existingFestival = expRepository.findById(idx).orElse(null);
+        if (existingFestival != null && existingFestival.getFilename() != null) {
+            File oldFile = new File(projectPath + existingFestival.getFilepath());
+            if (oldFile.exists()) {
+                oldFile.delete();
+            }
+        }
+
+        // 새 파일 업로드
+        UUID uuid = UUID.randomUUID();
+        fileName = uuid + "_" + file.getOriginalFilename();
+        saveFile = new File(projectPath, fileName);
+        file.transferTo(saveFile);
+
+        // DTO 업데이트
+        dto.setFilename(fileName);
+        dto.setFilepath("/files/exp/" + fileName);
+
+        // 엔티티 업데이트
+        Exp entity = dtoToEntity(dto);
+        entity.setIdx(idx); // 기존 엔티티의 ID를 유지하기 위해 설정
+
+        expRepository.modifyById(dto);
+
+        return dto.getIdx();
+    }
+
+    @Override
     public void modifyCount(Long count, Long idx) {
         expRepository.modifyCount(count, idx);
     }
 
     @Override
+    public Long count() {
+        Long userCount = expRepository.count();
+
+        return userCount;
+    }
+
+    @Override
     public Long join(ExpDTO dto, MultipartFile file) throws IOException {
         /*우리의 프로젝트경로를 담아주게 된다 - 저장할 경로를 지정*/
-        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+//        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files\\exp";
+        // 맥북 경로
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files/exp";
 
         /*식별자 . 랜덤으로 이름 만들어줌*/
         UUID uuid = UUID.randomUUID();
@@ -110,7 +155,14 @@ public class ExpServiceImpl implements ExpService {
             expRepository.modifyById(dto);
         }
 
+    @Override
+    public List<Exp> getTop3List() {
+        List<Exp> dto = null;
 
+        dto = expRepository.findTop3ByOrderByIdDesc();
+
+        return dto;
+    }
 
 
 }

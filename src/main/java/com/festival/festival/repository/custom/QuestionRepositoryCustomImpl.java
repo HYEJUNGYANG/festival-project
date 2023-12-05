@@ -3,9 +3,12 @@ package com.festival.festival.repository.custom;
 import com.festival.festival.dto.QuestionDTO;
 import com.festival.festival.entity.QNotice;
 import com.festival.festival.entity.QQuestion;
+import com.festival.festival.entity.Question;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+
+import java.util.List;
 
 public class QuestionRepositoryCustomImpl implements QuestionRepositoryCustom {
 
@@ -41,6 +44,17 @@ public class QuestionRepositoryCustomImpl implements QuestionRepositoryCustom {
                 .set(question.u_nick, dto.getU_nick())
                 .where(question.idx.eq(dto.getIdx()))
                 .execute();
+    }
+
+    @Override
+    public List<Question> findTop3ByOrderByIdDesc(char yn) {
+        List<Question> dto = queryFactory
+                .selectFrom(question)
+                .where(question.yn.eq(yn))
+                .orderBy(question.idx.desc())
+                .limit(3)
+                .fetch();
+        return dto;
     }
 
 

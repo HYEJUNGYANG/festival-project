@@ -26,7 +26,7 @@ public class ReviewController {
         int page = pageRequestDTO.getPage();
         int pageNum = 10 * (page - 1);
         model.addAttribute("pageNum", pageNum);
-        model.addAttribute("result",reviewService.getList(pageRequestDTO));
+        model.addAttribute("result", reviewService.getList(pageRequestDTO));
     }
 
     @GetMapping("/admin_page/review_detail")

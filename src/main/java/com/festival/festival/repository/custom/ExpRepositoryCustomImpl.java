@@ -63,4 +63,14 @@ public class ExpRepositoryCustomImpl implements ExpRepositoryCustom {
                 .where(exp.idx.eq(idx))
                 .execute();
     }
+
+    @Override // idx를 기준, desc로 3개의 데이터를 꺼내옴
+    public List<Exp> findTop3ByOrderByIdDesc() {
+        List<Exp> dto = queryFactory
+                .selectFrom(exp)
+                .orderBy(exp.idx.desc())
+                .limit(3)
+                .fetch();
+        return dto;
+    }
 }

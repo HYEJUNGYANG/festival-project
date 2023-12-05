@@ -18,8 +18,12 @@ public interface FestivalService {
     Long join(FestivalDTO dto, MultipartFile file) throws IOException;
     FestivalDTO read(Long idx);
 
+    Long count();
+
     List<Festival> getList(String zone);
     PageResultDTO<FestivalDTO, Festival> getList(PageRequestDTO requestDTO);
+
+    Long update(Long idx, FestivalDTO dto, MultipartFile file) throws IOException;
 
     default Festival dtoToEntity(FestivalDTO dto) {
         Festival entity = Festival.builder()
@@ -73,4 +77,7 @@ public interface FestivalService {
     void deleteFestival(Long idx);
 
     void modifyFestival(FestivalDTO dto);
+
+    //최신 게시글 3개 꺼내오기
+    public List<Festival> getTop3List();
 }

@@ -163,11 +163,9 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-form-label text-sm-right">축제사진 파일업로드</label>
+                                                <label class="col-12 col-sm-3 col-form-label text-sm-right">체험사진 파일</label>
                                                 <div class="col-12 col-sm-8 col-lg-6">
-                                                    <label class="custom-file-label" for="customFile">
-                                                        <input type="file" class="custom-file-input" name="img" id="customFile"  readonly>
-                                                    </label>
+                                                    <img th:src="${dto.filepath}" class="col-12 col-sm-8 col-lg-6" style="width:auto;">
                                                 </div>
                                             </div>
 
@@ -223,7 +221,7 @@
                                             <div class="form-group row">
                                                 <label class="col-12 col-sm-3 col-form-label text-sm-right">태그</label>
                                                 <div class="col-12 col-sm-8 col-lg-6">
-                                                    <input type="text" required=""name="tag" class="form-control" th:value="${dto.tag}" readonly>
+                                                    <input type="text" required="" name="tag" class="form-control" th:value="${tag}" readonly>
                                                 </div>
                                             </div>
 

@@ -18,6 +18,18 @@
     <script defer th:src="@{/js/admin/festival/festival_modify.js}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+    <style>
+        #fileName {
+            box-sizing: border-box;
+            position: absolute;
+            z-index: 10;
+            top: 0;
+            left: 0;
+            width: 96%;
+            padding: .5rem .75rem;
+            margin-left: 0.9rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -116,9 +128,10 @@
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form id="form" th:action="@{/admin_page/festival_modify}" th:method="post">
+                                        <form id="modify_form" th:action="@{/admin_page/festival_modify}" th:method="post" enctype="multipart/form-data">
 
                                             <input type="hidden" name="idx" th:value="${dto.idx}"/>
+
                                             <div class="form-group row">
                                                 <label class="col-12 col-sm-3 col-form-label text-sm-right">축제명</label>
                                                 <div class="col-12 col-sm-8 col-lg-6">
@@ -151,17 +164,18 @@
 
                                             <div class="form-group row">
                                                 <label class="col-12 col-sm-3 col-form-label text-sm-right">축제사진 파일업로드</label>
-                                                <div class="col-12 col-sm-8 col-lg-6">
-                                                    <label class="custom-file-label" for="customFile">
-                                                        <input type="file" class="custom-file-input" name="img" id="customFile">
+                                                <div style="position: relative;" class="col-12 col-sm-8 col-lg-6">
+                                                    <label class="custom-file-label">
+                                                        <input type="file" class="custom-file-input" id="fileUpload" name="file">
                                                     </label>
+                                                    <p id="fileName" ></p>
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label class="col-12 col-sm-3 col-form-label text-sm-right">문의 및 안내번호</label>
                                                 <div class="col-12 col-sm-8 col-lg-6">
-                                                    <input type="text" required="" name="tel" class="form-control"th:value="${dto.tel}">
+                                                    <input type="text" required="" name="tel" class="form-control" th:value="${dto.tel}">
                                                 </div>
                                             </div>
 
@@ -224,7 +238,8 @@
                                             <div class="form-group row">
                                                 <label class="col-12 col-sm-3 col-form-label text-sm-right">태그</label>
                                                 <div class="col-12 col-sm-8 col-lg-6">
-                                                    <input type="text" required=""name="tag" class="form-control" th:value="${dto.tag}">
+                                                    <input type="text" required="" id="input-tag" class="form-control" th:value="${tag}">
+                                                    <input type="hidden" required="" name="tag" id="hide-input-tag" class="form-control">
                                                 </div>
                                             </div>
 
@@ -273,48 +288,16 @@
     <!-- end main wrapper -->
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
+
     <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
     <script src="../assets/libs/js/main-js.js"></script>
     <script src="../assets/vendor/inputmask/js/jquery.inputmask.bundle.js"></script>
-    <script>
-    $(function(e) {
-        "use strict";
-        $(".date-inputmask").inputmask("dd/mm/yyyy"),
-            $(".phone-inputmask").inputmask("(999) 999-9999"),
-            $(".international-inputmask").inputmask("+9(999)999-9999"),
-            $(".xphone-inputmask").inputmask("(999) 999-9999 / x999999"),
-            $(".purchase-inputmask").inputmask("aaaa 9999-****"),
-            $(".cc-inputmask").inputmask("9999 9999 9999 9999"),
-            $(".ssn-inputmask").inputmask("999-99-9999"),
-            $(".isbn-inputmask").inputmask("999-99-999-9999-9"),
-            $(".currency-inputmask").inputmask("$9999"),
-            $(".percentage-inputmask").inputmask("99%"),
-            $(".decimal-inputmask").inputmask({
-                alias: "decimal",
-                radixPoint: "."
-            }),
-
-            $(".email-inputmask").inputmask({
-                mask: "*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[*{2,6}][*{1,2}].*{1,}[.*{2,6}][.*{1,2}]",
-                greedy: !1,
-                onBeforePaste: function(n, a) {
-                    return (e = e.toLowerCase()).replace("mailto:", "")
-                },
-                definitions: {
-                    "*": {
-                        validator: "[0-9A-Za-z!#$%&'*+/=?^_`{|}~/-]",
-                        cardinality: 1,
-                        casing: "lower"
-                    }
-                }
-            })
-    });
-    </script>
     <script th:inline="javascript">
         const detail = document.querySelector('#editor');
         detail.innerHTML = [[${dto.detail}]];
+
     </script>
 </body>
 </th:block>

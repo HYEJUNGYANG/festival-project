@@ -1,6 +1,5 @@
 package com.festival.festival.controller.admin;
 
-
 import com.festival.festival.dto.PageRequestDTO;
 import com.festival.festival.dto.ReserveDTO;
 import com.festival.festival.service.ReserveService;
@@ -51,6 +50,7 @@ public void modifyReserve(int num, @ModelAttribute("requestDTO") PageRequestDTO 
     public String modify2(ReserveDTO dto){
 
         reserveService.modifyReserve(dto);
+
         return "redirect:/admin_page/reserve_list";
 
     }

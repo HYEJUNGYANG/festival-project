@@ -147,9 +147,9 @@
                                             </div>
 
                                             <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-form-label text-sm-right">축제사진 파일업로드</label>
+                                                <label class="col-12 col-sm-3 col-form-label text-sm-right">축제사진 파일</label>
                                                 <div class="col-12 col-sm-8 col-lg-6">
-                                                    <img th:src="${dto.filepath}" class="col-12 col-sm-8 col-lg-6">
+                                                    <img th:src="${dto.filepath}" class="col-12 col-sm-8 col-lg-6" style="width:auto;">
                                                 </div>
                                             </div>
 
@@ -205,7 +205,7 @@
                                             <div class="form-group row">
                                                 <label class="col-12 col-sm-3 col-form-label text-sm-right">위도</label>
                                                 <div class="col-12 col-sm-8 col-lg-6">
-                                                    <input type="text" required=""name="latitude" class="form-control" th:value="${dto.latitude}" readonly>
+                                                    <input type="text" required="" name="latitude" class="form-control" th:value="${dto.latitude}" readonly>
                                                 </div>
                                             </div>
 
@@ -219,7 +219,7 @@
                                             <div class="form-group row">
                                                 <label class="col-12 col-sm-3 col-form-label text-sm-right">태그</label>
                                                 <div class="col-12 col-sm-8 col-lg-6">
-                                                    <input type="text" required=""name="tag" class="form-control" th:value="${dto.tag}" readonly>
+                                                    <input type="text" required="" name="tag" class="form-control" th:value="${tag}" readonly>
                                                 </div>
                                             </div>
 
@@ -286,41 +286,6 @@
         detail.innerHTML = [[${dto.detail}]]
     </script>
 </body>
-    <script>
-        $(function(e) {
-            "use strict";
-            $(".date-inputmask").inputmask("dd/mm/yyyy"),
-                $(".phone-inputmask").inputmask("(999) 999-9999"),
-                $(".international-inputmask").inputmask("+9(999)999-9999"),
-                $(".xphone-inputmask").inputmask("(999) 999-9999 / x999999"),
-                $(".purchase-inputmask").inputmask("aaaa 9999-****"),
-                $(".cc-inputmask").inputmask("9999 9999 9999 9999"),
-                $(".ssn-inputmask").inputmask("999-99-9999"),
-                $(".isbn-inputmask").inputmask("999-99-999-9999-9"),
-                $(".currency-inputmask").inputmask("$9999"),
-                $(".percentage-inputmask").inputmask("99%"),
-                $(".decimal-inputmask").inputmask({
-                    alias: "decimal",
-                    radixPoint: "."
-                }),
-
-                $(".email-inputmask").inputmask({
-                    mask: "*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[*{2,6}][*{1,2}].*{1,}[.*{2,6}][.*{1,2}]",
-                    greedy: !1,
-                    onBeforePaste: function(n, a) {
-                        return (e = e.toLowerCase()).replace("mailto:", "")
-                    },
-                    definitions: {
-                        "*": {
-                            validator: "[0-9A-Za-z!#$%&'*+/=?^_`{|}~/-]",
-                            cardinality: 1,
-                            casing: "lower"
-                        }
-                    }
-
-
-
-    </script>
     <script th:inline="javascript">
 
         function modify(idx){
@@ -330,7 +295,6 @@
             }
             location.href="http://localhost:8080/admin_page/festival_modify?idx="+idx;
         }
-
 
     </script>
 </th:block>

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @Log4j2
 @RequiredArgsConstructor
 public class QuestionController {
+
     @Autowired
     private final QuestionService questionService;
 
@@ -50,8 +51,7 @@ public class QuestionController {
         log.info("===============idx=======:"+answer);
         QuestionDTO questionDTO = questionService.read(q_idx);
 
-        //생성된 답변을 질문에 지정하기
-        questionDTO.setAnswer(answer);
+        questionDTO.setAnswer(answer); //생성된 답변을 질문에 지정하기
 
         questionDTO.setYn('y'); //답변이 저장되고 답변대기에서 완료로 변경
 
@@ -66,5 +66,7 @@ public class QuestionController {
         answerService.modifyAnswer(dto);
         return "redirect:/admin_page/qa_list";
     }
+
+
 
 }

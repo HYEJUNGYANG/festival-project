@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -89,5 +90,14 @@ public class QuestionServiceImpl implements QuestionService {
         Page<Question> result = questionRepository.findAll( pageable);
         Function<Question, QuestionDTO> fn = (entity -> entityToDto(entity));
         return new PageResultDTO<>(result, fn );
+    }
+
+    @Override // 답변 대기중 게시물 3개 가져오기
+    public List<Question> getTop3List(char yn) {
+        List<Question> dto = null;
+
+        dto = questionRepository.findTop3ByOrderByIdDesc(yn);
+
+        return dto;
     }
 }

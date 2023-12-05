@@ -52,10 +52,55 @@ public class FestivalServiceImpl implements FestivalService {
     }
 
     @Override
+    public Long update(Long idx, FestivalDTO dto, MultipartFile file) throws IOException {
+//        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files\\festival";
+        // 맥북 경로
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files/festival";
+
+        String fileName;
+        File saveFile;
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@update");
+        // 기존 파일이 있을 경우 삭제
+        Festival existingFestival = festivalRepository.findById(idx).orElse(null);
+        if (existingFestival != null && existingFestival.getFilename() != null) {
+            File oldFile = new File(projectPath + existingFestival.getFilepath());
+            if (oldFile.exists()) {
+                oldFile.delete();
+            }
+        }
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@update2");
+        // 새 파일 업로드
+        UUID uuid = UUID.randomUUID();
+        fileName = uuid + "_" + file.getOriginalFilename();
+        saveFile = new File(projectPath, fileName);
+        file.transferTo(saveFile);
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@updatefilename"+fileName);
+        // DTO 업데이트
+        dto.setFilename(fileName);
+        dto.setFilepath("/files/festival/" + fileName);
+        log.info("=============jeju======="+fileName);
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@updatefilename3"+fileName);
+        // 엔티티 업데이트
+        Festival entity = dtoToEntity(dto);
+        entity.setIdx(idx); // 기존 엔티티의 ID를 유지하기 위해 설정
+
+        festivalRepository.save(entity);
+
+        return entity.getIdx();
+    }
+
+    @Override
     public FestivalDTO read(Long idx) {
         Optional<Festival> result = festivalRepository.findById(idx);
 
         return result.isPresent() ? entityToDto(result.get()) : null;
+    }
+
+    @Override
+    public Long count() {
+        Long userCount = festivalRepository.count();
+
+        return userCount;
     }
 
     @Override
@@ -73,14 +118,23 @@ public class FestivalServiceImpl implements FestivalService {
         festivalRepository.modifyById(dto.getIdx(), dto);
     }
 
+    @Override //최신 게시글 3개 꺼내오기
+    public List<Festival> getTop3List() {
+        List<Festival> dto = null;
+
+        dto = festivalRepository.findTop3ByOrderByIdDesc();
+
+        return dto;
+    }
+
     @Override
     public Long join(FestivalDTO dto, MultipartFile file) throws IOException {
 
         /*우리의 프로젝트경로를 담아주게 된다 - 저장할 경로를 지정*/
 //        윈도우 경로
-//        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+//        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files\\festival";
         // 맥북 경로
-        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files/";
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files/festival";
 
         /*식별자 . 랜덤으로 이름 만들어줌*/
         UUID uuid = UUID.randomUUID();

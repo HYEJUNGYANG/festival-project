@@ -12,4 +12,6 @@ public interface FestivalRepositoryCustom {
     List<Festival> getAllByZone(String zone);
 
     List<Festival> getFestivalListByKeyword(HashMap<String, Object> map);
+
+    List<Festival> findTop3ByOrderByIdDesc();// idx를 기준, desc로 3개의 데이터를 꺼내옴
 }
