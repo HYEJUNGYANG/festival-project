@@ -14,16 +14,23 @@ addEventListener('scroll', () => {
 });
 
 likeBtn.addEventListener('click', () => {
-  const heartNone = document.querySelector('.heart-none');
-  const heartFull = document.querySelector('.heart-full');
-  if (isLike) {
-    heartNone.style.display = 'block';
-    heartFull.style.display = 'none';
-  } else {
-    heartNone.style.display = 'none';
-    heartFull.style.display = 'block';
-  }
-  isLike = !isLike;
+  let itemId = likeBtn.dataset.itemId; // data-item-id 값을 가져옵니다.
+
+  fetch("/festival/detail", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: "itemId=" + itemId
+  })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("HTTP error " + response.status);
+        }
+        // 찜 목록 업데이트 후 처리할 로직
+        window.location.href = response.url; // 페이지를 새로고침합니다.
+      })
+      .catch(error => console.error(error));
 });
 
 scrollBtn.addEventListener('click', () => {

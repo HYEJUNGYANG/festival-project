@@ -68,13 +68,16 @@
             <p class="area">[[${dto.l_name}]]</p>
         </div>
         <div class="like-re">
-            <div class="like">
-                <!-- 빈 하트 -->
-                <i class="fa-regular fa-heart heart-none"></i>
-                <!-- 채워진 하트 -->
-                <i class="fa-solid fa-heart heart-full"></i>
+            <!-- 로그인 X -->
+            <div sec:authorize="isAnonymous()" class="like" th:data-item-id="${dto.idx}">
             </div>
-            <!-- 축제는 예약하기 없으므로 나중에 빼두기 -->
+            <!-- 로그인 O -->
+            <div sec:authorize="isAuthenticated()" class="like" id="like-button" th:data-item-id="${dto.idx}">
+                <!-- 채워진 하트 -->
+                <i th:if="${eList != null} and ${#strings.contains(eList, idx)}" class="fa-solid fa-heart heart-full"></i>
+                <!-- 빈 하트 -->
+                <i th:unless="${eList != null} and ${#strings.contains(eList, idx)}" class="fa-regular fa-heart heart-none"></i>
+            </div>
             <div class="reservation">
                 <button th:data-count="${dto.count}" sec:authorize="isAuthenticated()" class="btn-re">예약하기</button>
             </div>

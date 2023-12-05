@@ -74,14 +74,12 @@ a {
 }
 
 .main-container .main-align .like-re .like .heart-none {
-  /* display: none; */
   font-size: 1.6rem;
   color: #444;
   padding-left: 1.5rem;
 }
 
 .main-container .main-align .like-re .like .heart-full {
-  display: none;
   font-size: 1.6rem;
   color: rgb(255, 100, 100);
   padding-left: 1.5rem;

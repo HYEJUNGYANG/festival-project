@@ -17,6 +17,8 @@ public interface ExpService {
     PageResultDTO<ExpDTO, Exp> getList(PageRequestDTO requestDTO);
     List<Exp> getList(String zone);
 
+    List<Exp> getListByIdxs(int[] idxList);
+
     Long update(Long idx, ExpDTO dto, MultipartFile file) throws IOException;
 
     void modifyCount(Long count, Long idx);

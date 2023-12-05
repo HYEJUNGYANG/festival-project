@@ -49,6 +49,12 @@ public class ExpServiceImpl implements ExpService {
     }
 
     @Override
+    public List<Exp> getListByIdxs(int[] idxList) {
+        List<Exp> dto = expRepository.getListByIdxs(idxList);
+        return dto;
+    }
+
+    @Override
     public Long update(Long idx, ExpDTO dto, MultipartFile file) throws IOException {
 //        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files\\exp";
         // 맥북 경로

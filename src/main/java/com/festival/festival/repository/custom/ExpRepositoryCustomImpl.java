@@ -7,9 +7,12 @@ import com.festival.festival.entity.QExp;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import lombok.extern.log4j.Log4j2;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Log4j2
 public class ExpRepositoryCustomImpl implements ExpRepositoryCustom {
     @PersistenceContext
     private final EntityManager em;
@@ -72,5 +75,19 @@ public class ExpRepositoryCustomImpl implements ExpRepositoryCustom {
                 .limit(3)
                 .fetch();
         return dto;
+    }
+
+    @Override
+    public List<Exp> getListByIdxs(int[] idxList) {
+        List<Exp> list = new ArrayList<>();
+        for (int i=0; i<idxList.length; i++) {
+            list.add(queryFactory
+                    .select(exp)
+                    .from(exp)
+                    .where(exp.idx.eq((long) idxList[i]))
+                    .fetchFirst());
+        }
+        log.info("마이페이지 관심목록 리스트 확인" + list);
+        return list;
     }
 }

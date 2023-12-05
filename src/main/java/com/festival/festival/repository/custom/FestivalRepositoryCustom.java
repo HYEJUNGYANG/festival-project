@@ -14,4 +14,6 @@ public interface FestivalRepositoryCustom {
     List<Festival> getFestivalListByKeyword(HashMap<String, Object> map);
 
     List<Festival> findTop3ByOrderByIdDesc();// idx를 기준, desc로 3개의 데이터를 꺼내옴
+
+    List<Festival> getListByIdxs(int[] idxList);
 }

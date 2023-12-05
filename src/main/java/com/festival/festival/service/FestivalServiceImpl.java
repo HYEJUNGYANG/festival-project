@@ -52,6 +52,12 @@ public class FestivalServiceImpl implements FestivalService {
     }
 
     @Override
+    public List<Festival> getListByIdxs(int[] idxList) {
+        List<Festival> dto = festivalRepository.getListByIdxs(idxList);
+        return dto;
+    }
+
+    @Override
     public Long update(Long idx, FestivalDTO dto, MultipartFile file) throws IOException {
 //        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files\\festival";
         // 맥북 경로

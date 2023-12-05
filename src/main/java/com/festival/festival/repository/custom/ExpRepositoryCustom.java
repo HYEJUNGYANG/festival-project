@@ -13,4 +13,6 @@ public interface ExpRepositoryCustom {
     void modifyCount(Long count, Long idx);
 
     List<Exp> findTop3ByOrderByIdDesc();// idx를 기준, desc로 3개의 데이터를 꺼내옴
+
+    List<Exp> getListByIdxs(int[] idxList);
 }

@@ -5,10 +5,7 @@ import com.festival.festival.dto.*;
 import com.festival.festival.entity.Reserve;
 import com.festival.festival.entity.Review;
 import com.festival.festival.entity.User;
-import com.festival.festival.service.ExpService;
-import com.festival.festival.service.ReserveService;
-import com.festival.festival.service.ReviewService;
-import com.festival.festival.service.UserService;
+import com.festival.festival.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -22,6 +19,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -33,6 +32,7 @@ public class MyPageController {
     private final UserService userService;
     private final ReserveService reserveService;
     private final ReviewService reviewService;
+    private final FestivalService festivalService;
     private final ExpService expService;
 
     @Autowired
@@ -105,8 +105,86 @@ public class MyPageController {
     }
 
     @GetMapping("/favorite")
-    public String favorite() {
+    public String favorite(Authentication authentication, Model model) {
+        log.info("=====form/loginInfo=========");
+        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        User user = principal.getUser();
+        UserDTO dto = userService.read(user.getId());
+
+        if (dto.getF_list().length() != 0) {
+            String f_list = dto.getF_list().substring(2);
+            String[] replacedStr = f_list.split("@@");
+
+            int[] result = Arrays.stream(replacedStr)
+                    .filter(s -> !s.isEmpty())
+                    .mapToInt(Integer::parseInt)
+                    .toArray();
+            log.info(Arrays.toString(result));
+            log.info("-========================"+ festivalService.getListByIdxs(result));
+            model.addAttribute("fDTO", festivalService.getListByIdxs(result));
+        }
+        else {
+            int[] result = new int[0];
+            model.addAttribute("fDTO", festivalService.getListByIdxs(result));
+        }
+
+
+        model.addAttribute("dto", dto);
+
+
+        if (dto.getE_list().length() != 0) {
+            String e_list = dto.getE_list().substring(2);
+            String[] replacedStr1 = e_list.split("@@");
+            log.info("================================" + replacedStr1[0]);
+            int[] result1 = Arrays.stream(replacedStr1)  // replacedStr -> replacedStr1
+                    .filter(s -> !s.isEmpty())
+                    .mapToInt(Integer::parseInt)
+                    .toArray();
+            log.info(Arrays.toString(result1));
+
+            model.addAttribute("eDTO", expService.getListByIdxs(result1));
+        } else {
+            int[] result1 = new int[0];
+            model.addAttribute("eDTO", expService.getListByIdxs(result1));
+        }
+
         return "/mypage/mypage-favorite";
+    }
+
+    @PostMapping("/favorite")
+    public String removeFavorite(Authentication authentication, @RequestParam String type, @RequestParam int itemId){
+        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        User user = principal.getUser();
+        UserDTO userDTO = userService.read(user.getId());
+
+        if (type.equals("f")) {
+            if (userDTO.getF_list().length() != 0) {
+                String f_list = userDTO.getF_list().substring(2);
+                List<String> items = new ArrayList<>(Arrays.asList(f_list.split("@@")));
+                items.remove(String.valueOf(itemId));
+                if (items.size() == 0) {
+                    userDTO.setF_list("");
+                } else {
+                    String list_f = String.join("@@", items);
+                    userDTO.setF_list("@@" + list_f + "@@");
+                }
+            }
+        } else if (type.equals("e")) {
+            if (userDTO.getE_list().length() != 0) {
+                String e_list = userDTO.getE_list().substring(2);
+                List<String> items = new ArrayList<>(Arrays.asList(e_list.split("@@")));
+                items.remove(String.valueOf(itemId));
+                if (items.size() == 0) {
+                    userDTO.setE_list("");
+                } else {
+                    String list_e = String.join("@@", items);
+                    userDTO.setE_list("@@" + list_e + "@@");
+                }
+            }
+        }
+
+        userService.update(userService.dtoToEntity(userDTO));
+        return "redirect:/mypage/favorite";
     }
 
 

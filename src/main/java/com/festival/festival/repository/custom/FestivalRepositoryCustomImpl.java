@@ -10,6 +10,7 @@ import jakarta.persistence.PersistenceContext;
 import lombok.extern.log4j.Log4j2;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -97,5 +98,19 @@ public class FestivalRepositoryCustomImpl implements FestivalRepositoryCustom{
                 .limit(3)
                 .fetch();
         return dto;
+    }
+
+    @Override
+    public List<Festival> getListByIdxs(int[] idxList) {
+        List<Festival> list = new ArrayList<>();
+        for (int i=0; i<idxList.length; i++) {
+            list.add(queryFactory
+                    .select(festival)
+                    .from(festival)
+                    .where(festival.idx.eq((long) idxList[i]))
+                    .fetchFirst());
+        }
+        log.info("마이페이지 관심목록 리스트 확인" + list);
+        return list;
     }
 }

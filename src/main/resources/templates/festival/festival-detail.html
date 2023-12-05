@@ -68,17 +68,20 @@
       <p class="area">[[${dto.l_name}]]</p>
     </div>
     <div class="like-re">
-      <div class="like">
-        <!-- 빈 하트 -->
-        <i class="fa-regular fa-heart heart-none"></i>
+      <div sec:authorize="isAnonymous()" class="like" th:data-item-id="${dto.idx}">
+
+      </div>
+      <div sec:authorize="isAuthenticated()" class="like" id="like-button" th:data-item-id="${dto.idx}">
         <!-- 채워진 하트 -->
-        <i class="fa-solid fa-heart heart-full"></i>
+        <i th:if="${fList != null} and ${#strings.contains(fList, idx)}" class="fa-solid fa-heart heart-full"></i>
+        <!-- 빈 하트 -->
+        <i th:unless="${fList != null} and ${#strings.contains(fList, idx)}" class="fa-regular fa-heart heart-none"></i>
       </div>
     </div>
     <div class="info-con">
       <div class="info-img-con">
         <!-- 이미지는 하나만! -->
-        <img th:src="@{(${dto.filepath})}" alt="img" />
+        <img th:src="${dto.filepath}" alt="img" />
       </div>
       <div class="detail-con">
         <p class="detail-title">상세정보</p>

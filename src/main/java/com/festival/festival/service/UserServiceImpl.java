@@ -39,6 +39,11 @@ public class UserServiceImpl implements UserService {
         userRepository.updatePw(id,new_pw);
     }
 
+    @Override
+    public void update(User user) {
+        userRepository.save(user);
+    }
+
     @Override //닉네임, 전화번호 정보 수정
     public void modify_nick_tel(String id, String nick, String tel) {
         userRepository.modifyById(id,nick,tel);

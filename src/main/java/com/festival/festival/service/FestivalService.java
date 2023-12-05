@@ -23,6 +23,8 @@ public interface FestivalService {
     List<Festival> getList(String zone);
     PageResultDTO<FestivalDTO, Festival> getList(PageRequestDTO requestDTO);
 
+    List<Festival> getListByIdxs(int[] idxList);
+
     Long update(Long idx, FestivalDTO dto, MultipartFile file) throws IOException;
 
     default Festival dtoToEntity(FestivalDTO dto) {
