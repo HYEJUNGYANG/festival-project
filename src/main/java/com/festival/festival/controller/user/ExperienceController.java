@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -41,6 +42,23 @@ public class ExperienceController {
 
         ExpDTO expDTO = expService.read(idx);
         List<Review> reviewDto = reviewService.getList(idx);
+
+        //@@1@@로 되어있는 태그를 #1,#2로 변환
+        String savedTags = expDTO.getTag(); // 데이터베이스에서 읽어온 해시태그
+
+        String[] tags = savedTags.split("@@"); // "@@"로 해시태그 분리
+
+        List<String> taglist = new ArrayList<>();
+
+        StringBuilder sb = new StringBuilder();
+        for (String tag : tags) {
+            if (!tag.isEmpty()) {
+                taglist.add("#"+tag); // 각 해시태그에서 "@@"를 제거하고 "#"을 추가하여 StringBuilder에 추가
+            }
+        }
+        String tag = sb.toString(); // 변환된 형식인 "#12,#34,#56" 형태의 문자열
+
+        model.addAttribute("taglist", taglist);
         model.addAttribute("dto", expDTO);
         model.addAttribute("review", reviewDto);
 
