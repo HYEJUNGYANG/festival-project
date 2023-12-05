@@ -1,13 +1,11 @@
 package com.festival.festival.controller.user;
 
 import com.festival.festival.auth.PrincipalDetails;
-import com.festival.festival.dto.PageRequestDTO;
-import com.festival.festival.dto.ReserveDTO;
-import com.festival.festival.dto.ReviewDTO;
-import com.festival.festival.dto.UserDTO;
+import com.festival.festival.dto.*;
 import com.festival.festival.entity.Reserve;
 import com.festival.festival.entity.Review;
 import com.festival.festival.entity.User;
+import com.festival.festival.service.ExpService;
 import com.festival.festival.service.ReserveService;
 import com.festival.festival.service.ReviewService;
 import com.festival.festival.service.UserService;
@@ -35,6 +33,7 @@ public class MyPageController {
     private final UserService userService;
     private final ReserveService reserveService;
     private final ReviewService reviewService;
+    private final ExpService expService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -116,7 +115,10 @@ public class MyPageController {
 
         log.info("num : " + num);
         ReserveDTO dto = reserveService.read(num);
+        ExpDTO expDTO = expService.read(dto.getE_idx());
+
         model.addAttribute("dto", dto);
+        model.addAttribute("imgPath", expDTO.getFilepath());
 
         return "/mypage/mypage-reservation-detail";
     }
