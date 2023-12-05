@@ -14,8 +14,11 @@ import com.festival.festival.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +35,12 @@ public class MyPageController {
     private final UserService userService;
     private final ReserveService reserveService;
     private final ReviewService reviewService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping({"", "/profile"})
     public String modify(Authentication authentication, @AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
@@ -73,6 +82,27 @@ public class MyPageController {
     @GetMapping("/profile/pw-change")
     public String pwChange() {
         return "/mypage/pw-change";
+    }
+
+    @ResponseBody
+    @PostMapping("/profile/pw-change")
+    public String pwChange(@RequestParam("pw") String input_pw, @RequestParam("new_pw") String new_pw, Authentication authentication) {
+        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        User user = principal.getUser();
+        String id = user.getId();
+
+        String login_Pw = user.getPw();
+        log.info("pw:"+input_pw);
+        if (passwordEncoder.matches(input_pw, login_Pw)) {
+            // Passwords match
+            String encodePwd = bCryptPasswordEncoder.encode(new_pw);
+            userService.updatePw(id, encodePwd);
+            return "success";
+        } else {
+            // Passwords do not match
+            log.info("=========비밀번호 다름!!!!===========");
+            return "fail";
+        }
     }
 
     @GetMapping("/favorite")

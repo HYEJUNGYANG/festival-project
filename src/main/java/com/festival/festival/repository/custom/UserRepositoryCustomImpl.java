@@ -28,4 +28,14 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
                 .where(user.id.eq(id))
                 .execute();
     }
+
+    @Transactional
+    @Override
+    public void updatePw(String id, String new_pw) {
+        queryFactory
+                .update(user)
+                .set(user.pw, new_pw)
+                .where(user.id.eq(id))
+                .execute();
+    }
 }

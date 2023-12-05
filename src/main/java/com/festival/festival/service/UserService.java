@@ -11,6 +11,8 @@ public interface UserService {
     PageResultDTO<UserDTO, User> getList(PageRequestDTO requestDTO);
     Long count();
 
+    void updatePw(String id,String new_pw);
+
     default User dtoToEntity(UserDTO dto) {
         User entity = User.builder()
                 .id(dto.getId())

@@ -26,7 +26,7 @@ a {
     /* 자식 요소에 absolute가 생겨버리면 그 자식요소는 공중에 고정 느낌인 거라서 부모 요소 height은 없는게 되어버리기 때문에 height값 지정 필요!! */
     height: 600px;
     position: relative;
-    background-color: rgb(206, 232, 254);
+    background-color: #FDF5DC;
 }
 
 .main .show-align .show-container {
@@ -130,6 +130,7 @@ a {
 }
 
 .main .show-align .show-container .show-img {
+    cursor: pointer;
     /* width: 135vw; */
     display: flex;
 }
