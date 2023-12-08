@@ -64,11 +64,12 @@ public class FestivalRepositoryCustomImpl implements FestivalRepositoryCustom{
     @Override
     public List<Festival> getFestivalListByKeyword(HashMap<String, Object> map) {
         BooleanBuilder builder = new BooleanBuilder();
+        BooleanBuilder zoneB = new BooleanBuilder();
         if (!map.get("area").toString().isEmpty()) {
             List<String> zones = (List<String>) map.get("area");
             if(zones != null) {
                 for(String zone : zones) {
-                    builder.and(festival.zone.eq(zone));
+                    zoneB.or(festival.zone.eq(zone));
                 }
             }
         }
@@ -82,7 +83,7 @@ public class FestivalRepositoryCustomImpl implements FestivalRepositoryCustom{
         List<Festival> festivalDTO = queryFactory
                 .select(festival)
                 .from(festival)
-                .where(builder)
+                .where(builder.and(zoneB))
                 .fetch();
 
         log.info("festival 검색 결과: " + festivalDTO);
