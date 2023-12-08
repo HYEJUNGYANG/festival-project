@@ -34,9 +34,6 @@
   <div class="main-container">
     <div class="main-align">
       <div class="mypage-title">관심 목록</div>
-      <div th:if="${fDTO.size() == 0 && eDTO.size() == 0}" class="mypage-align none">
-        <p class="favorite-none">관심 목록이 존재하지 않습니다.</p>
-      </div>
       <div class="contents-align">
         <div th:each="f: ${fDTO}" class="contents" th:data-id="${f.idx}" th:data-type="f">
           <a th:href="@{/festival/detail(idx=${f.idx})}" class="contents-img-con">
@@ -63,7 +60,9 @@
             <div class="heart"><i class="fa-solid fa-heart"></i></div>
           </div>
         </div>
-
+        <div th:if="${fDTO.size() == 0 && eDTO.size() == 0}" class="mypage-align-none">
+          <p class="favorite-none">관심 목록이 존재하지 않습니다.</p>
+        </div>
       </div>
     </div>
   </div>
