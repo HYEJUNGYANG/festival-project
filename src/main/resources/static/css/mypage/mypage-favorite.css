@@ -136,7 +136,7 @@ li {
   display: flex;
   flex-wrap: wrap;
   gap: 4rem;
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 .main-container .main-align .contents-align .contents {
@@ -147,7 +147,7 @@ li {
   margin-top: 2rem;
   border-radius: 0.4rem;
   overflow: hidden;
-  transition: transform transform 0.2s;
+  transition: transform 0.2s;
 }
 
 .main-container .main-align .contents-align .contents .contents-area {

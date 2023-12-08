@@ -132,7 +132,7 @@ li {
   display: flex;
   flex-direction: column;
   margin-top: 2rem;
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 .container .main-container .main-align .review-con .review-list li {

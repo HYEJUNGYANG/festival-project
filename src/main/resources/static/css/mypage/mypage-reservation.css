@@ -142,7 +142,7 @@ li {
   flex-direction: column;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 .container .main-container .main-align .reservation-con .list li {
