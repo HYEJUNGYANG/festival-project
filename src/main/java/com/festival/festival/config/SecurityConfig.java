@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configurers.CsrfConfig
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @Slf4j
@@ -31,7 +32,10 @@ public class SecurityConfig {
                 .csrf(CsrfConfigurer::disable)
                 .authorizeHttpRequests((authorizeRequests) ->
                                 authorizeRequests
-//                                .requestMatchers(new AntPathRequestMatcher("/qna/**")).authenticated() //로그인한 유저만 접속가능한 링크
+                                .requestMatchers(new AntPathRequestMatcher("/mypage/**")).authenticated() // 로그인한 유저만 접속가능한 링크
+                                .requestMatchers(new AntPathRequestMatcher("/qna/write")).authenticated()
+                                .requestMatchers(new AntPathRequestMatcher("/qna/modify")).authenticated()
+                                .requestMatchers(new AntPathRequestMatcher("/reservation/**")).authenticated()
                                         //.requestMatchers(new AntPathRequestMatcher("/admin_page/**")).hasRole("ADMIN") //관리자만 접속가능한 링크*/
 //                                .requestMatchers(new AntPathRequestMatcher("/admin_page/admin_login")).permitAll()
                                         .anyRequest().permitAll()
