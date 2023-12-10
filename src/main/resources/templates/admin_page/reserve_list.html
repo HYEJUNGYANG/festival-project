@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <th:block th:fragment="content">
     <head>
         <!-- Required meta tags -->
@@ -67,6 +67,10 @@
 
                                     <li class="nav-item">
                                         <a class="nav-link" th:href="@{/admin_page/review_list}"><i class="fas fa-edit"></i>체험리뷰</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i>로그아웃</a>
                                     </li>
                                 </ul>
                             </li>
