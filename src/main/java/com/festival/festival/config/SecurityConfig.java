@@ -36,6 +36,7 @@ public class SecurityConfig {
                                 .requestMatchers(new AntPathRequestMatcher("/qna/write")).authenticated()
                                 .requestMatchers(new AntPathRequestMatcher("/qna/modify")).authenticated()
                                 .requestMatchers(new AntPathRequestMatcher("/reservation/**")).authenticated()
+                                .requestMatchers(new AntPathRequestMatcher("/admin_page/**")).hasRole("ADMIN")
                                         //.requestMatchers(new AntPathRequestMatcher("/admin_page/**")).hasRole("ADMIN") //관리자만 접속가능한 링크*/
 //                                .requestMatchers(new AntPathRequestMatcher("/admin_page/admin_login")).permitAll()
                                         .anyRequest().permitAll()
