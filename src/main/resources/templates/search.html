@@ -125,13 +125,32 @@
         </form>
       </div>
       <div th:if="${dto != null}" class="result-container">
-        <p class="result-count">총 <span>[[${#lists.size(dto)}]]개</span>의 행사</p>
+        <p class="result-count">총 <span>[[${#lists.size(dto)} + ${#lists.size(Edto)}]]개</span>의 행사</p>
         <div class="result-align">
-          <!-- 01 -->
+          <!-- festival -->
           <a th:each="dto : ${dto}" th:href="@{/festival/detail(idx=${dto.idx})}" class="contents">
             <div class="contents-img-con">
               <div class="contents-area">
                 <p>[[${dto.zone}]]</p>
+              </div>
+              <div class="contents-filter festival">
+                <p>축제</p>
+              </div>
+              <img th:src="${dto.filepath}" alt="" />
+            </div>
+            <div class="contents-info-con">
+              <p class="info-title">[[${dto.name}]]</p>
+              <p class="info-area">[[${dto.l_name}]]</p>
+            </div>
+          </a>
+          <!-- exp -->
+          <a th:each="dto : ${Edto}" th:href="@{/experience/detail(idx=${dto.idx})}" class="contents">
+            <div class="contents-img-con">
+              <div class="contents-area">
+                <p>[[${dto.zone}]]</p>
+              </div>
+              <div class="contents-filter exp">
+                <p>체험</p>
               </div>
               <img th:src="${dto.filepath}" alt="" />
             </div>

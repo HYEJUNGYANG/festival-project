@@ -4,12 +4,15 @@ import com.festival.festival.dto.ExpDTO;
 import com.festival.festival.entity.Exp;
 import com.festival.festival.entity.Festival;
 import com.festival.festival.entity.QExp;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.extern.log4j.Log4j2;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Log4j2
@@ -56,6 +59,32 @@ public class ExpRepositoryCustomImpl implements ExpRepositoryCustom {
                 .orderBy(exp.idx.desc())
                 .fetch();
         return dto;
+    }
+
+    @Override
+    public List<Exp> getExpListByKeyword(HashMap<String, Object> map) {
+        BooleanBuilder builder = new BooleanBuilder();
+        BooleanBuilder zoneB = new BooleanBuilder();
+        if (!map.get("area").toString().isEmpty()) {
+            List<String> zones = (List<String>) map.get("area");
+            if(zones != null) {
+                for(String zone : zones) {
+                    zoneB.or(exp.zone.eq(zone));
+                }
+            }
+        }
+        builder.and(exp.name.contains(map.get("keyword").toString())
+                .or(exp.detail.contains(map.get("keyword").toString())));
+
+        List<Exp> expDTO = queryFactory
+                .select(exp)
+                .from(exp)
+                .where(builder.and(zoneB))
+                .fetch();
+
+        log.info("exp 검색 결과: " + expDTO);
+
+        return expDTO;
     }
 
     @Override

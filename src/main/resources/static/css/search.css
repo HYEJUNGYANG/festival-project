@@ -404,7 +404,7 @@ body {
   margin-top: 2rem;
   border-bottom-left-radius: 0.4rem;
   border-bottom-right-radius: 0.4rem;
-  transition: transform transform 0.2s;
+  transition: transform 0.2s;
 }
 
 .main-container .result-container .result-align .contents:hover {
@@ -422,6 +422,24 @@ body {
   padding: 0.5rem 0.8rem;
   border-radius: 0.3rem;
 }
+
+.main-container .result-container .result-align .contents .contents-filter {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  background-color: var(--main-color);
+  color: white;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.3rem;
+}
+
+/*.main-container .result-container .result-align .contents .contents-filter.festival {*/
+/*  background-color: #00a28a;*/
+/*}*/
+
+/*.main-container .result-container .result-align .contents .contents-filter.exp {*/
+/*  background-color: #0a6aa1;*/
+/*}*/
 
 .main-container .result-container .result-align .contents .contents-img-con {
   width: 100%;
@@ -454,10 +472,15 @@ body {
   .contents
   .contents-info-con
   .info-title {
+  width: 100%;
+  text-align: center;
   font-weight: bolder;
   font-size: 1.1rem;
   margin-top: 0.6rem;
   margin-bottom: 0.3rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .main-container

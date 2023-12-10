@@ -95,7 +95,7 @@ a {
   margin-top: 2rem;
   border-bottom-left-radius: 0.4rem;
   border-bottom-right-radius: 0.4rem;
-  transition: transform transform 0.2s;
+  transition: transform 0.2s;
 }
 
 .main-container .main-contents-con .contents-align .contents:hover {
@@ -157,7 +157,7 @@ a {
   margin-bottom: 0.3rem;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis
+  text-overflow: ellipsis;
 }
 
 .main-container

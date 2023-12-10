@@ -1,6 +1,8 @@
 package com.festival.festival.controller.user;
 
+import com.festival.festival.entity.Exp;
 import com.festival.festival.entity.Festival;
+import com.festival.festival.repository.ExpRepository;
 import com.festival.festival.repository.FestivalRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -18,6 +20,7 @@ import java.util.List;
 public class SearchController {
 
     private final FestivalRepository festivalRepository;
+    private final ExpRepository expRepository;
 
     @GetMapping("")
     public String search() {
@@ -47,7 +50,9 @@ public class SearchController {
         }
 
         List<Festival> dto = festivalRepository.getFestivalListByKeyword(map);
+        List<Exp> expDTO = expRepository.getExpListByKeyword(map);
         model.addAttribute("dto", dto);
+        model.addAttribute("Edto", expDTO);
 
         return "/search";
     }
