@@ -433,13 +433,9 @@ body {
   border-radius: 0.3rem;
 }
 
-/*.main-container .result-container .result-align .contents .contents-filter.festival {*/
-/*  background-color: #00a28a;*/
-/*}*/
-
-/*.main-container .result-container .result-align .contents .contents-filter.exp {*/
-/*  background-color: #0a6aa1;*/
-/*}*/
+.main-container .result-container .result-align .contents .contents-filter.exp {
+  background-color: #9c4aff;
+}
 
 .main-container .result-container .result-align .contents .contents-img-con {
   width: 100%;
