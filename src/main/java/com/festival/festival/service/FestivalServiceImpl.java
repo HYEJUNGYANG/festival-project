@@ -63,29 +63,35 @@ public class FestivalServiceImpl implements FestivalService {
         // 맥북 경로
         String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files/festival";
 
-        String fileName;
-        File saveFile;
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@update");
-        // 기존 파일이 있을 경우 삭제
+        // 기존 파일 정보 가져오기
         Festival existingFestival = festivalRepository.findById(idx).orElse(null);
-        if (existingFestival != null && existingFestival.getFilename() != null) {
-            File oldFile = new File(projectPath + existingFestival.getFilepath());
-            if (oldFile.exists()) {
-                oldFile.delete();
+        String existingFileName = (existingFestival != null && existingFestival.getFilename() != null) ? existingFestival.getFilename() : null;
+        String existingFilePath = (existingFestival != null && existingFestival.getFilepath() != null) ? existingFestival.getFilepath() : null;
+
+        // 새 파일이 제공되었을 경우에만 업로드 및 기존 파일 삭제
+        if (!file.isEmpty()) {
+            // 기존 파일이 있을 경우 삭제
+            if (existingFileName != null) {
+                File oldFile = new File(projectPath + existingFilePath);
+                if (oldFile.exists()) {
+                    oldFile.delete();
+                }
             }
+            // 새 파일 업로드
+            UUID uuid = UUID.randomUUID();
+            String fileName = uuid + "_" + file.getOriginalFilename();
+            File saveFile = new File(projectPath, fileName);
+            file.transferTo(saveFile);
+
+            // DTO 업데이트
+            dto.setFilename(fileName);
+            dto.setFilepath("/files/festival/" + fileName);
+        } else {
+            // 새 파일이 제공되지 않았을 경우, 기존 파일 정보를 유지
+            dto.setFilename(existingFileName);
+            dto.setFilepath(existingFilePath);
         }
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@update2");
-        // 새 파일 업로드
-        UUID uuid = UUID.randomUUID();
-        fileName = uuid + "_" + file.getOriginalFilename();
-        saveFile = new File(projectPath, fileName);
-        file.transferTo(saveFile);
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@updatefilename"+fileName);
-        // DTO 업데이트
-        dto.setFilename(fileName);
-        dto.setFilepath("/files/festival/" + fileName);
-        log.info("=============jeju======="+fileName);
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@updatefilename3"+fileName);
+
         // 엔티티 업데이트
         Festival entity = dtoToEntity(dto);
         entity.setIdx(idx); // 기존 엔티티의 ID를 유지하기 위해 설정

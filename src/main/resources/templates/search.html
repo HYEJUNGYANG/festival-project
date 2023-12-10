@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- 검색하면 검색어가 제목으로 바뀌도록 -->
-    <title>검색</title>
+    <title th:text="${keyword != null } ? ${keyword} : '검색'">검색</title>
     <link rel="stylesheet" th:href="@{/css/header.css}" />
     <link rel="stylesheet" th:href="@{/css/search.css}" />
     <script defer th:src="@{/js/header.js}"></script>

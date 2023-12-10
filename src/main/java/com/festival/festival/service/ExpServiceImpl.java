@@ -59,35 +59,45 @@ public class ExpServiceImpl implements ExpService {
 //        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files\\exp";
         // 맥북 경로
         String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files/exp";
-        String fileName;
-        File saveFile;
+        // 기존 파일 정보 가져오기
+        Exp existingExp = expRepository.findById(idx).orElse(null);
+        String existingFileName = (existingExp != null && existingExp.getFilename() != null) ? existingExp.getFilename() : null;
+        String existingFilePath = (existingExp != null && existingExp.getFilepath() != null) ? existingExp.getFilepath() : null;
 
-        // 기존 파일이 있을 경우 삭제
-        Exp existingFestival = expRepository.findById(idx).orElse(null);
-        if (existingFestival != null && existingFestival.getFilename() != null) {
-            File oldFile = new File(projectPath + existingFestival.getFilepath());
-            if (oldFile.exists()) {
-                oldFile.delete();
+        // 새 파일이 제공되었을 경우에만 업로드 및 기존 파일 삭제
+        if (!file.isEmpty()) {
+            // 기존 파일이 있을 경우 삭제
+            if (existingFileName != null) {
+
             }
+
+            // 새 파일 업로드
+            UUID uuid = UUID.randomUUID();
+            String fileName = uuid + "_" + file.getOriginalFilename();
+            File saveFile = new File(projectPath, fileName);
+            file.transferTo(saveFile); // 파일을 saveFile로 전송
+
+            // DTO 업데이트
+            dto.setFilename(fileName);
+            dto.setFilepath("/files/exp/" + fileName);
+        } else {
+            // 새 파일이 제공되지 않았을 경우, 기존 파일 정보를 유지
+            dto.setFilename(existingFileName);
+            dto.setFilepath(existingFilePath);
         }
 
-        // 새 파일 업로드
-        UUID uuid = UUID.randomUUID();
-        fileName = uuid + "_" + file.getOriginalFilename();
-        saveFile = new File(projectPath, fileName);
-        file.transferTo(saveFile);
-
-        // DTO 업데이트
-        dto.setFilename(fileName);
-        dto.setFilepath("/files/exp/" + fileName);
+        //count 필드가 null인 경우 기본값 설정
+        if (dto.getCount() == null) {
+            dto.setCount(0L);
+        }
 
         // 엔티티 업데이트
         Exp entity = dtoToEntity(dto);
         entity.setIdx(idx); // 기존 엔티티의 ID를 유지하기 위해 설정
 
-        expRepository.modifyById(dto);
+        expRepository.save(entity);
 
-        return dto.getIdx();
+        return entity.getIdx();
     }
 
     @Override

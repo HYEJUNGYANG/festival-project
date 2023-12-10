@@ -17,6 +17,21 @@
     <script defer th:src="@{/js/admin/notice/notice_modify.js}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+    <style>
+        .ck-content {
+            height: 400px;
+        }
+        #fileName {
+            box-sizing: border-box;
+            position: absolute;
+            z-index: 10;
+            top: 0;
+            left: 0;
+            width: 96%;
+            padding: .5rem .75rem;
+            margin-left: 0.9rem;
+        }
+    </style>
 
 </head>
 
@@ -144,7 +159,7 @@
                                                 <label class="custom-file-label">
                                                     <input type="file" class="custom-file-input" id="fileUpload" name="file" >
                                                 </label>
-                                                <p id="fileName" ></p>
+                                                <p id="fileName" >[[${dto.filename}]]</p>
                                             </div>
                                         </div>
 

@@ -18,6 +18,16 @@
       .ck-content {
         height: 400px;
       }
+      #fileName {
+        box-sizing: border-box;
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        left: 0;
+        width: 96%;
+        padding: .5rem .75rem;
+        margin-left: 0.9rem;
+      }
     </style>
     <script defer th:src="@{/js/admin/notice/notice_write.js}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
@@ -141,8 +151,9 @@
                         <label class="col-12 col-sm-3 col-form-label text-sm-right">공지사항 파일업로드</label>
                         <div class="col-12 col-sm-8 col-lg-6">
                           <label class="custom-file-label">
-                            <input type="file" class="custom-file-input" name="file">
+                            <input type="file" class="custom-file-input" id="fileUpload" name="file" >
                           </label>
+                          <p id="fileName" ></p>
                         </div>
                       </div>
 

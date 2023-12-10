@@ -19,6 +19,9 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
     <style>
+        .ck-content {
+            height: 300px;
+        }
         #fileName {
             box-sizing: border-box;
             position: absolute;
@@ -168,7 +171,7 @@
                                                     <label class="custom-file-label">
                                                         <input type="file" class="custom-file-input" id="fileUpload" name="file">
                                                     </label>
-                                                    <p id="fileName" ></p>
+                                                    <p id="fileName" >[[${dto.filename}]]</p>
                                                 </div>
                                             </div>
 
