@@ -91,12 +91,12 @@
                 <p class="detail-content">
                 </p>
             </div>
-            <div th:if="${!dto.content.isEmpty() && !dto.content.contains('<p>x</p>')}" class="exp-content-con">
+            <div th:if="${!dto.content.isEmpty() && !dto.content.startsWith('<p>x</p>') && !dto.content.startsWith('x')}" class="exp-content-con">
                 <p class="content-title">체험내용</p>
                 <div class="content-detail">
                 </div>
             </div>
-            <div th:if="${!dto.warning.isEmpty() && !dto.warning.contains('<p>x</p>')}" class="warning-con">
+            <div th:if="${!dto.warning.isEmpty() && !dto.warning.startsWith('<p>x</p>') && !dto.warning.startsWith('x')}" class="warning-con">
                 <p class="warning-title">유의사항</p>
                 <div class="warning-list">
                 </div>
@@ -184,10 +184,17 @@
     const detail = [[${dto.detail}]]
     const content = [[${dto.content}]]
     const warning = [[${dto.warning}]]
+    const contentDetail = document.querySelector('.content-detail');
+    const warningList = document.querySelector('.warning-list');
+
     document.querySelector('.detail-content').innerHTML = detail;
     // content, warning은 <p>태그로 줄 구분 하게 하고 그 앞에 list 형태로 효과 넣어줬기 때문에 한줄로만 작성되어 있는 문자열을 <p>태그로 감싸주기 위함
-    document.querySelector('.content-detail').innerHTML = `${content.toString().includes('<p>') ? content : `<p>${content}</p>`}`;
-    document.querySelector('.warning-list').innerHTML = `${warning.toString().includes('<p>') ? warning : `<p>${warning}</p>`}`;
+    if (contentDetail != null) {
+        contentDetail.innerHTML = `${content.toString().includes('<p>') ? content : `<p>${content}</p>`}`;
+    }
+    if (warningList != null) {
+        warningList.innerHTML = `${warning.toString().includes('<p>') ? warning : `<p>${warning}</p>`}`;
+    }
 
 </script>
 </body>

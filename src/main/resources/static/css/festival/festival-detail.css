@@ -205,6 +205,7 @@ a {
 .main-container .main-align .info-con .info-list-con .info-list li span {
   width: 75%;
   font-weight: 300;
+  word-break: break-all;
 }
 
 /* 태그 */
